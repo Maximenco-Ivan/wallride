@@ -43,6 +43,7 @@ import org.wallride.model.ArticleSearchRequest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -165,60 +166,13 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
 		}
 
 		if (!CollectionUtils.isEmpty(request.getCustomFields())) {
-			javax.persistence.Query query = entityManager.createQuery("from CustomField where language = :language and code in (:codes)", CustomField.class);
-			query.setParameter("language", request.getLanguage())
-					.setParameter("codes", request.getCustomFields().keySet());
-			List<CustomField> customFields = query.getResultList();
-
-			FullTextEntityManager fullTextEntityManager2 = Search.getFullTextEntityManager(entityManager);
-			QueryBuilder qb2 = fullTextEntityManager2.getSearchFactory()
-					.buildQueryBuilder()
-					.forEntity(CustomFieldValue.class)
-					.get();
-
-			// If the keyset of customfields there is more than one, then search in the "OR" condition
-			if (!CollectionUtils.isEmpty(customFields)) {
-				Map<String, CustomField> customFieldMap = customFields.stream()
-						.collect(Collectors.toMap(
-								CustomField::getCode,
-								Function.identity()
-						));
-				BooleanJunction<BooleanJunction> junction2 = qb2.bool();
-				for (String key : request.getCustomFields().keySet()) {
-					List<Object> values = (List<Object>)request.getCustomFields().get(key);
-					CustomField target = customFieldMap.get(key);
-					BooleanJunction<BooleanJunction> subJunction2 = qb2.bool();
-					subJunction2.must(qb2.keyword().onField("customField.id").matching(target.getId()).createQuery());
-					BooleanJunction<BooleanJunction> subJunction3 = qb2.bool();
-					switch (target.getFieldType()) {
-						case TEXT:
-						case TEXTAREA:
-						case HTML:
-							for(Object value : values) {
-								subJunction3.should(qb2.phrase().onField(target.getFieldType().getValueType()).sentence(value.toString()).createQuery());
-							}
-							break;
-						default:
-							for(Object value : values) {
-								subJunction3.should(qb2.keyword().onField(target.getFieldType().getValueType()).matching(value.toString()).createQuery());
-							}
-					}
-					subJunction2.must(subJunction3.createQuery());
-					junction2.should(subJunction2.createQuery());
+			List<Long> customFieldValueIds = searchForCustomFiledValueId(request);
+			if (!CollectionUtils.isEmpty(customFieldValueIds)) {
+				BooleanJunction<BooleanJunction> subJunction = qb.bool();
+				for (Long customFieldValueId : customFieldValueIds) {
+					subJunction.should(qb.keyword().onField("customFieldValues.id").matching(customFieldValueId).createQuery());
 				}
-				Query query2 = junction2.createQuery();
-				FullTextQuery persistenceQuery2 = fullTextEntityManager2
-						.createFullTextQuery(query2, CustomFieldValue.class);
-				persistenceQuery2.setProjection("id");
-				List<Object[]> results = persistenceQuery2.getResultList();
-				List<Long> customFieldValueIds = results.stream().map(result -> (long) result[0]).collect(Collectors.toList());
-				if (!CollectionUtils.isEmpty(customFieldValueIds)) {
-					BooleanJunction<BooleanJunction> subJunction = qb.bool();
-					for (Long customFieldValueId : customFieldValueIds) {
-						subJunction.should(qb.keyword().onField("customFieldValues.id").matching(customFieldValueId).createQuery());
-					}
-					junction.must(subJunction.createQuery());
-				}
+				junction.must(subJunction.createQuery());
 			}
 		}
 
@@ -241,5 +195,74 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
 			persistenceQuery.setMaxResults(pageable.getPageSize());
 		}
 		return persistenceQuery;
+	}
+
+	private List<Long> searchForCustomFiledValueId(ArticleSearchRequest request) {
+		List<Long> customFieldValueIds = new ArrayList<>();
+		javax.persistence.Query customFieldQuery = entityManager.createQuery(
+				"from CustomField where language = :language and code in (:codes)", CustomField.class);
+		customFieldQuery.setParameter("language", request.getLanguage())
+				.setParameter("codes", request.getCustomFields().keySet());
+		List<CustomField> customFields = customFieldQuery.getResultList();
+
+		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+		QueryBuilder qb = fullTextEntityManager.getSearchFactory()
+				.buildQueryBuilder()
+				.forEntity(CustomFieldValue.class)
+				.get();
+
+		// If the keyset of customfields there is more than one, then search in the "OR" condition
+		if (!CollectionUtils.isEmpty(customFields)) {
+			Map<String, CustomField> customFieldMap = customFields.stream()
+					.collect(Collectors.toMap(
+							CustomField::getCode,
+							Function.identity()
+					));
+			BooleanJunction<BooleanJunction> junction = qb.bool();
+			for (String key : request.getCustomFields().keySet()) {
+				List<Object> values = (List<Object>)request.getCustomFields().get(key);
+				CustomField target = customFieldMap.get(key);
+
+				BooleanJunction<BooleanJunction> subJunction = qb.bool();
+
+				BooleanJunction<BooleanJunction> customFieldIdJunction = qb.bool();
+				customFieldIdJunction.must(qb.keyword().onField("customField.id").matching(target.getId()).createQuery());
+
+				BooleanJunction<BooleanJunction> customFieldValueJunction = qb.bool();
+				switch (target.getFieldType()) {
+					case TEXT:
+					case TEXTAREA:
+					case HTML:
+						for(Object value : values) {
+							customFieldValueJunction.should(
+									qb.phrase()
+									.onField(target.getFieldType().getValueType())
+									.sentence(value.toString())
+									.createQuery()
+							);
+						}
+						break;
+					default:
+						for(Object value : values) {
+							customFieldValueJunction.should(
+									qb.keyword()
+									.onField(target.getFieldType().getValueType())
+									.matching(value.toString())
+									.createQuery()
+							);
+						}
+				}
+				subJunction.must(customFieldIdJunction.createQuery()).must(customFieldValueJunction.createQuery());
+				junction.should(subJunction.createQuery());
+			}
+			Query query = junction.createQuery();
+			FullTextQuery persistenceQuery = fullTextEntityManager
+					.createFullTextQuery(query, CustomFieldValue.class);
+			persistenceQuery.setProjection("id");
+			List<Object[]> results = persistenceQuery.getResultList();
+			List<Long> resultIds = results.stream().map(result -> (long) result[0]).collect(Collectors.toList());
+			customFieldValueIds.addAll(resultIds);
+		}
+		return customFieldValueIds;
 	}
 }
