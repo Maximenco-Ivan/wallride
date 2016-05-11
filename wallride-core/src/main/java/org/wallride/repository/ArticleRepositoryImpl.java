@@ -164,42 +164,6 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
 			junction.must(subJunction.createQuery());
 		}
 
-//		if (!CollectionUtils.isEmpty(request.getCustomFields())) {
-//			javax.persistence.Query query = entityManager.createQuery("from CustomField where language = :language and code in (:codes)", CustomField.class);
-//			query.setParameter("language", request.getLanguage())
-//					.setParameter("codes", request.getCustomFields().keySet());
-//			List<CustomField> customFields = query.getResultList();
-//
-//			if (!CollectionUtils.isEmpty(customFields)) {
-//				Map<String, CustomField> customFieldMap = customFields.stream()
-//						.collect(Collectors.toMap(
-//								CustomField::getCode,
-//								Function.identity()
-//						));
-//
-//				BooleanJunction<BooleanJunction> subJunction = qb.bool();
-//				for (String key : request.getCustomFields().keySet()) {
-//					List<Object> values = (List<Object>)request.getCustomFields().get(key);
-//					CustomField target = customFieldMap.get(key);
-//					subJunction.must(qb.keyword().onField("customFieldValues.customField.id").matching(target.getId()).createQuery());
-//					switch (target.getFieldType()) {
-//						case TEXT:
-//						case TEXTAREA:
-//						case HTML:
-//							for(Object value : values) {
-//								subJunction.must(qb.phrase().onField("customFieldValues." + target.getFieldType().getValueType()).sentence(value.toString()).createQuery());
-//							}
-//							break;
-//						default:
-//							for(Object value : values) {
-//								subJunction.must(qb.keyword().onField("customFieldValues." + target.getFieldType().getValueType()).matching(value.toString()).createQuery());
-//							}
-//					}
-//				}
-//				junction.must(subJunction.createQuery());
-//			}
-//		}
-
 		if (!CollectionUtils.isEmpty(request.getCustomFields())) {
 			javax.persistence.Query query = entityManager.createQuery("from CustomField where language = :language and code in (:codes)", CustomField.class);
 			query.setParameter("language", request.getLanguage())
