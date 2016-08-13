@@ -1,0 +1,8 @@
+rootProject.name = 'wallride'
+
+include 'wallride-bootstrap'
+include 'wallride-parent'
+include 'wallride-server'
+include 'wallride-client-admin'
+include 'wallride-client-guest'
+include 'wallride-tools'

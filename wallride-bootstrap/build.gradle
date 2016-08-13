@@ -1,0 +1,8 @@
+dependencies {
+    compile project(':wallride-parent')
+
+    optional 'org.springframework.boot:spring-boot-devtools'
+
+    compile 'mysql:mysql-connector-java:5.1.38'
+    compile 'org.postgresql:postgresql:9.4-1206-jdbc42'
+}
