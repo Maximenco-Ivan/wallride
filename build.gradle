@@ -13,17 +13,22 @@ buildscript {
     }
 }
 
-def javaProjects = [project(':wallride-bootstrap'), project(':wallride-parent'), project(':wallride-server')]
+def javaProjects = [project(':wallride-bootstrap'), project(':wallride-parent'), project(':wallride-server'), project(':wallride-tools')]
 def bootProjects = [project(':wallride-bootstrap')]
 
 wrapper.gradleVersion = '2.13'
 
-configure(javaProjects) {
-    apply plugin: 'java'
+configure(allprojects) {
+    group = "org.wallride"
+
     apply plugin: 'propdeps'
     apply plugin: 'propdeps-maven'
     apply plugin: 'propdeps-idea'
     apply plugin: 'propdeps-eclipse'
+}
+
+configure(javaProjects) {
+    apply plugin: 'java'
     apply plugin: "io.spring.dependency-management"
 
     targetCompatibility = '1.8'
@@ -80,6 +85,21 @@ configure(javaProjects) {
         // replaced with log4j-over-slf4j
         all*.exclude group: 'log4j', module: 'log4j'
         all*.exclude group: 'org.apache.logging.log4j'
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar) {
+        classifier = "javadoc"
+        from javadoc
+    }
+
+    artifacts {
+        archives sourcesJar
+        archives javadocJar
     }
 }
 
