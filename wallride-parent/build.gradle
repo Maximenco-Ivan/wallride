@@ -11,3 +11,19 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-batch'
     compile 'org.springframework.boot:spring-boot-starter-batch'
 }
+
+install {
+    repositories {
+        mavenInstaller {
+            pom {
+                project {
+                    parent {
+                        groupId "org.springframework.boot"
+                        artifactId "spring-boot-starter-parent"
+                        version "1.4.0.RELEASE"
+                    }
+                }
+            }
+        }
+    }
+}
