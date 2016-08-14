@@ -1,3 +1,20 @@
+ext {
+    generatedSourcesDir = file("${buildDir}/generated-sources")
+}
+
+compileJava {
+    doFirst {
+        generatedSourcesDir.mkdirs()
+    }
+    options.compilerArgs += ['-s', generatedSourcesDir]
+}
+
+idea {
+    module {
+        sourceDirs += generatedSourcesDir
+    }
+}
+
 dependencies {
     compile 'org.springframework:spring-context-support'
     compile 'org.springframework:spring-webmvc'
@@ -54,23 +71,17 @@ dependencies {
 }
 
 dependencyManagement {
-    generatedPomCustomization {
-        enabled = false
-    }
+    generatedPomCustomization.enabled = false
 }
 
 install {
-    repositories {
-        mavenInstaller {
-            pom {
-                project {
-                    parent {
-                        groupId "org.wallride"
-                        artifactId "wallride"
-                        version "1.0.0.M10"
-                        relativePath "../pom.xml"
-                    }
-                }
+    repositories.mavenInstaller.pom.whenConfigured {
+        project {
+            parent {
+                groupId "org.wallride"
+                artifactId "wallride-dependencies"
+                version project.version
+                relativePath "../wallride-dependencies/pom.xml"
             }
         }
     }

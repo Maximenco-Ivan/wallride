@@ -7,17 +7,18 @@ dependencies {
     compile 'org.postgresql:postgresql:9.4-1206-jdbc42'
 }
 
+dependencyManagement {
+    generatedPomCustomization.enabled = false
+}
+
 install {
-    repositories {
-        mavenInstaller {
-            pom {
-                project {
-                    parent {
-                        groupId "org.wallride"
-                        artifactId "wallride-parent"
-                        version "1.0.0.M10"
-                    }
-                }
+    repositories.mavenInstaller.pom.whenConfigured {
+        project {
+            parent {
+                groupId "org.wallride"
+                artifactId "wallride-parent"
+                version project.version
+                relativePath "../wallride-parent/pom.xml"
             }
         }
     }

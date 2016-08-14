@@ -13,8 +13,8 @@ buildscript {
     }
 }
 
-def javaProjects = [project(':wallride-bootstrap'), project(':wallride-parent'), project(':wallride-server'), project(':wallride-tools')]
-def bootProjects = [project(':wallride-bootstrap')]
+def javaProjects = [project(":wallride-bootstrap"), project(":wallride-dependencies"), project(":wallride-parent"), project(":wallride-server"), project(":wallride-tools")]
+def bootProjects = [project(":wallride-bootstrap")]
 
 wrapper.gradleVersion = '2.13'
 
@@ -48,13 +48,7 @@ configure(javaProjects) {
 
     dependencyManagement {
         imports {
-//          mavenBom('io.spring.platform:platform-bom:Athens-RC1') {
-            mavenBom("org.springframework.boot:spring-boot-dependencies:${ext['spring-boot.version']}") {
-                bomProperties([
-                        'thymeleaf.version': "3.0.0.RELEASE",
-                        'hibernate.version': '5.1.0.Final'
-                ])
-            }
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${ext['spring-boot.version']}"
         }
         dependencies {
             dependency "org.springframework.cloud:spring-cloud-aws-context:${ext['spring-cloud-aws-context.version']}"
@@ -115,23 +109,7 @@ configure(bootProjects) {
 }
 
 install {
-    repositories {
-        mavenInstaller {
-            pom {
-                project {
-                    dependencyManagement {
-                        dependencies {
-                            dependency {
-                                groupId "org.springframework.boot"
-                                artifactId "spring-boot-dependencies"
-                                version "1.4.0.RELEASE"
-                                type "pom"
-                                scope "import"
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    repositories.mavenInstaller.pom.whenConfigured {
+        packaging = 'pom'
     }
 }

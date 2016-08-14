@@ -1,0 +1,23 @@
+configurations.archives.artifacts.clear()
+artifacts {
+    // work around GRADLE-2406 by attaching text artifact
+    archives(file("wallride-dependencies.txt"))
+}
+
+install {
+    repositories.mavenInstaller.pom.whenConfigured {
+        packaging = 'pom'
+        withXml {
+            asNode().children().last() + {
+                resolveStrategy = Closure.DELEGATE_FIRST
+                properties {
+                    project.ext.properties.each { key, value ->
+                        if (key.endsWith(".version")) {
+                            "${key}" value
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

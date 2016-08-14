@@ -1,3 +1,24 @@
 dependencies {
     compile project(':wallride-server')
 }
+
+dependencyManagement {
+    generatedPomCustomization.enabled = false
+}
+
+dependencyManagement {
+    generatedPomCustomization.enabled = false
+}
+
+install {
+    repositories.mavenInstaller.pom.whenConfigured {
+        project {
+            parent {
+                groupId "org.wallride"
+                artifactId "wallride-dependencies"
+                version project.version
+                relativePath "../wallride-dependencies/pom.xml"
+            }
+        }
+    }
+}
