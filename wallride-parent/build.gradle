@@ -12,8 +12,8 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-security'
     compile('org.springframework.boot:spring-boot-starter-thymeleaf') {
-        exclude group: 'org.thymeleaf'
-        exclude group: 'nz.net.ultraq.thymeleaf'
+        exclude group: 'org.thymeleaf', module: 'thymeleaf-spring4'
+        exclude group: 'nz.net.ultraq.thymeleaf', module: 'thymeleaf-layout-dialect'
     }
     compile 'org.springframework.boot:spring-boot-starter-batch'
     compile 'org.springframework.boot:spring-boot-starter-test'
@@ -31,6 +31,18 @@ install {
                 groupId "org.springframework.boot"
                 artifactId "spring-boot-starter-parent"
                 version project.ext['spring-boot.version']
+            }
+        }
+        withXml {
+            asNode().children().last() + {
+                resolveStrategy = Closure.DELEGATE_FIRST
+                properties {
+                    project.ext.properties.each { key, value ->
+                        if (key.endsWith(".version")) {
+                            "${key}" value
+                        }
+                    }
+                }
             }
         }
     }

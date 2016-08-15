@@ -52,8 +52,8 @@ configure(javaProjects) {
         }
         dependencies {
             dependency "org.springframework.cloud:spring-cloud-aws-context:${ext['spring-cloud-aws-context.version']}"
-            dependency "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:${ext['thymeleaf.version']}"
-            dependency "org.thymeleaf.extras:thymeleaf-extras-java8time:${ext['thymeleaf.version']}"
+            dependency "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:${ext['thymeleaf-extras-springsecurity4.version']}"
+            dependency "org.thymeleaf.extras:thymeleaf-extras-java8time:${ext['thymeleaf-extras-java8time.version']}"
             dependency "org.hibernate:hibernate-core:${ext['hibernate.version']}"
             dependency "org.hibernate:hibernate-entitymanager:${ext['hibernate.version']}"
             dependency "org.hibernate:hibernate-java8:${ext['hibernate.version']}"
@@ -64,7 +64,11 @@ configure(javaProjects) {
             dependency "org.infinispan:infinispan-directory-provider:${ext['infinispan.version']}"
             dependency "org.infinispan:infinispan-cachestore-jdbc:${ext['infinispan.version']}"
             dependency "org.infinispan:infinispan-lucene-directory:${ext['infinispan.version']}"
-            dependency "org.infinispan:infinispan-spring4:${ext['infinispan-spring4.version']}"
+            dependency("org.infinispan:infinispan-spring4:${ext['infinispan-spring4.version']}") {
+                exclude 'org.apache.logging.log4j:log4j-core'
+                exclude 'org.apache.logging.log4j:log4j-slf4j-impl'
+                exclude 'org.apache.logging.log4j:log4j-jcl'
+            }
             dependency "org.apache.lucene:lucene-queryparser:${ext['lucene.version']}"
             dependency "org.apache.lucene:lucene-analyzers-kuromoji:${ext['lucene.version']}"
             dependency "com.amazonaws:aws-java-sdk-s3:${ext['amazonaws.version']}"
@@ -83,7 +87,6 @@ configure(javaProjects) {
         all*.exclude group: 'commons-logging', module: 'commons-logging'
         // replaced with log4j-over-slf4j
         all*.exclude group: 'log4j', module: 'log4j'
-        all*.exclude group: 'org.apache.logging.log4j'
     }
 
     task sourcesJar(type: Jar, dependsOn: classes) {
