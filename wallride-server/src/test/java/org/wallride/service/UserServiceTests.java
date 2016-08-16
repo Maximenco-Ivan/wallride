@@ -1,19 +1,27 @@
 package org.wallride.service;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.springframework.boot.autoconfigure.mail.MailProperties;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
-import org.wallride.domain.Blog;
-import org.wallride.domain.BlogLanguage;
-import org.wallride.domain.PersonalName;
-import org.wallride.domain.User;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.thymeleaf.TemplateEngine;
+import org.wallride.domain.*;
 import org.wallride.exception.DuplicateEmailException;
 import org.wallride.exception.DuplicateLoginIdException;
 import org.wallride.model.PasswordUpdateRequest;
@@ -24,8 +32,9 @@ import org.wallride.repository.PasswordResetTokenRepository;
 import org.wallride.repository.UserRepository;
 import org.wallride.support.AuthorizedUser;
 
-import java.util.HashSet;
-import java.util.Set;
+import javax.mail.Session;
+import javax.mail.internet.MimeMessage;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyLong;
@@ -35,7 +44,8 @@ import static org.mockito.Mockito.*;
 /**
  * Created by SHIMAUCHI on 2016/08/16.
  */
-@RunWith (MockitoJUnitRunner.class)
+@RunWith (PowerMockRunner.class)
+@PrepareForTest ({TemplateEngine.class})
 public class UserServiceTests {
 
 	@InjectMocks
@@ -50,12 +60,32 @@ public class UserServiceTests {
 	@Mock
 	private BlogService blogService;
 
+	@Mock
+	private JavaMailSender mailSender;
+
+	@Mock
+	private MessageSourceAccessor messageSourceAccessor;
+
+	@Mock
+	private MailProperties mailProperties;
+
+	@Mock
+	private TemplateEngine templateEngine;
+
 	private BindingResult errors;
 
 	private User user;
 
+	@BeforeClass
+	public static void beforeClass() {
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpSession session = new MockHttpSession();
+		request.setSession(session);
+		RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+	}
+
 	@Before
-	public void setup() {
+	public void before() {
 		user = new User();
 		user.setId(1L);
 		user.setLoginId("beforeLoginId");
@@ -66,18 +96,6 @@ public class UserServiceTests {
 
 		PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
 		user.setLoginPassword(passwordEncoder.encode("beforePassword"));
-
-		BlogLanguage blogLanguage = new BlogLanguage();
-		Blog blog = new Blog();
-		Set<BlogLanguage> blogLanguages = new HashSet<>();
-
-		blogLanguage.setLanguage("ja");
-		blogLanguage.setBlog(blog);
-		blogLanguage.setTitle("Test Blog");
-
-		blogLanguages.add(blogLanguage);
-		blog.setLanguages(blogLanguages);
-		when(blogService.getBlogById(anyLong())).thenReturn(blog);
 	}
 
 	@Test
@@ -176,21 +194,49 @@ public class UserServiceTests {
 
 	@Test
 	public void updatePasswordWithPasswordResetToken() {
-//		when(userRepository.findOneById(anyLong())).thenReturn(user);
-//		when(userRepository.findOneForUpdateById(user.getId())).thenReturn(user);
-//
-//		PasswordUpdateRequest request = new PasswordUpdateRequest();
-//		request.setUserId(user.getId());
-//		request.setPassword("newPassword");
-//		request.setLanguage("ja");
-//
-//		PasswordResetToken token = new PasswordResetToken();
-//		token.setUser(user);
-//		token.setEmail(user.getEmail());
-//
-//		userService.updatePassword(request, token);
-//
-//		verify(userRepository, times(1)).saveAndFlush(user);
+		BlogLanguage blogLanguage = new BlogLanguage();
+		Blog blog = new Blog();
+		Set<BlogLanguage> blogLanguages = new HashSet<>();
+
+		blogLanguage.setLanguage("ja");
+		blogLanguage.setBlog(blog);
+		blogLanguage.setTitle("Test Blog");
+
+		blogLanguages.add(blogLanguage);
+		blog.setLanguages(blogLanguages);
+		when(blogService.getBlogById(anyLong())).thenReturn(blog);
+
+		MimeMessage mimeMessage = new MimeMessage(Session.getInstance(new Properties()));
+		when(mailSender.createMimeMessage()).thenReturn(mimeMessage);
+		when(messageSourceAccessor.getMessage("PasswordChangedSubject", LocaleContextHolder.getLocale())).thenReturn("test");
+
+		Map<String, String> properties = new HashMap<>();
+		properties.put("mail.from", "test@tagbangers.co.jp");
+		when(mailProperties.getProperties()).thenReturn(properties);
+
+		when(templateEngine.process(anyString(), anyObject())).thenReturn("<html><head></head><body><div>test</div></body></html>");
+
+		when(userRepository.findOneById(anyLong())).thenReturn(user);
+		when(userRepository.findOneForUpdateById(user.getId())).thenReturn(user);
+
+		PasswordUpdateRequest request = new PasswordUpdateRequest();
+		request.setUserId(user.getId());
+		request.setPassword("newPassword");
+		request.setLanguage("ja");
+
+		PasswordResetToken token = new PasswordResetToken();
+		token.setUser(user);
+		token.setEmail(user.getEmail());
+
+		userService.updatePassword(request, token);
+
+		user = userRepository.findOneById(user.getId());
+		PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
+		assertEquals(passwordEncoder.matches("newPassword", user.getLoginPassword()), true);
+
+		verify(passwordResetTokenRepository, times(1)).delete(token);
+		verify(userRepository, times(1)).saveAndFlush(user);
+		verify(mailSender, times(1)).send(mimeMessage);
 	}
 
 	@Test
