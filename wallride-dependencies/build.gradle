@@ -7,17 +7,17 @@ artifacts {
 install {
     repositories.mavenInstaller.pom.whenConfigured {
         packaging = 'pom'
-        withXml {
-            asNode().children().last() + {
-                resolveStrategy = Closure.DELEGATE_FIRST
-                properties {
-                    project.ext.properties.each { key, value ->
-                        if (key.endsWith(".version")) {
-                            "${key}" value
-                        }
-                    }
-                }
-            }
-        }
+//        withXml {
+//            asNode().children().last() + {
+//                resolveStrategy = Closure.DELEGATE_FIRST
+//                properties {
+//                    project.ext.properties.each { key, value ->
+//                        if (key.endsWith(".version")) {
+//                            "${key}" value
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 }

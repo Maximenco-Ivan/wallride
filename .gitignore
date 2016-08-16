@@ -1,7 +1,14 @@
-target/
-.settings/
-.project
-.classpath
+# IDEA
 .idea
 *.iml
-home/
+*.ipr
+*.iws
+
+# Gradle
+.gradle
+build
+/build
+
+# jspm
+jspm_packages/
+npm-debug.log
