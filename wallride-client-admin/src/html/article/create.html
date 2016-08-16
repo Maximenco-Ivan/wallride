@@ -3,6 +3,21 @@
 	<head>
 		<meta charset="utf-8" th:replace="layout::head('WallRide')" />
 		<title>WallRide</title>
+
+		<!-- build:css /css/main.bundle.css -->
+		<link rel="stylesheet" href="/css/wallride.css">
+		<!-- endbuild -->
+
+		<script src="/jspm_packages/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+		<!-- build:remove -->
+		<script src="/jspm_packages/system.js"></script>
+		<script src="/jspm.config.js"></script>
+		<!-- endbuild -->
+		<!-- build:js /app/main.bundle.js -->
+		<script>
+			SystemJS.import("/app/main.js");
+		</script>
+		<!-- endbuild -->
 	</head>
 	<body>
 		<header th:replace="layout::header"></header>
@@ -53,8 +68,8 @@
 												data: data,
 												success: function(data) {
 													$form.children(':input[name="id"]').val(data.id);
-													$form.attr('action', [[@{__${ADMIN_PATH}__/articles/edit(query=${query})}]]);
-													var url = [[@{__${ADMIN_PATH}__/articles/edit?id=}]] + data.id;
+													$form.attr('action', /*[[@{__${ADMIN_PATH}__/articles/edit(query=${query})}]]*/ '#');
+													var url = /*[[@{__${ADMIN_PATH}__/articles/edit?id=}]]*/ '#' + data.id;
 													history.replaceState(null, null, url);
 													new PNotify({
 														icon: false,
