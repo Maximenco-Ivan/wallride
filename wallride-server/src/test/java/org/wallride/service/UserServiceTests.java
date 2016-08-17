@@ -16,9 +16,11 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.MessageCodesResolver;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.thymeleaf.TemplateEngine;
@@ -26,6 +28,7 @@ import org.wallride.domain.*;
 import org.wallride.exception.DuplicateEmailException;
 import org.wallride.exception.DuplicateLoginIdException;
 import org.wallride.exception.EmailNotFoundException;
+import org.wallride.exception.ServiceException;
 import org.wallride.model.*;
 import org.wallride.repository.PasswordResetTokenRepository;
 import org.wallride.repository.UserInvitationRepository;
@@ -64,6 +67,12 @@ public class UserServiceTests {
 	private BlogService blogService;
 
 	@Mock
+	private MessageCodesResolver messageCodesResolver;
+
+	@Mock
+	private PlatformTransactionManager transactionManager;
+
+	@Mock
 	private JavaMailSender mailSender;
 
 	@Mock
@@ -75,11 +84,14 @@ public class UserServiceTests {
 	@Mock
 	private TemplateEngine templateEngine;
 
+	@Mock
 	private BindingResult errors;
 
 	private User user;
 
 	private MimeMessage mimeMessage;
+
+	private String invalidAddress = "invalidAddress@";
 
 	@BeforeClass
 	public static void beforeClass() {
@@ -133,10 +145,6 @@ public class UserServiceTests {
 		when(mailSender.createMimeMessage()).thenReturn(mimeMessage);
 	}
 
-	// TODO handle ServiceException
-	// UserService#createPasswordResetToken()
-	// UserService#updatePassword()
-
 	@Test
 	public void createPasswordResetToken() {
 		when(messageSourceAccessor.getMessage("PasswordResetSubject", LocaleContextHolder.getLocale())).thenReturn("test");
@@ -162,6 +170,22 @@ public class UserServiceTests {
 		PasswordResetTokenCreateRequest request = new PasswordResetTokenCreateRequest();
 		request.setEmail("reset@tagbangers.co.jp");
 
+		userService.createPasswordResetToken(request);
+	}
+
+	@Test(expected = ServiceException.class)
+	public void createPasswordResetTokenWithInvalidAddress() {
+		when(messageSourceAccessor.getMessage("PasswordResetSubject", LocaleContextHolder.getLocale())).thenReturn("test");
+		when(userRepository.findOneByEmail(anyString())).thenReturn(user);
+
+		PasswordResetTokenCreateRequest request = new PasswordResetTokenCreateRequest();
+		request.setEmail(invalidAddress);
+
+		PasswordResetToken token = new PasswordResetToken();
+		token.setUser(user);
+		token.setEmail(invalidAddress);
+
+		when(passwordResetTokenRepository.saveAndFlush(anyObject())).thenReturn(token);
 		userService.createPasswordResetToken(request);
 	}
 
@@ -296,6 +320,24 @@ public class UserServiceTests {
 		userService.updatePassword(request, token);
 	}
 
+	@Test(expected = ServiceException.class)
+	public void updatePasswordWithInvalidAddress() {
+		when(messageSourceAccessor.getMessage("PasswordChangedSubject", LocaleContextHolder.getLocale())).thenReturn("test");
+		when(userRepository.findOneById(anyLong())).thenReturn(user);
+		when(userRepository.findOneForUpdateById(user.getId())).thenReturn(user);
+
+		PasswordUpdateRequest request = new PasswordUpdateRequest();
+		request.setUserId(user.getId());
+		request.setPassword("newPassword");
+		request.setLanguage("ja");
+
+		PasswordResetToken token = new PasswordResetToken();
+		token.setUser(user);
+		token.setEmail(invalidAddress);
+
+		userService.updatePassword(request, token);
+	}
+
 	@Test
 	public void updatePassword() {
 		when(userRepository.findOneById(anyLong())).thenReturn(user);
@@ -328,23 +370,33 @@ public class UserServiceTests {
 	}
 
 	@Test
-	public void deleteUser() {
+	public void deleteUser() throws BindException {
 		when(userRepository.findOneForUpdateById(user.getId())).thenReturn(user);
 
 		UserDeleteRequest request = new UserDeleteRequest.Builder()
 				.id(user.getId())
 				.build();
-		try {
-			userService.deleteUser(request, errors);
-		}
-		catch (BindException e) {}
+		userService.deleteUser(request, errors);
 
 		verify(userRepository, times(1)).delete(user);
 	}
 
 	@Test
 	public void bulkDeleteUser() {
-		// TODO
+		List<Long> ids = new ArrayList<>();
+		ids.add(1L);
+		ids.add(2L);
+		ids.add(3L);
+
+		UserBulkDeleteRequest request = new UserBulkDeleteRequest.Builder()
+				.ids(ids)
+				.build();
+
+		userService.bulkDeleteUser(request, errors);
+
+		verify(userRepository, times(ids.size())).delete(any(User.class));
+
+		// TODO BindException never thrown
 	}
 
 	@Test
@@ -376,6 +428,24 @@ public class UserServiceTests {
 		verify(mailSender, times(inviteUserCount)).send(mimeMessage);
 	}
 
+	@Test(expected = ServiceException.class)
+	public void inviteUsersWithInvalidAddress() {
+		when(messageSourceAccessor.getMessage("InvitationMessageTitle", LocaleContextHolder.getLocale())).thenReturn("test");
+
+		StringBuilder inviteUsers = new StringBuilder();
+		inviteUsers.append(invalidAddress);
+
+		UserInvitation invitation = new UserInvitation();
+		invitation.setEmail(invalidAddress);
+
+		UserInvitationCreateRequest request = new UserInvitationCreateRequest.Builder()
+				.invitees(inviteUsers.toString())
+				.build();
+		when(userInvitationRepository.saveAndFlush(any(UserInvitation.class))).thenReturn(invitation);
+
+		userService.inviteUsers(request, errors, new AuthorizedUser(user));
+	}
+
 	@Test
 	public void inviteAgain() {
 		when(messageSourceAccessor.getMessage("InvitationMessageTitle", LocaleContextHolder.getLocale())).thenReturn("test");
@@ -393,6 +463,22 @@ public class UserServiceTests {
 
 		verify(userInvitationRepository, times(1)).saveAndFlush(anyObject());
 		verify(mailSender, times(1)).send(mimeMessage);
+	}
+
+	@Test(expected = ServiceException.class)
+	public void inviteAgainWithInvalidAddress() {
+		when(messageSourceAccessor.getMessage("InvitationMessageTitle", LocaleContextHolder.getLocale())).thenReturn("test");
+
+		UserInvitation invitation = new UserInvitation();
+		invitation.setEmail(invalidAddress);
+		UserInvitationResendRequest request = new UserInvitationResendRequest.Builder()
+				.token("test")
+				.build();
+
+		when(userInvitationRepository.findOneForUpdateByToken(anyString())).thenReturn(invitation);
+		when(userInvitationRepository.saveAndFlush(anyObject())).thenReturn(invitation);
+
+		userService.inviteAgain(request, errors, new AuthorizedUser(user));
 	}
 
 	@Test
