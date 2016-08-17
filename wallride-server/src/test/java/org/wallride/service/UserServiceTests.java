@@ -16,6 +16,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -24,11 +25,10 @@ import org.thymeleaf.TemplateEngine;
 import org.wallride.domain.*;
 import org.wallride.exception.DuplicateEmailException;
 import org.wallride.exception.DuplicateLoginIdException;
-import org.wallride.model.PasswordUpdateRequest;
-import org.wallride.model.ProfileUpdateRequest;
-import org.wallride.model.UserDeleteRequest;
-import org.wallride.model.UserUpdateRequest;
+import org.wallride.exception.EmailNotFoundException;
+import org.wallride.model.*;
 import org.wallride.repository.PasswordResetTokenRepository;
+import org.wallride.repository.UserInvitationRepository;
 import org.wallride.repository.UserRepository;
 import org.wallride.support.AuthorizedUser;
 
@@ -58,6 +58,9 @@ public class UserServiceTests {
 	private PasswordResetTokenRepository passwordResetTokenRepository;
 
 	@Mock
+	private UserInvitationRepository userInvitationRepository;
+
+	@Mock
 	private BlogService blogService;
 
 	@Mock
@@ -75,6 +78,8 @@ public class UserServiceTests {
 	private BindingResult errors;
 
 	private User user;
+
+	private MimeMessage mimeMessage;
 
 	@BeforeClass
 	public static void beforeClass() {
@@ -96,6 +101,68 @@ public class UserServiceTests {
 
 		PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
 		user.setLoginPassword(passwordEncoder.encode("beforePassword"));
+
+		Blog blog = new Blog();
+		Set<BlogLanguage> blogLanguages = new HashSet<>();
+
+		BlogLanguage blogLanguage1 = new BlogLanguage();
+		blogLanguage1.setId(1L);
+		blogLanguage1.setLanguage("ja");
+		blogLanguage1.setBlog(blog);
+		blogLanguage1.setTitle("blog ja");
+
+		BlogLanguage blogLanguage2 = new BlogLanguage();
+		blogLanguage1.setId(2L);
+		blogLanguage2.setLanguage("en");
+		blogLanguage2.setBlog(blog);
+		blogLanguage2.setTitle("blog en");
+
+		blogLanguages.add(blogLanguage1);
+		blogLanguages.add(blogLanguage2);
+
+		blog.setLanguages(blogLanguages);
+		when(blogService.getBlogById(anyLong())).thenReturn(blog);
+
+		Map<String, String> properties = new HashMap<>();
+		properties.put("mail.from", "test@tagbangers.co.jp");
+		when(mailProperties.getProperties()).thenReturn(properties);
+
+		when(templateEngine.process(anyString(), anyObject())).thenReturn("<html><head></head><body><div>test</div></body></html>");
+
+		mimeMessage = new MimeMessage(Session.getInstance(new Properties()));
+		when(mailSender.createMimeMessage()).thenReturn(mimeMessage);
+	}
+
+	// TODO handle ServiceException
+	// UserService#createPasswordResetToken()
+	// UserService#updatePassword()
+
+	@Test
+	public void createPasswordResetToken() {
+		when(messageSourceAccessor.getMessage("PasswordResetSubject", LocaleContextHolder.getLocale())).thenReturn("test");
+		when(userRepository.findOneByEmail(anyString())).thenReturn(user);
+
+		PasswordResetTokenCreateRequest request = new PasswordResetTokenCreateRequest();
+		request.setEmail("reset@tagbangers.co.jp");
+
+		PasswordResetToken token = new PasswordResetToken();
+		token.setUser(user);
+		token.setEmail(user.getEmail());
+		when(passwordResetTokenRepository.saveAndFlush(anyObject())).thenReturn(token);
+
+		userService.createPasswordResetToken(request);
+		verify(passwordResetTokenRepository, times(1)).saveAndFlush(anyObject());
+		verify(mailSender, times(1)).send(mimeMessage);
+	}
+
+	@Test(expected = EmailNotFoundException.class)
+	public void createPasswordResetTokenNotExistsUser() {
+		when(userRepository.findOneByEmail(anyString())).thenReturn(null);
+
+		PasswordResetTokenCreateRequest request = new PasswordResetTokenCreateRequest();
+		request.setEmail("reset@tagbangers.co.jp");
+
+		userService.createPasswordResetToken(request);
 	}
 
 	@Test
@@ -151,9 +218,6 @@ public class UserServiceTests {
 
 		ProfileUpdateRequest request = new ProfileUpdateRequest();
 		request.setUserId(user.getId());
-		request.setLoginId("afterLoginId");
-		request.setEmail("after@tagbangers.co.jp");
-		request.setName(new PersonalName("afterFirstName", "afterLastName"));
 
 		userService.updateProfile(request, new AuthorizedUser(user));
 	}
@@ -194,28 +258,7 @@ public class UserServiceTests {
 
 	@Test
 	public void updatePasswordWithPasswordResetToken() {
-		BlogLanguage blogLanguage = new BlogLanguage();
-		Blog blog = new Blog();
-		Set<BlogLanguage> blogLanguages = new HashSet<>();
-
-		blogLanguage.setLanguage("ja");
-		blogLanguage.setBlog(blog);
-		blogLanguage.setTitle("Test Blog");
-
-		blogLanguages.add(blogLanguage);
-		blog.setLanguages(blogLanguages);
-		when(blogService.getBlogById(anyLong())).thenReturn(blog);
-
-		MimeMessage mimeMessage = new MimeMessage(Session.getInstance(new Properties()));
-		when(mailSender.createMimeMessage()).thenReturn(mimeMessage);
 		when(messageSourceAccessor.getMessage("PasswordChangedSubject", LocaleContextHolder.getLocale())).thenReturn("test");
-
-		Map<String, String> properties = new HashMap<>();
-		properties.put("mail.from", "test@tagbangers.co.jp");
-		when(mailProperties.getProperties()).thenReturn(properties);
-
-		when(templateEngine.process(anyString(), anyObject())).thenReturn("<html><head></head><body><div>test</div></body></html>");
-
 		when(userRepository.findOneById(anyLong())).thenReturn(user);
 		when(userRepository.findOneForUpdateById(user.getId())).thenReturn(user);
 
@@ -237,6 +280,20 @@ public class UserServiceTests {
 		verify(passwordResetTokenRepository, times(1)).delete(token);
 		verify(userRepository, times(1)).saveAndFlush(user);
 		verify(mailSender, times(1)).send(mimeMessage);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void updatePasswordWithPasswordResetTokenNotExistsUser() {
+		when(userRepository.findOneForUpdateById(anyLong())).thenReturn(null);
+
+		PasswordUpdateRequest request = new PasswordUpdateRequest();
+		request.setUserId(user.getId());
+
+		PasswordResetToken token = new PasswordResetToken();
+		token.setUser(user);
+		token.setEmail(user.getEmail());
+
+		userService.updatePassword(request, token);
 	}
 
 	@Test
@@ -283,5 +340,107 @@ public class UserServiceTests {
 		catch (BindException e) {}
 
 		verify(userRepository, times(1)).delete(user);
+	}
+
+	@Test
+	public void bulkDeleteUser() {
+		// TODO
+	}
+
+	@Test
+	public void inviteUsers() {
+		when(messageSourceAccessor.getMessage("InvitationMessageTitle", LocaleContextHolder.getLocale())).thenReturn("test");
+
+		StringBuilder inviteUsers = new StringBuilder();
+		inviteUsers.append("invite1@tagbangers.co.jp");
+		inviteUsers.append(",");
+		inviteUsers.append("invite2@tagbangers.co.jp");
+		int inviteUserCount = StringUtils.commaDelimitedListToStringArray(inviteUsers.toString()).length;
+
+		UserInvitation invitation1 = new UserInvitation();
+		invitation1.setEmail("invite1@tagbangers.co.jp");
+		UserInvitation invitation2 = new UserInvitation();
+		invitation2.setEmail("invite2@tagbangers.co.jp");
+
+		UserInvitationCreateRequest request = new UserInvitationCreateRequest.Builder()
+				.invitees(inviteUsers.toString())
+				.build();
+
+		when(userInvitationRepository.saveAndFlush(any(UserInvitation.class)))
+				.thenReturn(invitation1)
+				.thenReturn(invitation2);
+
+		userService.inviteUsers(request, errors, new AuthorizedUser(user));
+
+		verify(userInvitationRepository, times(inviteUserCount)).saveAndFlush(anyObject());
+		verify(mailSender, times(inviteUserCount)).send(mimeMessage);
+	}
+
+	@Test
+	public void inviteAgain() {
+		when(messageSourceAccessor.getMessage("InvitationMessageTitle", LocaleContextHolder.getLocale())).thenReturn("test");
+
+		UserInvitation invitation = new UserInvitation();
+		invitation.setEmail("invite@tagbangers.co.jp");
+		UserInvitationResendRequest request = new UserInvitationResendRequest.Builder()
+				.token("test")
+				.build();
+
+		when(userInvitationRepository.findOneForUpdateByToken(anyString())).thenReturn(invitation);
+		when(userInvitationRepository.saveAndFlush(anyObject())).thenReturn(invitation);
+
+		userService.inviteAgain(request, errors, new AuthorizedUser(user));
+
+		verify(userInvitationRepository, times(1)).saveAndFlush(anyObject());
+		verify(mailSender, times(1)).send(mimeMessage);
+	}
+
+	@Test
+	public void deleteUserInvitation() {
+		UserInvitation invitation = new UserInvitation();
+		invitation.setEmail("invite@tagbangers.co.jp");
+		UserInvitationDeleteRequest request = new UserInvitationDeleteRequest.Builder()
+				.token("test")
+				.build();
+		when(userInvitationRepository.findOneForUpdateByToken(anyString())).thenReturn(invitation);
+
+		userService.deleteUserInvitation(request);
+
+		verify(userInvitationRepository, times(1)).delete(invitation);
+	}
+
+	@Test
+	public void getUserIds() {
+		// TODO
+	}
+
+	@Test
+	public void getUsers() {
+		// TODO
+	}
+
+	@Test
+	public void getUsersWithPageable() {
+		// TODO
+	}
+
+	@Test
+	public void getUsersWithIds() {
+		// TODO
+	}
+
+	@Test
+	public void getUserById() {
+		// TODO
+	}
+
+	@Test
+	public void getUserInvitations() {
+		// TODO
+	}
+
+	@Test
+	public void getPasswordResetToken() {
+		// TODO
 	}
 }
