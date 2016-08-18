@@ -98,6 +98,8 @@ public class UserServiceTests {
 
 	private String invalidAddress = "invalidAddress@";
 
+	private PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
+
 	@BeforeClass
 	public static void mockRequest() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
@@ -139,8 +141,6 @@ public class UserServiceTests {
 		user.setNickname("beforeNickname");
 		user.setEmail("before@tagbangers.co.jp");
 		user.setDescription("beforeDescription");
-
-		PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
 		user.setLoginPassword(passwordEncoder.encode("beforePassword"));
 	}
 
@@ -303,7 +303,6 @@ public class UserServiceTests {
 		token.setUser(user);
 		token.setEmail(user.getEmail());
 
-		PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
 		assertEquals(passwordEncoder.matches("beforePassword", user.getLoginPassword()), true);
 		userService.updatePassword(request, token);
 		user = userRepository.findOneById(user.getId());
@@ -355,7 +354,6 @@ public class UserServiceTests {
 		request.setPassword("newPassword");
 		request.setLanguage("ja");
 
-		PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
 		assertEquals(passwordEncoder.matches("beforePassword", user.getLoginPassword()), true);
 		userService.updatePassword(request, new AuthorizedUser(user));
 		user = userRepository.findOneById(user.getId());
