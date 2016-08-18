@@ -150,16 +150,15 @@ public class UserServiceTests {
 		Map<String, String> properties = new HashMap<>();
 		properties.put("mail.from", "test@tagbangers.co.jp");
 		when(mailProperties.getProperties()).thenReturn(properties);
-
-		when(templateEngine.process(anyString(), anyObject())).thenReturn("<html><head></head><body><div>test</div></body></html>");
-
 		mimeMessage = new MimeMessage(Session.getInstance(new Properties()));
 		when(mailSender.createMimeMessage()).thenReturn(mimeMessage);
+
+		when(messageSourceAccessor.getMessage(any(String.class), any(Locale.class))).thenReturn("test");
+		when(templateEngine.process(anyString(), anyObject())).thenReturn("<html><head></head><body><div>test</div></body></html>");
 	}
 
 	@Test
 	public void createPasswordResetToken() {
-		when(messageSourceAccessor.getMessage("PasswordResetSubject", LocaleContextHolder.getLocale())).thenReturn("test");
 		when(userRepository.findOneByEmail(anyString())).thenReturn(user);
 
 		PasswordResetTokenCreateRequest request = new PasswordResetTokenCreateRequest();
@@ -187,7 +186,6 @@ public class UserServiceTests {
 
 	@Test(expected = ServiceException.class)
 	public void createPasswordResetTokenWithInvalidAddress() {
-		when(messageSourceAccessor.getMessage("PasswordResetSubject", LocaleContextHolder.getLocale())).thenReturn("test");
 		when(userRepository.findOneByEmail(anyString())).thenReturn(user);
 
 		PasswordResetTokenCreateRequest request = new PasswordResetTokenCreateRequest();
@@ -294,7 +292,6 @@ public class UserServiceTests {
 
 	@Test
 	public void updatePasswordWithPasswordResetToken() {
-		when(messageSourceAccessor.getMessage("PasswordChangedSubject", LocaleContextHolder.getLocale())).thenReturn("test");
 		when(userRepository.findOneById(anyLong())).thenReturn(user);
 		when(userRepository.findOneForUpdateById(user.getId())).thenReturn(user);
 
@@ -334,7 +331,6 @@ public class UserServiceTests {
 
 	@Test(expected = ServiceException.class)
 	public void updatePasswordWithInvalidAddress() {
-		when(messageSourceAccessor.getMessage("PasswordChangedSubject", LocaleContextHolder.getLocale())).thenReturn("test");
 		when(userRepository.findOneById(anyLong())).thenReturn(user);
 		when(userRepository.findOneForUpdateById(user.getId())).thenReturn(user);
 
@@ -427,8 +423,6 @@ public class UserServiceTests {
 
 	@Test
 	public void inviteUsers() {
-		when(messageSourceAccessor.getMessage("InvitationMessageTitle", LocaleContextHolder.getLocale())).thenReturn("test");
-
 		StringBuilder inviteUsers = new StringBuilder();
 		inviteUsers.append("invite1@tagbangers.co.jp");
 		inviteUsers.append(",");
@@ -456,8 +450,6 @@ public class UserServiceTests {
 
 	@Test(expected = ServiceException.class)
 	public void inviteUsersWithInvalidAddress() {
-		when(messageSourceAccessor.getMessage("InvitationMessageTitle", LocaleContextHolder.getLocale())).thenReturn("test");
-
 		StringBuilder inviteUsersAddress = new StringBuilder();
 		inviteUsersAddress.append(invalidAddress);
 
@@ -474,8 +466,6 @@ public class UserServiceTests {
 
 	@Test
 	public void inviteAgain() {
-		when(messageSourceAccessor.getMessage("InvitationMessageTitle", LocaleContextHolder.getLocale())).thenReturn("test");
-
 		UserInvitation invitation = new UserInvitation();
 		invitation.setEmail("invite@tagbangers.co.jp");
 		UserInvitationResendRequest request = new UserInvitationResendRequest.Builder()
@@ -493,8 +483,6 @@ public class UserServiceTests {
 
 	@Test(expected = ServiceException.class)
 	public void inviteAgainWithInvalidAddress() {
-		when(messageSourceAccessor.getMessage("InvitationMessageTitle", LocaleContextHolder.getLocale())).thenReturn("test");
-
 		UserInvitation invitation = new UserInvitation();
 		invitation.setEmail(invalidAddress);
 		UserInvitationResendRequest request = new UserInvitationResendRequest.Builder()
