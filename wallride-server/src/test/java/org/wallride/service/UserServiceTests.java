@@ -1,5 +1,6 @@
 package org.wallride.service;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -41,6 +42,7 @@ import org.wallride.support.AuthorizedUser;
 
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
+import java.sql.SQLException;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -401,6 +403,21 @@ public class UserServiceTests {
 		verify(userRepository, times(ids.size())).delete(any(User.class));
 
 		// TODO BindException never thrown
+	}
+
+	@Test
+	public void bulkDeleteUserThrowsException() throws BindException {
+		List<Long> ids = new ArrayList<>();
+		ids.add(1L);
+		ids.add(2L);
+		ids.add(3L);
+
+		UserBulkDeleteRequest request = new UserBulkDeleteRequest.Builder()
+				.ids(ids)
+				.build();
+		doThrow(new ConstraintViolationException("message", new SQLException(), "constraint"))
+				.when(userRepository).delete(any(User.class));
+		userService.bulkDeleteUser(request, errors);
 	}
 
 	@Test
