@@ -100,7 +100,7 @@ public class UserServiceTests {
 	private String invalidAddress = "invalidAddress@";
 
 	@BeforeClass
-	public static void beforeClass() {
+	public static void mockRequest() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpSession session = new MockHttpSession();
 		request.setSession(session);
@@ -108,18 +108,7 @@ public class UserServiceTests {
 	}
 
 	@Before
-	public void before() {
-		user = new User();
-		user.setId(1L);
-		user.setLoginId("beforeLoginId");
-		user.setName(new PersonalName("beforeFirstName", "beforeLastName"));
-		user.setNickname("beforeNickname");
-		user.setEmail("before@tagbangers.co.jp");
-		user.setDescription("beforeDescription");
-
-		PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
-		user.setLoginPassword(passwordEncoder.encode("beforePassword"));
-
+	public void setupBlog() {
 		Blog blog = new Blog();
 		Set<BlogLanguage> blogLanguages = new HashSet<>();
 
@@ -140,7 +129,24 @@ public class UserServiceTests {
 
 		blog.setLanguages(blogLanguages);
 		when(blogService.getBlogById(anyLong())).thenReturn(blog);
+	}
 
+	@Before
+	public void setupUser() {
+		user = new User();
+		user.setId(1L);
+		user.setLoginId("beforeLoginId");
+		user.setName(new PersonalName("beforeFirstName", "beforeLastName"));
+		user.setNickname("beforeNickname");
+		user.setEmail("before@tagbangers.co.jp");
+		user.setDescription("beforeDescription");
+
+		PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
+		user.setLoginPassword(passwordEncoder.encode("beforePassword"));
+	}
+
+	@Before
+	public void setupOtherSetting() {
 		Map<String, String> properties = new HashMap<>();
 		properties.put("mail.from", "test@tagbangers.co.jp");
 		when(mailProperties.getProperties()).thenReturn(properties);
@@ -162,10 +168,10 @@ public class UserServiceTests {
 		PasswordResetToken token = new PasswordResetToken();
 		token.setUser(user);
 		token.setEmail(user.getEmail());
-		when(passwordResetTokenRepository.saveAndFlush(anyObject())).thenReturn(token);
+		when(passwordResetTokenRepository.saveAndFlush(token)).thenReturn(token);
 
 		userService.createPasswordResetToken(request);
-		verify(passwordResetTokenRepository, times(1)).saveAndFlush(anyObject());
+		verify(passwordResetTokenRepository, times(1)).saveAndFlush(token);
 		verify(mailSender, times(1)).send(mimeMessage);
 	}
 
@@ -191,7 +197,7 @@ public class UserServiceTests {
 		token.setUser(user);
 		token.setEmail(invalidAddress);
 
-		when(passwordResetTokenRepository.saveAndFlush(anyObject())).thenReturn(token);
+		when(passwordResetTokenRepository.saveAndFlush(token)).thenReturn(token);
 		userService.createPasswordResetToken(request);
 	}
 
@@ -301,10 +307,10 @@ public class UserServiceTests {
 		token.setUser(user);
 		token.setEmail(user.getEmail());
 
-		userService.updatePassword(request, token);
-
-		user = userRepository.findOneById(user.getId());
 		PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
+		assertEquals(passwordEncoder.matches("beforePassword", user.getLoginPassword()), true);
+		userService.updatePassword(request, token);
+		user = userRepository.findOneById(user.getId());
 		assertEquals(passwordEncoder.matches("newPassword", user.getLoginPassword()), true);
 
 		verify(passwordResetTokenRepository, times(1)).delete(token);
@@ -354,13 +360,13 @@ public class UserServiceTests {
 		request.setPassword("newPassword");
 		request.setLanguage("ja");
 
+		PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
+		assertEquals(passwordEncoder.matches("beforePassword", user.getLoginPassword()), true);
 		userService.updatePassword(request, new AuthorizedUser(user));
+		user = userRepository.findOneById(user.getId());
+		assertEquals(passwordEncoder.matches("newPassword", user.getLoginPassword()), true);
 
 		verify(userRepository, times(1)).saveAndFlush(user);
-
-		user = userRepository.findOneById(user.getId());
-		PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
-		assertEquals(passwordEncoder.matches("newPassword", user.getLoginPassword()), true);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -378,7 +384,6 @@ public class UserServiceTests {
 	@Test
 	public void deleteUser() throws BindException {
 		when(userRepository.findOneForUpdateById(user.getId())).thenReturn(user);
-
 		UserDeleteRequest request = new UserDeleteRequest.Builder()
 				.id(user.getId())
 				.build();
@@ -401,8 +406,6 @@ public class UserServiceTests {
 		userService.bulkDeleteUser(request, errors);
 
 		verify(userRepository, times(ids.size())).delete(any(User.class));
-
-		// TODO BindException never thrown
 	}
 
 	@Test
@@ -418,6 +421,8 @@ public class UserServiceTests {
 		doThrow(new ConstraintViolationException("message", new SQLException(), "constraint"))
 				.when(userRepository).delete(any(User.class));
 		userService.bulkDeleteUser(request, errors);
+
+		// TODO BindException never thrown
 	}
 
 	@Test
@@ -453,14 +458,14 @@ public class UserServiceTests {
 	public void inviteUsersWithInvalidAddress() {
 		when(messageSourceAccessor.getMessage("InvitationMessageTitle", LocaleContextHolder.getLocale())).thenReturn("test");
 
-		StringBuilder inviteUsers = new StringBuilder();
-		inviteUsers.append(invalidAddress);
+		StringBuilder inviteUsersAddress = new StringBuilder();
+		inviteUsersAddress.append(invalidAddress);
 
 		UserInvitation invitation = new UserInvitation();
 		invitation.setEmail(invalidAddress);
 
 		UserInvitationCreateRequest request = new UserInvitationCreateRequest.Builder()
-				.invitees(inviteUsers.toString())
+				.invitees(inviteUsersAddress.toString())
 				.build();
 		when(userInvitationRepository.saveAndFlush(any(UserInvitation.class))).thenReturn(invitation);
 
@@ -482,7 +487,7 @@ public class UserServiceTests {
 
 		userService.inviteAgain(request, errors, new AuthorizedUser(user));
 
-		verify(userInvitationRepository, times(1)).saveAndFlush(anyObject());
+		verify(userInvitationRepository, times(1)).saveAndFlush(invitation);
 		verify(mailSender, times(1)).send(mimeMessage);
 	}
 
