@@ -14,6 +14,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
@@ -534,16 +535,34 @@ public class UserServiceTests {
 
 	@Test
 	public void getUserById() {
-		// TODO
+		when(userRepository.findOne(user.getId())).thenReturn(user);
+		userService.getUserById(user.getId());
+		verify(userRepository, times(1)).findOne(user.getId());
+	}
+
+	@Test
+	public void getUserByLoginId() {
+		when(userRepository.findOneByLoginId(user.getLoginId())).thenReturn(user);
+		userService.getUserByLoginId(user.getLoginId());
+		verify(userRepository, times(1)).findOneByLoginId(user.getLoginId());
 	}
 
 	@Test
 	public void getUserInvitations() {
-		// TODO
+		userService.getUserInvitations();
+		verify(userInvitationRepository, times(1)).findAll(new Sort(Sort.Direction.DESC, "createdAt"));
 	}
 
 	@Test
 	public void getPasswordResetToken() {
-		// TODO
+		String testToken= "testToken";
+		PasswordResetToken token = new PasswordResetToken();
+		token.setUser(user);
+		token.setEmail(user.getEmail());
+		token.setToken(testToken);
+
+		when(passwordResetTokenRepository.findOneByToken(testToken)).thenReturn(token);
+		userService.getPasswordResetToken(testToken);
+		verify(passwordResetTokenRepository, times(1)).findOneByToken(testToken);
 	}
 }
