@@ -6,11 +6,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
@@ -497,22 +500,36 @@ public class UserServiceTests {
 
 	@Test
 	public void getUserIds() {
-		// TODO
+		UserSearchRequest request = new UserSearchRequest();
+		userService.getUserIds(request);
+		verify(userRepository, times(1)).searchForId(request);
 	}
 
 	@Test
 	public void getUsers() {
-		// TODO
+		UserSearchRequest request = new UserSearchRequest();
+		Pageable pageable = new PageRequest(0, 10);
+		userService.getUsers(request);
+		verify(userRepository, times(1)).search(request, pageable);
 	}
 
 	@Test
-	public void getUsersWithPageable() {
-		// TODO
-	}
+	public void getUsersWithIds() throws Exception {
+		List<Long> userIds = new ArrayList<>();
+		userIds.add(1L);
+		userIds.add(2L);
 
-	@Test
-	public void getUsersWithIds() {
-		// TODO
+		List<User> users = new ArrayList<>();
+		User user1 = new User();
+		User user2 = new User();
+		user1.setId(1L);
+		user2.setId(2L);
+		users.add(user1);
+		users.add(user2);
+
+		when(userRepository.findAllByIdIn(userIds)).thenReturn(users);
+
+		PowerMockito.verifyPrivate(userService).invoke("getUsers", userIds);
 	}
 
 	@Test
