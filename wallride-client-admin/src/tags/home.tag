@@ -1,5 +1,5 @@
 <home xmlns:th="http://www.thymeleaf.org">
-	<header th:replace="layout::header">
+	<header id="header" class="navbar">
 		<nav-global />
 		<nav-blog />
 	</header>

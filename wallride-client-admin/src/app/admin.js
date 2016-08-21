@@ -5,7 +5,6 @@ import 'select2';
 // import upload from 'jquery-file-upload';
 // import froala from 'froala-editor';
 
-
 import 'tags/app.tag!';
 import 'tags/login.tag!';
 import 'tags/home.tag!';
@@ -18,6 +17,6 @@ import 'tags/category/index.tag!';
 
 import 'tags/post-status-select2.tag!';
 
-riot.route.base('/html/');
+riot.route.base('/_admin/');
 riot.mount('app', {title:"Hello, JSPM and Riot!"});
 riot.route.start(true);
