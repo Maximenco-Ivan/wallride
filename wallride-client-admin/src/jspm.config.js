@@ -2,7 +2,7 @@ SystemJS.config({
   paths: {
     "npm:": "jspm_packages/npm/",
     "github:": "jspm_packages/github/",
-    "client/": "src/"
+    "wallride/": ""
   },
   browserConfig: {
     "baseURL": "/"
@@ -14,11 +14,14 @@ SystemJS.config({
   },
   transpiler: "plugin-babel",
   packages: {
-    "client": {
+    "wallride": {
       "format": "esm",
       "meta": {
         "*.js": {
           "loader": "plugin-babel"
+        },
+        "*.css": {
+          "loader": "css"
         }
       }
     }
@@ -39,6 +42,7 @@ SystemJS.config({
     "cluster": "github:jspm/nodelibs-cluster@0.2.0-alpha",
     "constants": "github:jspm/nodelibs-constants@0.2.0-alpha",
     "crypto": "github:jspm/nodelibs-crypto@0.2.0-alpha",
+    "css": "github:systemjs/plugin-css@0.1.26",
     "dgram": "github:jspm/nodelibs-dgram@0.2.0-alpha",
     "dns": "github:jspm/nodelibs-dns@0.2.0-alpha",
     "ecc-jsbn": "npm:ecc-jsbn@0.1.1",

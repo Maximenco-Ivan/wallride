@@ -6,7 +6,7 @@
             </div>
             <div class="pull-right">
                 <div class="btn-group">
-                    <a th:href="@{__${ADMIN_PATH}__/analytics/edit}" class="btn btn-default" th:text="#{Edit}">Edit</a>
+                    <a href="#" class="btn btn-default" th:text="#{Edit}">Edit</a>
                     <a href="#" data-toggle="modal" data-target="#delete-modal" class="btn btn-default" th:text="#{Delete}">Delete</a>
                 </div>
                 <div class="btn-group">
@@ -57,7 +57,7 @@
         <div id="delete-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form th:action="@{__${ADMIN_PATH}__/analytics}" method="post">
+                    <form action="#" method="post">
                         <input type="hidden" name="_method" value="delete" />
                         <div class="modal-content">
                             <div class="modal-header">
@@ -81,7 +81,7 @@
         <div id="sync-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form th:action="@{__${ADMIN_PATH}__/analytics/sync}" method="post">
+                    <form action="#" method="post">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title">Sync</h4>

@@ -7,9 +7,9 @@
 		route('login', () => {
 			riot.mount('#app', 'login');
 		});
-//		route('/', () => {
-//			riot.mount('#app', 'home');
-//		});
+		route('', () => {
+			riot.mount('#app', 'home');
+		});
 //		route('/*', () => {
 //			riot.mount('#app', 'home');
 //		});

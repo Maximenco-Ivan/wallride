@@ -23,6 +23,8 @@ import 'tags/system/index.tag!';
 
 import 'tags/post-status-select2.tag!';
 
+import 'wallride/css/admin.css!';
+
 riot.route.base('/_admin/');
 riot.mount('app', {title:"Hello, JSPM and Riot!"});
 riot.route.start(true);
