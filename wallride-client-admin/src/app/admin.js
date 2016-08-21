@@ -14,6 +14,7 @@ import 'tags/nav-blog.tag!';
 import 'tags/dashboard.tag!';
 import 'tags/article-index.tag!';
 import 'tags/page-index.tag!';
+import 'tags/category/index.tag!';
 
 import 'tags/post-status-select2.tag!';
 

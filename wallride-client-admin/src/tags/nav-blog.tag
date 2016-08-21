@@ -5,7 +5,7 @@
 				<li><a href="/html/"><span class="glyphicon glyphicon-home"></span></a></li>
 				<li><a href="/html/articles"><span class="glyphicon glyphicon-file"></span> <span th:text="#{Articles}">Articles</span></a></li>
 				<li><a href="/html/pages"><span class="glyphicon glyphicon-book"></span> <span th:text="#{Pages}">Pages</span></a></li>
-				<li><a><span class="glyphicon glyphicon-folder-open"></span> <span th:text="#{Categories}">Categories</span></a></li>
+				<li><a href="/html/categories"><span class="glyphicon glyphicon-folder-open"></span> <span th:text="#{Categories}">Categories</span></a></li>
 				<li><a><span class="glyphicon glyphicon-tag"></span> <span th:text="#{Tags}">Tags</span></a></li>
 				<li><a><span class="glyphicon glyphicon-wrench"></span> <span th:text="#{CustomField}">Custom field</span></a></li>
 				<li><a><span class="glyphicon glyphicon-comment"></span> <span th:text="#{Comments}">Comments</span></a></li>

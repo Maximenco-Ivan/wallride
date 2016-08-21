@@ -15,5 +15,8 @@
 		route('pages', () => {
 			riot.mount('#wr-page', 'page-index');
 		});
+		route('categories', () => {
+			riot.mount('#wr-page', 'category-index');
+		});
 	</script>
 </home>
