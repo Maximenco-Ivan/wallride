@@ -33,7 +33,7 @@ SystemJS.config({
   ],
   map: {
     "assert": "github:jspm/nodelibs-assert@0.2.0-alpha",
-    "bootstrap": "github:twbs/bootstrap@3.3.7",
+    "bootstrap": "github:twbs/bootstrap@3.3.1",
     "buffer": "github:jspm/nodelibs-buffer@0.2.0-alpha",
     "child_process": "github:jspm/nodelibs-child_process@0.2.0-alpha",
     "cluster": "github:jspm/nodelibs-cluster@0.2.0-alpha",
@@ -43,14 +43,12 @@ SystemJS.config({
     "dns": "github:jspm/nodelibs-dns@0.2.0-alpha",
     "ecc-jsbn": "npm:ecc-jsbn@0.1.1",
     "events": "github:jspm/nodelibs-events@0.2.0-alpha",
-    "froala-editor": "npm:froala-editor@2.3.4",
     "fs": "github:jspm/nodelibs-fs@0.2.0-alpha",
     "fsevents": "npm:fsevents@1.0.14",
     "http": "github:jspm/nodelibs-http@0.2.0-alpha",
     "https": "github:jspm/nodelibs-https@0.2.0-alpha",
     "jodid25519": "npm:jodid25519@1.0.2",
-    "jquery": "npm:jquery@2.1.3",
-    "jquery-file-upload": "github:blueimp/jQuery-File-Upload@9.9.4",
+    "jquery": "npm:jquery@2.2.4",
     "jsbn": "npm:jsbn@0.1.0",
     "module": "github:jspm/nodelibs-module@0.2.0-alpha",
     "net": "github:jspm/nodelibs-net@0.2.0-alpha",
@@ -60,7 +58,7 @@ SystemJS.config({
     "punycode": "github:jspm/nodelibs-punycode@0.2.0-alpha",
     "querystring": "github:jspm/nodelibs-querystring@0.2.0-alpha",
     "riot": "npm:riot@2.5.0",
-    "select2": "github:select2/select2@3.5.2",
+    "select2": "github:select2/select2@3.5.3",
     "stream": "github:jspm/nodelibs-stream@0.2.0-alpha",
     "string_decoder": "github:jspm/nodelibs-string_decoder@0.2.0-alpha",
     "tag": "npm:systemjs-riot@1.4.2",
@@ -171,10 +169,10 @@ SystemJS.config({
     },
     "npm:readdirp@2.1.0": {
       "map": {
-        "graceful-fs": "npm:graceful-fs@4.1.5",
+        "graceful-fs": "npm:graceful-fs@4.1.6",
         "minimatch": "npm:minimatch@3.0.3",
         "set-immediate-shim": "npm:set-immediate-shim@1.0.1",
-        "readable-stream": "npm:readable-stream@2.1.4"
+        "readable-stream": "npm:readable-stream@2.1.5"
       }
     },
     "npm:is-binary-path@1.0.1": {
@@ -207,17 +205,6 @@ SystemJS.config({
         "normalize-path": "npm:normalize-path@2.0.1",
         "parse-glob": "npm:parse-glob@3.0.4",
         "regex-cache": "npm:regex-cache@0.4.3"
-      }
-    },
-    "npm:readable-stream@2.1.4": {
-      "map": {
-        "inherits": "npm:inherits@2.0.1",
-        "process-nextick-args": "npm:process-nextick-args@1.0.7",
-        "buffer-shims": "npm:buffer-shims@1.0.0",
-        "core-util-is": "npm:core-util-is@1.0.2",
-        "isarray": "npm:isarray@1.0.0",
-        "util-deprecate": "npm:util-deprecate@1.0.2",
-        "string_decoder": "npm:string_decoder@0.10.31"
       }
     },
     "npm:rechoir@0.6.2": {
@@ -307,7 +294,7 @@ SystemJS.config({
     "npm:tar-pack@3.1.4": {
       "map": {
         "once": "npm:once@1.3.3",
-        "readable-stream": "npm:readable-stream@2.1.4",
+        "readable-stream": "npm:readable-stream@2.1.5",
         "tar": "npm:tar@2.2.1",
         "fstream": "npm:fstream@1.0.10",
         "debug": "npm:debug@2.2.0",
@@ -371,7 +358,7 @@ SystemJS.config({
     },
     "npm:fstream@1.0.10": {
       "map": {
-        "graceful-fs": "npm:graceful-fs@4.1.5",
+        "graceful-fs": "npm:graceful-fs@4.1.6",
         "inherits": "npm:inherits@2.0.1",
         "mkdirp": "npm:mkdirp@0.5.1",
         "rimraf": "npm:rimraf@2.5.4"
@@ -609,7 +596,7 @@ SystemJS.config({
     },
     "npm:browserify-zlib@0.1.4": {
       "map": {
-        "readable-stream": "npm:readable-stream@2.1.4",
+        "readable-stream": "npm:readable-stream@2.1.5",
         "pako": "npm:pako@0.2.9"
       }
     },
@@ -803,7 +790,7 @@ SystemJS.config({
     "npm:stream-browserify@2.0.1": {
       "map": {
         "inherits": "npm:inherits@2.0.1",
-        "readable-stream": "npm:readable-stream@2.1.4"
+        "readable-stream": "npm:readable-stream@2.1.5"
       }
     },
     "github:jspm/nodelibs-os@0.2.0-alpha": {
@@ -813,34 +800,12 @@ SystemJS.config({
     },
     "github:jspm/nodelibs-buffer@0.2.0-alpha": {
       "map": {
-        "buffer-browserify": "npm:buffer@4.9.0"
+        "buffer-browserify": "npm:buffer@4.9.1"
       }
     },
     "npm:systemjs-riot@1.4.2": {
       "map": {
         "riot-compiler": "npm:riot-compiler@2.5.3"
-      }
-    },
-    "github:twbs/bootstrap@3.3.7": {
-      "map": {
-        "jquery": "npm:jquery@2.1.3"
-      }
-    },
-    "github:select2/select2@3.5.2": {
-      "map": {
-        "jquery": "npm:jquery@2.1.3",
-        "css": "github:systemjs/plugin-css@0.1.26"
-      }
-    },
-    "npm:froala-editor@2.3.4": {
-      "map": {
-        "jquery": "npm:jquery@2.1.3",
-        "font-awesome": "npm:font-awesome@4.6.3"
-      }
-    },
-    "npm:font-awesome@4.6.3": {
-      "map": {
-        "css": "github:systemjs/plugin-css@0.1.26"
       }
     },
     "npm:riot-route@2.5.0": {
@@ -881,7 +846,7 @@ SystemJS.config({
     "npm:stream-http@2.3.1": {
       "map": {
         "inherits": "npm:inherits@2.0.1",
-        "readable-stream": "npm:readable-stream@2.1.4",
+        "readable-stream": "npm:readable-stream@2.1.5",
         "xtend": "npm:xtend@4.0.1",
         "builtin-status-codes": "npm:builtin-status-codes@2.0.0",
         "to-arraybuffer": "npm:to-arraybuffer@1.0.1"
@@ -919,11 +884,34 @@ SystemJS.config({
         "is-buffer": "npm:is-buffer@1.1.4"
       }
     },
-    "npm:buffer@4.9.0": {
+    "npm:readable-stream@2.1.5": {
+      "map": {
+        "inherits": "npm:inherits@2.0.1",
+        "process-nextick-args": "npm:process-nextick-args@1.0.7",
+        "core-util-is": "npm:core-util-is@1.0.2",
+        "isarray": "npm:isarray@1.0.0",
+        "buffer-shims": "npm:buffer-shims@1.0.0",
+        "string_decoder": "npm:string_decoder@0.10.31",
+        "util-deprecate": "npm:util-deprecate@1.0.2"
+      }
+    },
+    "npm:buffer@4.9.1": {
       "map": {
         "isarray": "npm:isarray@1.0.0",
-        "base64-js": "npm:base64-js@1.1.2",
-        "ieee754": "npm:ieee754@1.1.6"
+        "ieee754": "npm:ieee754@1.1.6",
+        "base64-js": "npm:base64-js@1.1.2"
+      }
+    },
+    "github:select2/select2@3.5.3": {
+      "map": {
+        "jquery": "npm:jquery@2.2.4",
+        "css": "github:systemjs/plugin-css@0.1.26"
+      }
+    },
+    "github:twbs/bootstrap@3.3.1": {
+      "map": {
+        "jquery": "npm:jquery@2.2.4",
+        "css": "github:systemjs/plugin-css@0.1.26"
       }
     }
   }

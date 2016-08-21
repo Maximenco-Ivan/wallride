@@ -14,12 +14,7 @@
 			<div class="navbar">
 				<div class="container-fluid">
 					<form id="search-form" class="navbar-form navbar-left" method="get" th:action="" th:object="${form}">
-						<select th:field="*{status}" class="select2" th:placeholder="#{Status}">
-							<option value=""></option>
-							<option th:value="PUBLISHED"><span th:text="#{Post.Status.PUBLISHED}">Published</span> <span th:text="">(0)</span></option>
-							<option th:value="SCHEDULED"><span th:text="#{Post.Status.SCHEDULED}">Published</span> <span th:text="">(0)</span></option>
-							<option th:value="DRAFT"><span th:text="#{Post.Status.DRAFT}">Published</span> <span th:text="">(0)</span></option>
-						</select>
+						<post-status-select2 />
 						<input type="hidden" class="select2" th:field="*{categoryId}" data-url="" th:placeholder="#{Categories}"/>
 						<input type="hidden" class="select2" th:field="*{tagId}" data-url="" th:placeholder="#{Tags}"/>
 						<input type="hidden" class="select2" th:field="*{authorId}" data-url="" th:placeholder="#{Author}"/>
@@ -168,10 +163,7 @@
 		</div>
 	</div>
 	<script th:inline="javascript">
-		this.mixin('$');
-		console.dir(this.$);
-
-//		$(function () {
+		$(function () {
 			$('#search-form select.select2').each(function (index) {
 				var $self = $(this);
 				$self.select2({
@@ -211,7 +203,7 @@
 					}
 				});
 			});
-//		});
+		});
 	</script>
 	<!--
 	<script th:inline="javascript">

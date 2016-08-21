@@ -23,12 +23,10 @@
       "baseURL": "src"
     },
     "dependencies": {
-      "bootstrap": "github:twbs/bootstrap@^3.3.7",
-      "froala-editor": "npm:froala-editor@^2.3.4",
-      "jquery": "npm:jquery@2.1.3",
-      "jquery-file-upload": "github:blueimp/jQuery-File-Upload@9.9.4",
+      "bootstrap": "github:twbs/bootstrap@3.3.1",
+      "jquery": "npm:jquery@2.2.4",
       "riot": "npm:riot@^2.5.0",
-      "select2": "github:select2/select2@3.5.2",
+      "select2": "github:select2/select2@3.5.3",
       "tag": "npm:systemjs-riot@^1.4.2"
     },
     "devDependencies": {
@@ -69,21 +67,7 @@
       "zlib": "github:jspm/nodelibs-zlib@^0.2.0-alpha"
     },
     "overrides": {
-      "github:blueimp/jQuery-File-Upload@9.9.4": {
-        "main": "js/jquery.fileupload",
-        "files": [
-          "js/jquery.fileupload.js"
-        ],
-        "meta": {
-          "js/jquery.fileupload.js": {
-            "deps": [
-              "jquery"
-            ],
-            "format": "global"
-          }
-        }
-      },
-      "github:select2/select2@3.5.2": {
+      "github:select2/select2@3.5.3": {
         "files": [
           "*.js",
           "*.template",
@@ -107,36 +91,20 @@
           }
         }
       },
-      "github:twbs/bootstrap@3.3.7": {
-        "shim": {
-          "js/bootstrap": {
-            "deps": [
-              "jquery"
-            ],
-            "exports": "$"
-          }
-        },
+      "github:twbs/bootstrap@3.3.1": {
+        "registry": "jspm",
         "dependencies": {
-          "jquery": "2"
+          "jquery": "*",
+          "css": "*"
         },
-        "files": [
-          "dist",
-          "fonts",
-          "js",
-          "css",
-          "less",
-          "grunt",
-          "LICENSE"
-        ],
-        "systemjs": {
-          "main": "dist/js/bootstrap.js",
-          "modules": {
-            "dist/js/bootstrap.js": {
-              "deps": [
-                "jquery"
-              ],
-              "exports": "$"
-            }
+        "meta": {
+          "js/bootstrap.js": {
+            "deps": [
+              "jquery",
+              "../css/bootstrap.css!"
+            ],
+            "exports": "$",
+            "format": "global"
           }
         }
       },
@@ -163,18 +131,13 @@
           "util": "@node/util"
         }
       },
-      "npm:font-awesome@4.6.3": {
-        "main": "css/font-awesome.css!",
-        "jspmNodeConversion": false,
-        "registry": "jspm",
-        "dependencies": {
-          "css": "0.1"
-        }
-      },
       "npm:inherits@2.0.1": {
         "ignore": [
           "test.js"
         ]
+      },
+      "npm:jquery@2.2.4": {
+        "format": "amd"
       },
       "npm:ms@0.7.1": {
         "jspmNodeConversion": false,
@@ -194,10 +157,7 @@
           "string_decoder": "~0.10.0",
           "stream-browserify": "^1.0.0"
         }
-      },
-      "npm:froala-editor@2.3.4": {
-        "main": "js/froala_editor.min"
       }
     }
   }
-}
+}

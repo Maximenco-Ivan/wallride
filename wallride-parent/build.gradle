@@ -6,6 +6,7 @@ artifacts {
 
 dependencies {
     compile project(':wallride-server')
+    compile project(':wallride-client-admin')
 
     compile 'org.springframework.boot:spring-boot-starter'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'

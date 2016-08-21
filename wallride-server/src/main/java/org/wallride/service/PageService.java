@@ -47,7 +47,7 @@ import org.wallride.model.*;
 import org.wallride.repository.*;
 import org.wallride.support.AuthorizedUser;
 import org.wallride.support.CodeFormatter;
-import org.wallride.web.controller.admin.article.CustomFieldValueEditForm;
+import org.wallride.web.controller.admin_bk.article.CustomFieldValueEditForm;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;

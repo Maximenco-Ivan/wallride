@@ -84,7 +84,7 @@ public class WallRideSecurityConfiguration {
 			// @formatter:off
 			web
 				.ignoring()
-					.antMatchers("/_admin/resources/**")
+					.antMatchers("/_admin/static/**")
 					.antMatchers("/_admin/webjars/**")
 					.antMatchers("/_admin/setup**")
 					.antMatchers("/_admin/signup**");

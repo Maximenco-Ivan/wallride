@@ -1,3 +1,7 @@
+//ext {
+//	generatedResourceDir = file("${buildDir}/dist")
+//}
+
 plugins {
 	id "com.moowork.node" version "0.13"
 	id "com.moowork.gulp" version "0.13"
@@ -38,3 +42,23 @@ gulp_build.dependsOn 'installGulp'
 
 // processResources is a Java task. Run the gulpfile.js before this task using the 'default' task in the gulpfile.js
 processResources.dependsOn gulp_build
+
+
+compileJava {
+	doFirst {
+		jsBuildDir.mkdirs()
+	}
+	options.compilerArgs += ['-s', jsBuildDir]
+}
+
+sourceSets {
+	main {
+		resources.srcDir file(jsBuildDir)
+	}
+}
+
+//idea {
+//	module {
+//		sourceDirs += file(jsBuildDir)
+//	}
+//}

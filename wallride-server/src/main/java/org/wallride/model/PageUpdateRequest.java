@@ -16,7 +16,7 @@
 
 package org.wallride.model;
 
-import org.wallride.web.controller.admin.article.CustomFieldValueEditForm;
+import org.wallride.web.controller.admin_bk.article.CustomFieldValueEditForm;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

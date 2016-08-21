@@ -34,19 +34,21 @@ const paths = {
 };
 
 gulp.task('jspm', () => {
-	gulp.src(paths.app + 'main.js')
+	gulp.src(paths.app + 'admin.js')
 		.pipe(jspm({
 			selfExecutingBundle: true
-			// TODO minify すると失敗する（.tagファイル内のes6コードが原因か？）
+			// TODO minify
 //          minify: true
 		}))
-		.pipe(gulp.dest(paths.dest + 'static/app'));
+		.pipe(gulp.dest(paths.dest + 'static/admin/app'));
 });
 
 gulp.task('html', () => {
-	gulp.src(['src/**/*.html', '!src/jspm_packages/**/*'])
-		.pipe(useref())
-		.pipe(gulp.dest(paths.dest + 'templates'));
+	gulp.src('src/html/index.html')
+		.pipe(useref({
+			searchPath: 'src'
+		}))
+		.pipe(gulp.dest(paths.dest + 'templates/admin'));
 });
 
 gulp.task('sass', () => {
@@ -61,12 +63,12 @@ gulp.task('css', ['sass'], () => {
 		.pipe(rename({
 			suffix: '.bundle'
 		}))
-		.pipe(gulp.dest(paths.dest + 'static/css'));
+		.pipe(gulp.dest(paths.dest + 'static/admin/css'));
 });
 
 gulp.task('copy-assets', () => {
 	gulp.src(paths.assets)
-		.pipe(gulp.dest(paths.dest + 'static'));
+		.pipe(gulp.dest(paths.dest + 'static/admin'));
 });
 
 gulp.task('watch', () => {

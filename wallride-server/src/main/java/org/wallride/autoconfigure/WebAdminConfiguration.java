@@ -41,7 +41,7 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.wallride.service.BlogService;
 import org.wallride.support.CodeFormatAnnotationFormatterFactory;
-import org.wallride.web.controller.admin.DashboardController;
+import org.wallride.web.controller.admin.IndexController;
 import org.wallride.web.support.*;
 
 import java.util.HashSet;
@@ -49,7 +49,7 @@ import java.util.List;
 import java.util.Set;
 
 @Configuration
-@ComponentScan(basePackageClasses = DashboardController.class)
+@ComponentScan(basePackageClasses = IndexController.class)
 public class WebAdminConfiguration extends DelegatingWebMvcConfiguration {
 
 	@Autowired
