@@ -6,12 +6,12 @@
 				<li><a href="/_admin/articles"><span class="glyphicon glyphicon-file"></span> <span th:text="#{Articles}">Articles</span></a></li>
 				<li><a href="/_admin/pages"><span class="glyphicon glyphicon-book"></span> <span th:text="#{Pages}">Pages</span></a></li>
 				<li><a href="/_admin/categories"><span class="glyphicon glyphicon-folder-open"></span> <span th:text="#{Categories}">Categories</span></a></li>
-				<li><a><span class="glyphicon glyphicon-tag"></span> <span th:text="#{Tags}">Tags</span></a></li>
-				<li><a><span class="glyphicon glyphicon-wrench"></span> <span th:text="#{CustomField}">Custom field</span></a></li>
-				<li><a><span class="glyphicon glyphicon-comment"></span> <span th:text="#{Comments}">Comments</span></a></li>
-				<li><a><span class="glyphicon glyphicon-user"></span> <span th:text="#{Users}">Users</span></a></li>
-				<li><a><span class="glyphicon glyphicon-signal"></span> <span th:text="#{GoogleAnalytics}">Google Analytics</span></a></li>
-				<li><a><span class="glyphicon glyphicon-cog"></span> <span th:text="#{System}">System</span></a></li>
+				<li><a href="/_admin/tags"><span class="glyphicon glyphicon-tag"></span> <span th:text="#{Tags}">Tags</span></a></li>
+				<li><a href="/_admin/customfields"><span class="glyphicon glyphicon-wrench"></span> <span th:text="#{CustomField}">Custom field</span></a></li>
+				<li><a href="/_admin/comments"><span class="glyphicon glyphicon-comment"></span> <span th:text="#{Comments}">Comments</span></a></li>
+				<li><a href="/_admin/users"><span class="glyphicon glyphicon-user"></span> <span th:text="#{Users}">Users</span></a></li>
+				<li><a href="/_admin/analytics"><span class="glyphicon glyphicon-signal"></span> <span th:text="#{GoogleAnalytics}">Google Analytics</span></a></li>
+				<li><a href="/_admin/system"><span class="glyphicon glyphicon-cog"></span> <span th:text="#{System}">System</span></a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">

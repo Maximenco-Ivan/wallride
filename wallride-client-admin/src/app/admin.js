@@ -11,9 +11,15 @@ import 'tags/home.tag!';
 import 'tags/nav-global.tag!';
 import 'tags/nav-blog.tag!';
 import 'tags/dashboard.tag!';
-import 'tags/article-index.tag!';
-import 'tags/page-index.tag!';
+import 'tags/article/index.tag!';
+import 'tags/page/index.tag!';
 import 'tags/category/index.tag!';
+import 'tags/tag/index.tag!';
+import 'tags/customfield/index.tag!';
+import 'tags/comment/index.tag!';
+import 'tags/user/index.tag!';
+import 'tags/analytics/index.tag!';
+import 'tags/system/index.tag!';
 
 import 'tags/post-status-select2.tag!';
 
