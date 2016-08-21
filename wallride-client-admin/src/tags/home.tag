@@ -18,5 +18,23 @@
 		route('categories', () => {
 			riot.mount('#wr-page', 'category-index');
 		});
-	</script>
+        route('tags', () => {
+            riot.mount('#wr-page', 'tag-index');
+        });
+        route('customfields', () => {
+            riot.mount('#wr-page', 'customfield-index');
+        });
+        route('comments', () => {
+            riot.mount('#wr-page', 'comment-index');
+        });
+        route('users', () => {
+            riot.mount('#wr-page', 'user-index');
+        });
+        route('analytics', () => {
+            riot.mount('#wr-page', 'analytics-index');
+        });
+        route('system', () => {
+            riot.mount('#wr-page', 'system-index');
+        });
+    </script>
 </home>
