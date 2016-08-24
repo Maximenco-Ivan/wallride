@@ -4,6 +4,7 @@ import 'bootstrap';
 import 'select2';
 // import upload from 'jquery-file-upload';
 // import froala from 'froala-editor';
+import 'nylen/shiftcheckbox';
 
 import 'tags/app.tag!';
 import 'tags/login.tag!';

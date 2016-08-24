@@ -56,6 +56,7 @@ SystemJS.config({
     "jsbn": "npm:jsbn@0.1.0",
     "module": "github:jspm/nodelibs-module@0.2.0-alpha",
     "net": "github:jspm/nodelibs-net@0.2.0-alpha",
+    "nylen/shiftcheckbox": "github:nylen/shiftcheckbox@0.8.0",
     "os": "github:jspm/nodelibs-os@0.2.0-alpha",
     "path": "github:jspm/nodelibs-path@0.2.0-alpha",
     "process": "github:jspm/nodelibs-process@0.2.0-alpha",
@@ -904,6 +905,11 @@ SystemJS.config({
         "isarray": "npm:isarray@1.0.0",
         "ieee754": "npm:ieee754@1.1.6",
         "base64-js": "npm:base64-js@1.1.2"
+      }
+    },
+    "github:github:nylen/shiftcheckbox@0.8.0": {
+      "map": {
+        "jquery": "npm:jquery@2.2.4"
       }
     },
     "github:select2/select2@3.5.3": {

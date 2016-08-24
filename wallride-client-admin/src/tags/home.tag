@@ -12,6 +12,15 @@
 		route('articles', () => {
 			riot.mount('#wr-page', 'article-index');
 		});
+		route('articles/new', () => {
+			riot.mount('#wr-page', 'article-create');
+		});
+		route('articles/*', () => {
+			riot.mount('#wr-page', 'article-describe');
+		});
+		route('articles/*/edit', () => {
+			riot.mount('#wr-page', 'article-edit');
+		});
 		route('pages', () => {
 			riot.mount('#wr-page', 'page-index');
 		});
