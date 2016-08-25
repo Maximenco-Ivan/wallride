@@ -79,7 +79,7 @@
         "meta": {
           "jquery.shiftcheckbox.js": {
             "deps": [
-              "jquery",
+              "jquery"
             ],
             "exports": "$",
             "format": "global"
