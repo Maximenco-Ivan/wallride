@@ -2,6 +2,7 @@ package org.wallride.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -54,50 +55,25 @@ public class SetupServiceTests {
 				.languages(languages)
 				.email(email)
 				.loginId(loginId)
-				.loginPassword(passwordEncoder.encode(loginPassword))
+				.loginPassword(loginPassword)
 				.name(personalName)
 				.websiteTitle(websiteTitle)
 				.build();
-		User user = new User();
-		user.setName(personalName);
-		user.setLoginId(loginId);
-		user.setEmail(email);
-		user.setLoginPassword(passwordEncoder.encode(loginPassword));
 
-		// * It must Mock the User class by the following code
-		// SetupService#setup line 65
-		// user = userRepository.saveAndFlush(user);
-		when(userRepository.saveAndFlush(any(User.class))).thenReturn(user);
-
+		when(userRepository.saveAndFlush(any(User.class))).thenReturn(new User());
 		setupService.setup(request);
+
+		ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
+		verify(userRepository).saveAndFlush(userCaptor.capture());
 
 		verify(blogRepository, times(1)).saveAndFlush(any(Blog.class));
 		verify(userRepository, times(1)).saveAndFlush(any(User.class));
-	}
 
-//	@Test
-//	public void setup() {
-//		List<String> languages = new ArrayList<>();
-//		languages.add("en");
-//
-//		SetupRequest request = new SetupRequest.Builder()
-//				.defaultLanguage("ja")
-//				.languages(languages)
-//				.email(email)
-//				.loginId(loginId)
-//				.loginPassword(passwordEncoder.encode(loginPassword))
-//				.name(personalName)
-//				.websiteTitle(websiteTitle)
-//				.build();
-//		User user = setupService.setup(request);
-//
-//		assertEquals(user.getEmail(), request.getEmail());
-//		assertEquals(user.getLoginId(), request.getLoginId());
-//		assertEquals(passwordEncoder.matches(user.getLoginPassword(), loginPassword), true);
-//		assertEquals(user.getName().getFirstName(), personalName.getFirstName());
-//		assertEquals(user.getName().getLastName(), personalName.getLastName());
-//
-//		verify(blogRepository, times(1)).saveAndFlush(any(Blog.class));
-//		verify(userRepository, times(1)).saveAndFlush(any(User.class));
-//	}
+		User user = userCaptor.getValue();
+		assertEquals(user.getEmail(), request.getEmail());
+		assertEquals(user.getLoginId(), request.getLoginId());
+		assertEquals(passwordEncoder.matches(loginPassword, user.getLoginPassword()), true);
+		assertEquals(user.getName().getFirstName(), personalName.getFirstName());
+		assertEquals(user.getName().getLastName(), personalName.getLastName());
+	}
 }
