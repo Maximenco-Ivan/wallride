@@ -216,11 +216,11 @@ public class UserServiceTests {
 		verify(userRepository, times(1)).saveAndFlush(user);
 
 		user = userRepository.findOneById(user.getId());
-		assertEquals("afterFirstName", user.getName().getFirstName());
-		assertEquals("afterLastName", user.getName().getLastName());
-		assertEquals("afterNickname", user.getNickname());
-		assertEquals("after@tagbangers.co.jp", user.getEmail());
-		assertEquals("afterDescription", user.getDescription());
+		assertEquals(request.getName().getFirstName(), user.getName().getFirstName());
+		assertEquals(request.getName().getLastName(), user.getName().getLastName());
+		assertEquals(request.getNickname(), user.getNickname());
+		assertEquals(request.getEmail(), user.getEmail());
+		assertEquals(request.getDescription(), user.getDescription());
 	}
 
 	@Test
@@ -239,10 +239,10 @@ public class UserServiceTests {
 		verify(userRepository, times(1)).saveAndFlush(user);
 
 		user = userRepository.findOneById(user.getId());
-		assertEquals("afterFirstName", user.getName().getFirstName());
-		assertEquals("afterLastName", user.getName().getLastName());
-		assertEquals("afterLoginId", user.getLoginId());
-		assertEquals("after@tagbangers.co.jp", user.getEmail());
+		assertEquals(request.getName().getFirstName(), user.getName().getFirstName());
+		assertEquals(request.getName().getLastName(), user.getName().getLastName());
+		assertEquals(request.getLoginId(), user.getLoginId());
+		assertEquals(request.getEmail(), user.getEmail());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -357,7 +357,7 @@ public class UserServiceTests {
 		assertEquals(passwordEncoder.matches("beforePassword", user.getLoginPassword()), true);
 		userService.updatePassword(request, new AuthorizedUser(user));
 		user = userRepository.findOneById(user.getId());
-		assertEquals(passwordEncoder.matches("newPassword", user.getLoginPassword()), true);
+		assertEquals(passwordEncoder.matches(request.getPassword(), user.getLoginPassword()), true);
 
 		verify(userRepository, times(1)).saveAndFlush(user);
 	}
