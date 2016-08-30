@@ -5,8 +5,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
@@ -16,7 +14,6 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
-import org.springframework.batch.core.step.skip.ExceptionClassifierSkipPolicy;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.wallride.domain.Article;
@@ -26,7 +23,6 @@ import org.wallride.repository.PopularPostRepository;
 import org.wallride.repository.PostRepository;
 
 import javax.servlet.ServletContext;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -39,7 +35,7 @@ import static org.wallride.autoconfigure.WallRideCacheConfiguration.PAGE_CACHE;
 /**
  * Created by SHIMAUCHI on 2016/08/26.
  */
-@RunWith (PowerMockRunner.class)
+@RunWith (MockitoJUnitRunner.class)
 public class PostServiceTests {
 
 	@InjectMocks
@@ -70,7 +66,7 @@ public class PostServiceTests {
 		List<Post> posts = new ArrayList<>();
 		Article article = new Article();
 		posts.add(article);
-		Cache cache = PowerMockito.mock(Cache.class);
+		Cache cache = mock(Cache.class);
 		when(postRepository.findAllByStatusAndDateLessThanEqual(any(Post.Status.class), any(LocalDateTime.class))).thenReturn(posts);
 		when(cacheManager.getCache(ARTICLE_CACHE)).thenReturn(cache);
 		when(cacheManager.getCache(PAGE_CACHE)).thenReturn(cache);
