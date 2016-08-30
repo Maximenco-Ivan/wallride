@@ -16,9 +16,11 @@ import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteExcep
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.data.domain.Pageable;
 import org.wallride.domain.Article;
 import org.wallride.domain.Post;
 import org.wallride.exception.ServiceException;
+import org.wallride.model.PostSearchRequest;
 import org.wallride.repository.PopularPostRepository;
 import org.wallride.repository.PostRepository;
 
@@ -107,5 +109,12 @@ public class PostServiceTests {
 		when(jobExplorer.findRunningJobExecutions(anyString())).thenReturn(jobExecutions);
 		doThrow(JobParametersInvalidException.class).when(jobLauncher).run(any(Job.class), any(JobParameters.class));
 		postService.updatePostViews();
+	}
+
+	@Test
+	public void getPosts() {
+		PostSearchRequest request = new PostSearchRequest("ja");
+		postService.getPosts(request);
+		verify(postRepository, times(1)).search(any(PostSearchRequest.class), any(Pageable.class));
 	}
 }
