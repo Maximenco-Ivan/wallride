@@ -1,16 +1,18 @@
 package org.wallride.web.contorller.guest;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ErrorCollector;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.wallride.domain.Tag;
 import org.wallride.model.TagSearchRequest;
@@ -21,10 +23,9 @@ import org.wallride.web.controller.guest.TagController;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
-
 /**
  * Created by SHIMAUCHI on 2016/08/31.
  */
@@ -42,16 +43,22 @@ public class TagControllerTests {
 
 	private MockHttpServletRequest request = new MockHttpServletRequest();
 
+	@Rule
+	public ErrorCollector collector = new ErrorCollector();
+
 	@Test
 	public void index() {
 		Pageable pageable = new PageRequest(0, 10);
-		Model model = mock(Model.class);
+		Model model = new ExtendedModelMap();
 		List<Tag> results = new ArrayList<>();
 		Page<Tag> pages = new PageImpl<>(results, pageable, 10);
 
 		when(tagService.getTags(any(TagSearchRequest.class), any(Pageable.class))).thenReturn(pages);
 		String viewName = tagController.index(pageable, model, request);
 		verify(tagService, times(1)).getTags(any(TagSearchRequest.class), any(Pageable.class));
-		assertEquals("tag/index", viewName);
+		collector.checkThat(viewName, is("tag/index"));
+		collector.checkThat(model.containsAttribute("tags"), is(true));
+		collector.checkThat(model.containsAttribute("pageable"), is(true));
+		collector.checkThat(model.containsAttribute("pagination"), is(true));
 	}
 }
