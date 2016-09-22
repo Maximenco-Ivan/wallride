@@ -1,8 +1,5 @@
 language: java
 jdk:
   - oraclejdk8
-env:
-  global:
-    - secure: dMmKmGujjLqOUTRA3uReQiSkG/SFDHi7IW3M/JvmhLwpw3kL25Pza9rcCj6HmGFR5HWesNcuJcfrvHMk/oTKxYGUeAeEYNbMpbh++zTOqGDEwQrM1Gbl6oIBMmBO+2ZVx/hj/ebWR4oMGegF8GX1yWDqhVdhzPFgYQ9bw/obBgc=
 script:
-  - gradlew sonarqube --info -Dsonar.host.url=${SONAR_HOST} -Dsonar.login=${SONAR_TOKEN}
+  - ./gradlew sonarqube --info -Dsonar.host.url=${SONAR_HOST} -Dsonar.login=${SONAR_TOKEN}
