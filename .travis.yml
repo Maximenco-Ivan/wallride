@@ -1,3 +1,8 @@
 language: java
 jdk:
   - oraclejdk8
+addons:
+  sonarqube: true
+env:
+  global:
+    - secure: dMmKmGujjLqOUTRA3uReQiSkG/SFDHi7IW3M/JvmhLwpw3kL25Pza9rcCj6HmGFR5HWesNcuJcfrvHMk/oTKxYGUeAeEYNbMpbh++zTOqGDEwQrM1Gbl6oIBMmBO+2ZVx/hj/ebWR4oMGegF8GX1yWDqhVdhzPFgYQ9bw/obBgc=
