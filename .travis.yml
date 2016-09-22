@@ -3,3 +3,7 @@ jdk:
   - oraclejdk8
 script:
   - ./gradlew sonarqube --info -Dsonar.host.url=${SONAR_HOST} -Dsonar.login=${SONAR_TOKEN}
+cache:
+  directories:
+  - $HOME/.m2
+  - $HOME/.gradle
