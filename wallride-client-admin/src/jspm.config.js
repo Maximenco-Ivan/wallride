@@ -51,8 +51,10 @@ SystemJS.config({
     "fsevents": "npm:fsevents@1.0.14",
     "http": "github:jspm/nodelibs-http@0.2.0-alpha",
     "https": "github:jspm/nodelibs-https@0.2.0-alpha",
+    "ilikenwf/nestedSortable": "github:ilikenwf/nestedSortable@2.0.0",
     "jodid25519": "npm:jodid25519@1.0.2",
     "jquery": "npm:jquery@2.2.4",
+    "jquery-ui": "github:components/jqueryui@1.11.2",
     "jsbn": "npm:jsbn@0.1.0",
     "module": "github:jspm/nodelibs-module@0.2.0-alpha",
     "net": "github:jspm/nodelibs-net@0.2.0-alpha",
@@ -922,6 +924,16 @@ SystemJS.config({
     "github:nylen/shiftcheckbox@0.8.0": {
       "map": {
         "jquery": "npm:jquery@2.2.4"
+      }
+    },
+    "github:components/jqueryui@1.11.2": {
+      "map": {
+        "jquery": "npm:jquery@2.2.4"
+      }
+    },
+    "github:ilikenwf/nestedSortable@2.0.0": {
+      "map": {
+        "jquery-ui": "github:components/jqueryui@1.11.2"
       }
     }
   }

@@ -25,7 +25,9 @@
     "dependencies": {
       "bootstrap": "github:twbs/bootstrap@3.3.1",
       "css": "github:systemjs/plugin-css@^0.1.26",
+      "ilikenwf/nestedSortable": "github:ilikenwf/nestedSortable@2.0",
       "jquery": "npm:jquery@2.2.4",
+      "jquery-ui": "github:components/jqueryui@1.11.2",
       "nylen/shiftcheckbox": "github:nylen/shiftcheckbox@0.8.0",
       "riot": "npm:riot@^2.5.0",
       "select2": "github:select2/select2@3.5.3",
@@ -69,6 +71,21 @@
       "zlib": "github:jspm/nodelibs-zlib@^0.2.0-alpha"
     },
     "overrides": {
+      "github:components/jqueryui@1.11.2": {
+        "main": "jquery-ui",
+        "dependencies": {
+          "jquery": "*"
+        }
+      },
+      "github:ilikenwf/nestedSortable@2.0.0": {
+        "main": "jquery.mjs.nestedSortable",
+        "dependencies": {
+          "jquery-ui": "*"
+        },
+        "map": {
+          "jquery-ui/sortable": "jquery-ui/ui/sortable.js"
+        }
+      },
       "github:nylen/shiftcheckbox@0.8.0": {
         "main": "jquery.shiftcheckbox",
         "files": [
