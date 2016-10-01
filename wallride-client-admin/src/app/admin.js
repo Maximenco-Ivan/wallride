@@ -6,6 +6,7 @@ import 'select2';
 // import froala from 'froala-editor';
 import 'nylen/shiftcheckbox';
 import 'ilikenwf/nestedSortable';
+import 'xdan/datetimepicker';
 
 import 'tags/app.tag!';
 import 'tags/login.tag!';

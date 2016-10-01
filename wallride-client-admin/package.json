@@ -31,7 +31,8 @@
       "nylen/shiftcheckbox": "github:nylen/shiftcheckbox@0.8.0",
       "riot": "npm:riot@^2.5.0",
       "select2": "github:select2/select2@3.5.3",
-      "tag": "npm:systemjs-riot@^1.4.2"
+      "tag": "npm:systemjs-riot@^1.4.2",
+      "xdan/datetimepicker": "github:xdan/datetimepicker@2.3.4"
     },
     "devDependencies": {
       "plugin-babel": "npm:systemjs-plugin-babel@^0.0.12"
@@ -197,5 +198,4 @@
       }
     }
   }
-}
-
+}
