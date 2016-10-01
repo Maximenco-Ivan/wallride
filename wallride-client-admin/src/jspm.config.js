@@ -907,11 +907,6 @@ SystemJS.config({
         "base64-js": "npm:base64-js@1.1.2"
       }
     },
-    "github:github:nylen/shiftcheckbox@0.8.0": {
-      "map": {
-        "jquery": "npm:jquery@2.2.4"
-      }
-    },
     "github:select2/select2@3.5.3": {
       "map": {
         "jquery": "npm:jquery@2.2.4",

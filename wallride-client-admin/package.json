@@ -69,23 +69,6 @@
       "zlib": "github:jspm/nodelibs-zlib@^0.2.0-alpha"
     },
     "overrides": {
-      "github:nylen/shiftcheckbox@^0.8.0": {
-        "files": [
-          "*.js"
-        ],
-        "dependencies": {
-          "jquery": "*"
-        },
-        "meta": {
-          "jquery.shiftcheckbox.js": {
-            "deps": [
-              "jquery"
-            ],
-            "exports": "$",
-            "format": "global"
-          }
-        }
-      },
       "github:select2/select2@3.5.3": {
         "files": [
           "*.js",
@@ -179,5 +162,4 @@
       }
     }
   }
-}
-
+}
