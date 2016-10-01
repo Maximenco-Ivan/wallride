@@ -2,16 +2,16 @@
 	<div id="wr-page-header">
 		<div class="page-header container-fluid">
 			<div class="pull-left">
-				<h1 th:text="#{Categories}">Categories</h1>
+				<h1 th:text="">Categories</h1>
 			</div>
 			<div class="pull-right">
 				<div class="btn-group">
-					<a th:href="@{__$ADMIN_PATH__/categories/index?part=category-create-form}" data-toggle="modal" data-target="#category-create-modal" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewCategory}">Add New</span></a>
+					<a th:href="" data-toggle="modal" data-target="#category-create-modal" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> <span th:text="">Add New</span></a>
 				</div>
 				<div class="btn-group">
-					<button id="update-category-sort" type="submit" class="btn btn-sm btn-primary" data-loading-text="saving..." disabled="true" th:if="!${#lists.isEmpty(categoryNodes)}" th:text="#{SaveOrder}">Save Order</button>
+					<button id="update-category-sort" type="submit" class="btn btn-sm btn-primary" data-loading-text="saving..." disabled="true" th:if="" th:text="">Save Order</button>
 				</div>
-				<script th:inline="javascript">
+				<script th:inline="">
 					$(function() {
 						$('#update-category-sort').click(function(e) {
 							e.preventDefault();
@@ -37,70 +37,70 @@
 	</div>
 	<div id="wr-page-content">
 		<div class="container-fluid">
-			<div class="alert alert-success" th:if="${savedCategory ne null}">
+			<div class="alert alert-success" th:if="">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<span th:text="#{SavedCategory}">Category saved.</span>
+				<span th:text="">Category saved.</span>
 			</div>
-			<div class="alert alert-success" th:if="${deletedCategory ne null}">
+			<div class="alert alert-success" th:if="">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<span th:text="#{DeletedCategory}">Category deleted.</span>
+				<span th:text="">Category deleted.</span>
 			</div>
-			<ul th:unless="${#lists.isEmpty(categoryNodes)}" th:replace="category/index::category(${categoryNodes})"></ul>
-			<ul id="category-tree" class="nested-sortable tree" th:fragment="category(nodes)">
-				<li th:each="node : ${nodes}" th:id="${'category-tree_' + node.object.id}">
+			<ul th:unless="" th:replace=""></ul>
+			<ul id="category-tree" class="nested-sortable tree" th:fragment="">
+				<li th:each="" th:id="">
 					<div class="category clearfix">
 						<div class="wr-tree-options pull-left">
 							<span class="wr-tree-option disclose"><span class="glyphicon glyphicon-chevron-right"></span></span>
-							<span class="wr-tree-option title" th:text="${node.object.name}"></span>
-							<span class="wr-tree-option" th:text="${'/' + node.object.code}">/code</span>
+							<span class="wr-tree-option title" th:text=""></span>
+							<span class="wr-tree-option" th:text="">/code</span>
 						</div>
 						<div class="wr-tree-options pull-right">
-							<span class="badge wr-tree-option" th:text="${articleCounts.get(node.object.id)}?:0">16</span>
-							<button class="btn btn-link wr-tree-option" th:href="@{__$ADMIN_PATH__/categories/index(part=category-edit-form,id=${node.object.id})}" data-toggle="modal" data-target="#category-edit-modal"><span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Edit}">Edit</span></button>
-							<button class="btn btn-link wr-tree-option" th:href="@{__$ADMIN_PATH__/categories/index(part=category-create-form,parentId=${node.object.id})}" data-toggle="modal" data-target="#category-create-modal"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{Add}">Add</span></button>
-							<button class="btn btn-link wr-tree-option" th:href="@{__$ADMIN_PATH__/categories/index(part=category-delete-form,id=${node.object.id})}" data-toggle="modal" data-target="#category-delete-modal"><span class="glyphicon glyphicon-remove"></span></button>
+							<span class="badge wr-tree-option" th:text="">16</span>
+							<button class="btn btn-link wr-tree-option" th:href="" data-toggle="modal" data-target="#category-edit-modal"><span class="glyphicon glyphicon-pencil"></span> <span th:text="">Edit</span></button>
+							<button class="btn btn-link wr-tree-option" th:href="" data-toggle="modal" data-target="#category-create-modal"><span class="glyphicon glyphicon-plus"></span> <span th:text="">Add</span></button>
+							<button class="btn btn-link wr-tree-option" th:href="" data-toggle="modal" data-target="#category-delete-modal"><span class="glyphicon glyphicon-remove"></span></button>
 						</div>
 					</div>
-					<ul th:unless="${#lists.isEmpty(node.children)}" th:include="category/index::category(${node.children})"></ul>
+					<ul th:unless="" th:include=""></ul>
 				</li>
 			</ul>
 			<!-- #category-create-modal -->
 			<div id="category-create-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
 				<div id="category-create-dialog" class="modal-dialog">
 					<div class="modal-content">
-						<form th:fragment="category-create-form">
+						<form th:fragment="">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-								<h4 class="modal-title" th:text="#{AddNewCategory}">Add New Category</h4>
+								<h4 class="modal-title" th:text="">Add New Category</h4>
 							</div>
 							<div class="modal-body">
 								<div class="form-group">
 									<select name="parentId" class="form-control">
-										<option value="" th:text="#{SelectParentCategory}">Select Parent Category</option>
-										<option th:each="category : ${#categories.getAllCategories(true)}" th:value="${category.id}" th:text="${category.name}" th:selected="${category.id eq parentId}"></option>
+										<option value="" th:text="">Select Parent Category</option>
+										<option th:each="" th:value="" th:text="" th:selected=""></option>
 									</select>
 								</div>
 								<div class="form-group">
-									<input type="text" name="name" class="form-control" th:attr="placeholder=#{CategoryName}" />
+									<input type="text" name="name" class="form-control" th:attr="" />
 								</div>
 								<div class="form-group">
-									<span th:text="${WEBSITE_LINK + '/category/'}">http://wallride.org/category/</span>
-									<input type="text" name="code" class="form-control input-sm wr-code" th:attr="placeholder=#{URLPath}" />
+									<span th:text="">http://wallride.org/category/</span>
+									<input type="text" name="code" class="form-control input-sm wr-code" th:attr="" />
 								</div>
 								<div class="form-group">
-									<textarea name="description" class="form-control" th:attr="placeholder=#{Description}" style="min-height: 100px"></textarea>
+									<textarea name="description" class="form-control" th:attr="" style="min-height: 100px"></textarea>
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
-								<button class="btn btn-primary" id="save-category" th:text="#{Save}">Save</button>
+								<button class="btn btn-default" data-dismiss="modal" th:text="">Cancel</button>
+								<button class="btn btn-primary" id="save-category" th:text="">Save</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
 			<!--/#category-create-modal -->
-			<script th:inline="javascript">
+			<script th:inline="">
 				$(function() {
 					$('#wr-page-content').on('click', '#save-category', function(e) {
 						e.preventDefault();
@@ -138,39 +138,39 @@
 			<div id="category-edit-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
 				<div id="category-edit-dialog" class="modal-dialog">
 					<div class="modal-content">
-						<form th:fragment="category-edit-form" th:if="${category}">
+						<form th:fragment="" th:if="">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-								<h4 class="modal-title" th:text="#{EditCategory}">Edit Category</h4>
+								<h4 class="modal-title" th:text="">Edit Category</h4>
 							</div>
 							<div class="modal-body">
 								<div class="form-group">
 									<select name="parentId" class="form-control">
-										<option value="" th:text="#{SelectParentCategory}">Select Parent Category</option>
-										<option th:each="parent : ${#categories.getAllCategories(true)}" th:if="${parent ne category}" th:value="${parent.id}" th:text="${parent.name}" th:selected="${parent eq category.parent}"></option>
+										<option value="" th:text="">Select Parent Category</option>
+										<option th:each="" th:if="" th:value="" th:text="" th:selected=""></option>
 									</select>
 								</div>
 								<div class="form-group">
-									<input type="text" name="name" th:value="${category.name}" class="form-control" th:attr="placeholder=#{CategoryName}" placeholder="Category Name" />
+									<input type="text" name="name" th:value="" class="form-control" th:attr="" placeholder="Category Name" />
 								</div>
 								<div class="form-group">
-									<span th:text="${WEBSITE_LINK + '/category/'}">http://wallride.org/category/</span>
-									<input type="text" name="code" th:value="${category.code}" class="form-control input-sm wr-code" th:attr="placeholder=#{URLPath}" placeholder="URLパス" />
+									<span th:text="">http://wallride.org/category/</span>
+									<input type="text" name="code" th:value="" class="form-control input-sm wr-code" th:attr="" placeholder="URLパス" />
 								</div>
 								<div class="form-group">
-									<textarea name="description" class="form-control" th:attr="placeholder=#{Description}" placeholder="Description" style="min-height: 100px" th:text="${category.description}"></textarea>
+									<textarea name="description" class="form-control" th:attr="" placeholder="Description" style="min-height: 100px" th:text=""></textarea>
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
-								<button id="update-category" class="btn btn-primary" th:text="#{Save}" th:attr="data-id=${category.id}">Save</button>
+								<button class="btn btn-default" data-dismiss="modal" th:text="">Cancel</button>
+								<button id="update-category" class="btn btn-primary" th:text="" th:attr="">Save</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
 			<!--/#category-edit-modal -->
-			<script th:inline="javascript">
+			<script th:inline="">
 				$(function() {
 					$('#wr-page-content').on('click', '#update-category', function(e) {
 						e.preventDefault();
@@ -211,7 +211,7 @@
 			<div id="category-delete-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
 				<div id="category-delete-dialog" class="modal-dialog">
 					<div class="modal-content">
-						<form th:fragment="category-delete-form">
+						<form th:fragment="">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 								<h4 class="modal-title">Delete Category</h4>
@@ -221,14 +221,14 @@
 							</div>
 							<div class="modal-footer">
 								<button class="btn btn-default">Cancel</button>
-								<button id="delete-category" class="btn btn-primary" th:attr="data-id=${targetId}">Delete</button>
+								<button id="delete-category" class="btn btn-primary" th:attr="">Delete</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
 			<!--/#category-delete-modal -->
-			<script th:inline="javascript">
+			<script th:inline="">
 				$(function() {
 					$('#category-tree').nestedSortable({
 						forcePlaceholderSize: true,

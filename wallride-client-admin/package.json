@@ -26,7 +26,7 @@
       "bootstrap": "github:twbs/bootstrap@3.3.1",
       "css": "github:systemjs/plugin-css@^0.1.26",
       "jquery": "npm:jquery@2.2.4",
-      "nylen/shiftcheckbox": "github:nylen/shiftcheckbox@^0.8.0",
+      "nylen/shiftcheckbox": "github:nylen/shiftcheckbox@0.8.0",
       "riot": "npm:riot@^2.5.0",
       "select2": "github:select2/select2@3.5.3",
       "tag": "npm:systemjs-riot@^1.4.2"
@@ -69,6 +69,24 @@
       "zlib": "github:jspm/nodelibs-zlib@^0.2.0-alpha"
     },
     "overrides": {
+      "github:nylen/shiftcheckbox@0.8.0": {
+        "main": "jquery.shiftcheckbox",
+        "files": [
+          "jquery.shiftcheckbox.js"
+        ],
+        "dependencies": {
+          "jquery": "*"
+        },
+        "meta": {
+          "jquery.shiftcheckbox.js": {
+            "deps": [
+              "jquery"
+            ],
+            "exports": "$",
+            "format": "global"
+          }
+        }
+      },
       "github:select2/select2@3.5.3": {
         "files": [
           "*.js",
@@ -162,4 +180,5 @@
       }
     }
   }
-}
+}
+

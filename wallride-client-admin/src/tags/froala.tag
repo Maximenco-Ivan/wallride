@@ -1,5 +1,5 @@
 <froala>
-    <script th:fragment="setting(selector)" th:inline="javascript">
+    <script th:fragment="" th:inline="">
         /*<![CDATA[*/
         $(function () {
             var ms = [

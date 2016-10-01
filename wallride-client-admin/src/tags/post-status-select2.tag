@@ -1,9 +1,9 @@
 <post-status-select2>
-	<select th:field="*{status}" class="select2" th:placeholder="#{Status}">
+	<select th:field="" class="select2" th:placeholder="">
 		<option value=""></option>
-		<option th:value="PUBLISHED"><span th:text="#{Post.Status.PUBLISHED}">Published</span> <span th:text="">(0)</span></option>
-		<option th:value="SCHEDULED"><span th:text="#{Post.Status.SCHEDULED}">Published</span> <span th:text="">(0)</span></option>
-		<option th:value="DRAFT"><span th:text="#{Post.Status.DRAFT}">Published</span> <span th:text="">(0)</span></option>
+		<option th:value=""><span th:text="">Published</span> <span th:text="">(0)</span></option>
+		<option th:value=""><span th:text="">Published</span> <span th:text="">(0)</span></option>
+		<option th:value=""><span th:text="">Published</span> <span th:text="">(0)</span></option>
 	</select>
 	<script>
 		this.on('mount', () => {

@@ -1,47 +1,47 @@
 <signup>
     <div class="container">
-        <form th:action="@{/_admin/signup}" th:object="${form}" method="post" class="form-horizontal form-signup" role="form">
-            <input type="hidden" th:field="*{token}" />
+        <form th:action="" th:object="" method="post" class="form-horizontal form-signup" role="form">
+            <input type="hidden" th:field="" />
             <div class="page-header">
-                <h1><span th:text="#{Signup}">Signup</span> <small th:text="${WEBSITE_TITLE}">WallRide</small></h1>
+                <h1><span th:text="">Signup</span> <small th:text="">WallRide</small></h1>
             </div>
-            <p class="alert alert-danger" th:if="${#fields.hasErrors('all')}" th:text="#{Error}">Error</p>
+            <p class="alert alert-danger" th:if="" th:text="">Error</p>
             <fieldset>
-                <div class="form-group" th:classappend="${#fields.hasErrors('email')}? has-error">
-                    <label class="col-sm-2 control-label" th:text="#{Email}">E-mail</label>
+                <div class="form-group" th:classappend="">
+                    <label class="col-sm-2 control-label" th:text="">E-mail</label>
                     <div class="col-sm-5">
-                        <input type="text" th:field="*{email}" class="form-control" th:attr="placeholder=#{Email}" autocomplete="off" />
-                        <span class="help-block" th:each="err : ${#fields.errors('email')}" th:text="${err}" />
+                        <input type="text" th:field="" class="form-control" th:attr="" autocomplete="off" />
+                        <span class="help-block" th:each="" th:text="" />
                     </div>
                 </div>
-                <div class="form-group" th:classappend="${#fields.hasErrors('loginId')}? has-error">
-                    <label class="col-sm-2 control-label" th:text="#{LoginId}">Login ID</label>
+                <div class="form-group" th:classappend="">
+                    <label class="col-sm-2 control-label" th:text="">Login ID</label>
                     <div class="col-sm-5">
-                        <input type="text" th:field="*{loginId}" class="form-control" th:attr="placeholder=#{LoginId}" autocomplete="off" />
-                        <span class="help-block" th:each="err : ${#fields.errors('loginId')}" th:text="${err}" />
+                        <input type="text" th:field="" class="form-control" th:attr="" autocomplete="off" />
+                        <span class="help-block" th:each="" th:text="" />
                     </div>
                 </div>
-                <div class="form-group" th:classappend="${#fields.hasErrors('loginPassword')}? has-error">
-                    <label class="col-sm-2 control-label" th:text="#{Password}">Password</label>
+                <div class="form-group" th:classappend="">
+                    <label class="col-sm-2 control-label" th:text="">Password</label>
                     <div class="col-sm-5">
-                        <input type="password" th:field="*{loginPassword}" class="form-control" th:attr="placeholder=#{Password}" placeholder="Password" autocomplete="off" />
-                        <span class="help-block" th:each="err : ${#fields.errors('loginPassword')}" th:text="${err}" />
+                        <input type="password" th:field="" class="form-control" th:attr="" placeholder="Password" autocomplete="off" />
+                        <span class="help-block" th:each="" th:text="" />
                     </div>
                 </div>
-                <div class="form-group" th:classappend="${#fields.hasErrors('name.*')}? has-error">
-                    <label class="col-sm-2 control-label" th:text="#{Name}">Name</label>
+                <div class="form-group" th:classappend="">
+                    <label class="col-sm-2 control-label" th:text="">Name</label>
                     <div class="col-sm-5">
-                        <input type="text" th:field="*{name.firstName}" placeholder="First Name" th:attr="placeholder=#{FirstName}" class="form-control" />
-                        <span class="help-block" th:each="err : ${#fields.errors('name.firstName')}" th:text="${err}" />
+                        <input type="text" th:field="" placeholder="First Name" th:attr="" class="form-control" />
+                        <span class="help-block" th:each="" th:text="" />
                     </div>
                     <div class="col-sm-5">
-                        <input type="text" th:field="*{name.lastName}" placeholder="Last Name" th:attr="placeholder=#{LastName}" class="form-control" />
-                        <span class="help-block" th:each="err : ${#fields.errors('name.lastName')}" th:text="${err}" />
+                        <input type="text" th:field="" placeholder="Last Name" th:attr="" class="form-control" />
+                        <span class="help-block" th:each="" th:text="" />
                     </div>
                 </div>
             </fieldset>
             <br/>
-            <button class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> <span th:text="#{Signup}">Signup</span></button>
+            <button class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> <span th:text="">Signup</span></button>
         </form>
     </div>
     <style>

@@ -1,11 +1,11 @@
 <login xmlns:th="http://www.thymeleaf.org">
 	<div class="container">
-		<form th:action="@{login}" action="dashboard.html" th:method="post" method="get" class="form-signin" onsubmit="{ submit }">
-			<h2 th:text="${WEBSITE_TITLE}" class="form-signin-heading">WallRide</h2>
-			<input type="text" name="username" class="form-control" th:attr="placeholder=#{UserName}" autofocus="autofocus" autocomplete="off" />
-			<input type="password" name="password" class="form-control" th:attr="placeholder=#{Password}" autocomplete="off" />
-			<label class="checkbox"> <input type="checkbox" name="remember-me" th:text="#{RememberMe}"/>Remember me</label>
-			<button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{LogIn}">Log in</button>
+		<form th:action="" action="dashboard.html" th:method="" method="get" class="form-signin" onsubmit="{ submit }">
+			<h2 th:text="" class="form-signin-heading">WallRide</h2>
+			<input type="text" name="username" class="form-control" th:attr="" autofocus="autofocus" autocomplete="off" />
+			<input type="password" name="password" class="form-control" th:attr="" autocomplete="off" />
+			<label class="checkbox"> <input type="checkbox" name="remember-me" th:text=""/>Remember me</label>
+			<button class="btn btn-lg btn-primary btn-block" type="submit" th:text="">Log in</button>
 		</form>
 	</div>
 	<script>

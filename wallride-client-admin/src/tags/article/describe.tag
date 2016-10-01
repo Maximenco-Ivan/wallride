@@ -4,41 +4,41 @@
             <div class="row">
                 <div class="col-sm-9">
                     <div class="pull-left back">
-                        <a class="btn btn-sm btn-default" th:href="@{__$ADMIN_PATH__/articles/index(query=${query})}"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                        <a class="btn btn-sm btn-default" th:href=""><span class="glyphicon glyphicon-arrow-left"></span></a>
                     </div>
                     <div class="pull-left">
-                        <h1 th:text="${article.title}?:'(No Titled)'">(No Titled)</h1>
-                        <p class="small"><a th:href="@{__${WEBSITE_PATH}____${#posts.path(article)}__}" th:text="@{__${WEBSITE_PATH}____${#posts.path(article)}__}" th:if="${#strings.toString(article.status) eq 'PUBLISHED'}" target="_blank"></a></p>
+                        <h1 th:text="">(No Titled)</h1>
+                        <p class="small"><a th:href="" th:text="" th:if="" target="_blank"></a></p>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="pull-left">
                         <div class="tools clearfix">
                             <div class="status">
-                                <span th:if="${#strings.toString(article.status) eq 'DRAFT'}" class="glyphicon glyphicon-warning-sign"></span>
-                                <span th:if="${#strings.toString(article.status) eq 'SCHEDULED'}" class="glyphicon glyphicon-time"></span>
-                                <span th:if="${#strings.toString(article.status) ne 'PUBLISHED'}" th:text="${#messages.msg('Post.Status.' + article.status)}">Published</span>
-                                <a th:href="@{__${WEBSITE_PATH}____${#posts.path(article)}__}" th:if="${#strings.toString(article.status) eq 'PUBLISHED'}" target="_blank">
+                                <span th:if="" class="glyphicon glyphicon-warning-sign"></span>
+                                <span th:if="" class="glyphicon glyphicon-time"></span>
+                                <span th:if="" th:text="">Published</span>
+                                <a th:href="" th:if="" target="_blank">
                                     <span class="glyphicon glyphicon-globe"></span>
-                                    <span th:text="${#messages.msg('Post.Status.' + article.status)}">Published</span>
+                                    <span th:text="">Published</span>
                                 </a>
                             </div>
-                            <p class="small"><span th:if="${article.date ne null}" th:text="${#temporals.format(article.date, 'yyyy/MM/dd HH:mm')}"></span></p>
+                            <p class="small"><span th:if="" th:text=""></span></p>
                         </div>
                     </div>
                     <div class="pull-right">
                         <div class="btn-group">
-                            <div th:classappend="${prev eq null}?'disabled'" class="previous">
-                                <a class="btn btn-default" th:href="${prev ne null} ? @{__$ADMIN_PATH__/articles/describe(id=${prev},query=${query})} : '#'"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                            <div th:classappend="" class="previous">
+                                <a class="btn btn-default" th:href=""><span class="glyphicon glyphicon-chevron-left"></span></a>
                             </div>
                         </div>
                         <div class="btn-group">
-                            <div th:classappend="${next eq null}?'disabled'" class="next">
-                                <a class="btn btn-default" th:href="${next ne null} ? @{__$ADMIN_PATH__/articles/describe(id=${next},query=${query})} : '#'"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                            <div th:classappend="" class="next">
+                                <a class="btn btn-default" th:href=""><span class="glyphicon glyphicon-chevron-right"></span></a>
                             </div>
                         </div>
                         <div class="btn-group">
-                            <a th:href="@{__$ADMIN_PATH__/articles/edit(id=${article.id},query=${query})}" type="button" class="btn btn-info" th:text="#{Edit}">Edit</a>
+                            <a th:href="" type="button" class="btn btn-info" th:text="">Edit</a>
                         </div>
                     </div>
                 </div>
@@ -47,96 +47,96 @@
     </div>
     <div id="wr-page-content">
         <div class="container-fluid">
-            <div class="row" th:if="${article ne null}">
+            <div class="row" th:if="">
                 <div class="col-sm-9 wr-describe-main">
-                    <div class="alert alert-success" th:if="${savedArticle ne null}">
+                    <div class="alert alert-success" th:if="">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <span th:text="#{SavedArticle}">Article saved.</span>
+                        <span th:text="">Article saved.</span>
                     </div>
                     <div>
-                        <img th:if="${article.cover ne null}" th:src="@{${#medias.link(article.cover)}(w=1200,h=500,m=1)}" class="wr-post-cover" />
+                        <img th:if="" th:src="" class="wr-post-cover" />
                     </div>
                     <div class="wr-post-body clearfix">
-                        <p th:utext="${#posts.body(article)}"></p>
+                        <p th:utext=""></p>
                     </div>
                     <hr/>
-                    <p><span class="glyphicon glyphicon-user"></span> Created By <a th:href="@{__$ADMIN_PATH__/users/describe(id=${article.author.id})}" th:text="${article.author}">Author</a></p>
+                    <p><span class="glyphicon glyphicon-user"></span> Created By <a th:href="" th:text="">Author</a></p>
                 </div>
                 <div class="col-sm-3 wr-tool-panel">
                     <dl class="tools clearfix">
-                        <dt th:text="#{Categories}">Categories</dt>
+                        <dt th:text="">Categories</dt>
                         <dd>
                             <ul class="list-unstyled list-inline">
-                                <li th:each="category : ${article.categories}"><a th:href="@{__$ADMIN_PATH__/articles/index(categoryId=${category.id})}" th:text="${category.name}">Category Name</a></li>
+                                <li th:each=""><a th:href="" th:text="">Category Name</a></li>
                             </ul>
                         </dd>
                     </dl>
                     <dl class="wr-tags">
-                        <dt th:text="#{Tags}">Tags</dt>
+                        <dt th:text="">Tags</dt>
                         <dd>
                             <ul class="list-unstyled list-inline list-inline-tag">
-                                <li th:each="tag : ${article.tags}"><a th:href="@{__$ADMIN_PATH__/articles/index(tagId=${tag.id})}"><span class="label label-default"><span class="glyphicon glyphicon-tag"></span> <span th:text="${tag.name}"></span></span></a></li>
+                                <li th:each=""><a th:href=""><span class="label label-default"><span class="glyphicon glyphicon-tag"></span> <span th:text=""></span></span></a></li>
                             </ul>
                         </dd>
                     </dl>
                     <dl>
-                        <dt th:text="#{RelatedPosts}">Related Posts</dt>
+                        <dt th:text="">Related Posts</dt>
                         <dd>
                             <ul class="list-unstyled">
-                                <li th:each="relatedPost : ${article.relatedToPosts}"><a th:href="@{__$ADMIN_PATH__/posts/describe(id=${relatedPost.id})}"><span class="glyphicon glyphicon-link"></span> <span th:text="${relatedPost.title}"></span></a></li>
+                                <li th:each=""><a th:href=""><span class="glyphicon glyphicon-link"></span> <span th:text=""></span></a></li>
                             </ul>
                         </dd>
                     </dl>
                     <dl>
-                        <dt th:text="#{Seo}">SEO</dt>
+                        <dt th:text="">SEO</dt>
                         <dd>
                             <dl>
-                                <dt th:text="#{SeoTitle}">Title</dt>
-                                <dd th:text="${article.seo}? ${article.seo.title}"></dd>
-                                <dt th:text="#{SeoDescription}">Description</dt>
-                                <dd th:text="${article.seo}? ${article.seo.description}"></dd>
-                                <dt th:text="#{SeoKeywords}">Keywords</dt>
-                                <dd th:text="${article.seo}? ${article.seo.keywords}"></dd>
+                                <dt th:text="">Title</dt>
+                                <dd th:text=""></dd>
+                                <dt th:text="">Description</dt>
+                                <dd th:text=""></dd>
+                                <dt th:text="">Keywords</dt>
+                                <dd th:text=""></dd>
                             </dl>
                         </dd>
                     </dl>
-                    <dl th:each="fieldValue : ${article.customFieldValues}">
-                        <dt th:unless="${fieldValue.isEmpty()}" th:text="${fieldValue.customField.name}"></dt>
-                        <dd th:switch="${#strings.toString(fieldValue.customField.fieldType)}">
-                            <span th:case="'TEXT'" th:text="${fieldValue.stringValue}"></span>
-                            <span th:case="'SELECTBOX'" th:text="${fieldValue.stringValue}"></span>
-                            <span th:case="'CHECKBOX'" th:text="${fieldValue.textValue}"></span>
-                            <span th:case="'RADIO'" th:text="${fieldValue.stringValue}"></span>
-                            <span th:case="'TEXTAREA'" th:text="${fieldValue.textValue}"></span>
-                            <span th:case="'HTML'" th:utext="${fieldValue.textValue}"></span>
-                            <span th:case="'DATE'" th:text="${fieldValue.dateValue}"></span>
-                            <span th:case="'DATETIME'" th:text="${fieldValue.datetimeValue}"></span>
-                            <span th:case="'NUMBER'" th:text="${fieldValue.numberValue}"></span>
+                    <dl th:each="">
+                        <dt th:unless="" th:text=""></dt>
+                        <dd th:switch="">
+                            <span th:case="" th:text=""></span>
+                            <span th:case="" th:text=""></span>
+                            <span th:case="" th:text=""></span>
+                            <span th:case="" th:text=""></span>
+                            <span th:case="" th:text=""></span>
+                            <span th:case="" th:utext=""></span>
+                            <span th:case="" th:text=""></span>
+                            <span th:case="" th:text=""></span>
+                            <span th:case="" th:text=""></span>
                         </dd>
                     </dl>
-                    <a th:href="@{__$ADMIN_PATH__/articles/describe(part=delete-form,id=${article.id},query=${query})}" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> <span th:text="#{DeleteArticle}">記事を削除</span></a>
+                    <a th:href="" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> <span th:text="">記事を削除</span></a>
                     <!-- #delete-modal -->
                     <div id="delete-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
                         <div id="delete-dialog" class="modal-dialog">
                             <div class="modal-content">
-                                <form th:fragment="delete-form" th:action="@{__$ADMIN_PATH__/articles/delete(id=${article.id},query=${query})}" method="post">
+                                <form th:fragment="" th:action="" method="post">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" th:text="#{DeleteArticle}">Delete Article</h4>
+                                        <h4 class="modal-title" th:text="">Delete Article</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <p th:text="#{MakeSureDelete}">Are you sure you want to delete?</p>
+                                        <p th:text="">Are you sure you want to delete?</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
-                                        <button class="btn btn-primary" th:text="#{Delete}">Delete</button>
+                                        <button class="btn btn-default" data-dismiss="modal" th:text="">Cancel</button>
+                                        <button class="btn btn-primary" th:text="">Delete</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                     <!--/#delete-modal -->
-                    <script th:inline="javascript">
+                    <script th:inline="">
                         // <![CDATA[
                         $(function() {
                             $('#delete-modal').on('hidden.bs.modal', function() {
@@ -147,7 +147,7 @@
                         // ]]>
                     </script>
                 </div>
-                <div class="alert alert-warning" th:unless="${article ne null}">
+                <div class="alert alert-warning" th:unless="">
                     <strong>Not Found.</strong> May be deleted.
                 </div>
             </div>

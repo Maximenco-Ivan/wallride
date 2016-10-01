@@ -2,16 +2,16 @@
     <div id="wr-page-header">
         <div class="page-header container-fluid">
             <div class="pull-left">
-                <h1 th:text="#{CustomFields}">CustomFields</h1>
+                <h1 th:text="">CustomFields</h1>
             </div>
             <div class="pull-right">
                 <div class="btn-group">
-                    <button id="sort-order" class="btn btn-sm btn-default" data-loading-text="saving..." th:unless="${#lists.isEmpty(customFields)}" th:text="#{SortOrder}">Save Order</button>
+                    <button id="sort-order" class="btn btn-sm btn-default" data-loading-text="saving..." th:unless="" th:text="">Save Order</button>
                 </div>
                 <div class="btn-group">
-                    <button id="update-order" type="submit" class="btn btn-sm btn-primary hide" data-loading-text="saving..." th:unless="${#lists.isEmpty(customFields)}" th:text="#{SaveOrder}">Save Order</button>
+                    <button id="update-order" type="submit" class="btn btn-sm btn-primary hide" data-loading-text="saving..." th:unless="" th:text="">Save Order</button>
                 </div>
-                <script th:inline="javascript">
+                <script th:inline="">
                     // <![CDATA[
                     $(function() {
                         $('#sort-order').on('click', function (e) {
@@ -51,7 +51,7 @@
                     // ]]>
                 </script>
                 <div class="btn-group">
-                    <a th:href="@{__$ADMIN_PATH__/customfields/create(query=${query})}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewCustomField}">Add New</span></a>
+                    <a th:href="" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span> <span th:text="">Add New</span></a>
                 </div>
             </div>
         </div>
@@ -60,8 +60,8 @@
         <section class="search-condition">
             <div class="navbar">
                 <div class="container-fluid">
-                    <form id="search-form" class="navbar-form navbar-left" method="get" th:action="@{__$ADMIN_PATH__/customfields/index}" th:object="${form}">
-                        <input type="text" name="keyword" th:value="*{keyword}" class="form-control" th:attr="placeholder=#{Keywords}"/>
+                    <form id="search-form" class="navbar-form navbar-left" method="get" th:action="" th:object="">
+                        <input type="text" name="keyword" th:value="" class="form-control" th:attr=""/>
                         <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                     </form>
                 </div>
@@ -69,33 +69,33 @@
         </section>
 
         <div class="container-fluid">
-            <div id="message-deleted" class="alert alert-success" th:if="${deletedCustomField ne null}">
+            <div id="message-deleted" class="alert alert-success" th:if="">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <span th:text="#{DeletedCustomField}">CustomField Deleted.</span>
+                <span th:text="">CustomField Deleted.</span>
             </div>
-            <div id="message-deleted multiple" class="alert alert-success" th:if="${deletedCustomFields ne null}">
+            <div id="message-deleted multiple" class="alert alert-success" th:if="">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <span th:text="#{DeletedCustomFields}">CustomFields Deleted.</span>
+                <span th:text="">CustomFields Deleted.</span>
             </div>
-            <div id="message-saved" class="alert alert-success" th:if="${savedCustomField ne null}">
+            <div id="message-saved" class="alert alert-success" th:if="">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <span th:text="#{SavedCustomField}">CustomFields saved.</span>
+                <span th:text="">CustomFields saved.</span>
             </div>
             <section class="search-result">
                 <form method="post">
                     <div class="search-result-header clearfix">
                         <div class="btn-toolbar pull-left">
                             <div class="wr-bulk-action btn-group">
-                                <a th:href="@{__$ADMIN_PATH__/customfields/index(part=bulk-delete-form,query=${query})}" data-toggle="modal" data-target="#bulk-delete-modal" class="btn btn-default disabled"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a th:href="" data-toggle="modal" data-target="#bulk-delete-modal" class="btn btn-default disabled"><span class="glyphicon glyphicon-trash"></span></a>
                             </div>
                         </div>
                         <div class="pagination-group pull-right">
-                            <div class="pull-left pagination-summary"><span th:text="${pagination.numberOfFirstElement}"></span> - <span th:text="${pagination.numberOfLastElement}"></span> / <span th:text="${pagination.totalElements}"></span></div>
+                            <div class="pull-left pagination-summary"><span th:text=""></span> - <span th:text=""></span> / <span th:text=""></span></div>
                             <div class="pull-right">
                                 <ul class="pagination paginateon-sm">
-                                    <li th:classappend="${pagination.hasPreviousPage() ? '' : 'disabled'}"><a th:href="@{${pagination.url}(page=${pagination.previousPageNumber})}" th:text="#{Prev}">Prev</a></li>
-                                    <li th:each="p : ${pagination.getPageables(pageable)}" th:classappend="${p.pageNumber eq pagination.currentPageNumber ? 'active' : ''}"><a th:href="@{${pagination.url}(page=${p.pageNumber})}" th:text="${p.pageNumber + 1}"></a></li>
-                                    <li th:classappend="${pagination.hasNextPage() ? '' : 'disabled'}"><a th:href="@{${pagination.url}(page=${pagination.nextPageNumber})}" th:text="#{Next}">Next</a></li>
+                                    <li th:classappend=""><a th:href="" th:text="">Prev</a></li>
+                                    <li th:each="" th:classappend=""><a th:href="" th:text=""></a></li>
+                                    <li th:classappend=""><a th:href="" th:text="">Next</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -105,30 +105,30 @@
                             <thead>
                                 <tr>
                                     <th class="wr-tr-checkbox" style="width:40px"><input type="checkbox"/></th>
-                                    <th th:text="#{FieldName}">FieldName</th>
-                                    <th th:text="#{Code}">FieldName</th>
-                                    <th th:text="#{Description}">Description</th>
-                                    <th th:text="#{FieldType}">FieldType</th>
-                                    <th th:text="#{FieldOption}">FieldOption</th>
-                                    <!--<th th:text="#{Screen}">Screen</th>-->
+                                    <th th:text="">FieldName</th>
+                                    <th th:text="">FieldName</th>
+                                    <th th:text="">Description</th>
+                                    <th th:text="">FieldType</th>
+                                    <th th:text="">FieldOption</th>
+                                    <!--<th th:text="">Screen</th>-->
                                     <th class="text-center"></th>
                                 </tr>
                             </thead>
                             <tbody class="sortable">
-                                <tr th:id="${customfield.id}" th:each="customfield : ${customFields}">
-                                    <td class="wr-tr-checkbox" style="width:40px"><input type="checkbox" name="ids" th:value="${customfield.id}" /></td>
-                                    <td th:text="${customfield.name}">Title</td>
-                                    <td th:text="${customfield.code}">Title</td>
-                                    <td th:text="${customfield.description ne null ? customfield.description : ''}">2013/10/24</td>
-                                    <td th:text="${#messages.msg('CustomField.FieldType.' + customfield.fieldType)}"></td>
-                                    <td th:text="${#strings.setJoin(customfield.options, '&nbsp;,&nbsp;')}"></td>
-                                    <!--<td><a th:if="${customfield.screen ne null}" th:text="${customfield.author.name}">Author</a></td>-->
-                                    <td class="text-center"><a th:attr="href=@{__$ADMIN_PATH__/customfields/edit(id=${customfield.id},query=${query})}"><span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Edit}">Edit</span></a></td>
+                                <tr th:id="" th:each="">
+                                    <td class="wr-tr-checkbox" style="width:40px"><input type="checkbox" name="ids" th:value="" /></td>
+                                    <td th:text="">Title</td>
+                                    <td th:text="">Title</td>
+                                    <td th:text="">2013/10/24</td>
+                                    <td th:text=""></td>
+                                    <td th:text=""></td>
+                                    <!--<td><a th:if="" th:text="">Author</a></td>-->
+                                    <td class="text-center"><a th:attr=""><span class="glyphicon glyphicon-pencil"></span> <span th:text="">Edit</span></a></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <script th:inline="javascript">
+                    <script th:inline="">
                         // <![CDATA[
                         $(function () {
                             $('#wr-page-content .search-result').on('click', '[data-href]', function (e) {
@@ -176,27 +176,27 @@
                     <!-- #bulk-delete-modal -->
                     <div id="bulk-delete-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
                         <div id="bulk-delete-dialog" class="modal-dialog">
-                            <div th:fragment="bulk-delete-form" class="modal-content">
+                            <div th:fragment="" class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title" th:text="#{DeleteCustomField}">Delete CustomFields</h4>
+                                    <h4 class="modal-title" th:text="">Delete CustomFields</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <p th:text="#{MakeSureDelete}">Are you sure you want to delete?</p>
+                                    <p th:text="">Are you sure you want to delete?</p>
                                     <div class="checkbox">
-                                        <label><input type="checkbox" name="confirmed" value="true"/> <span th:text="#{Confirm}">Confirm</span></label>
+                                        <label><input type="checkbox" name="confirmed" value="true"/> <span th:text="">Confirm</span></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
-                                    <button class="btn btn-primary" id="delete-custom-field" th:attr="data-action=@{__$ADMIN_PATH__/customfields/bulk-delete(query=${query})}" disabled="true" th:text="#{Delete}">Delete</button>
+                                    <button class="btn btn-default" data-dismiss="modal" th:text="">Cancel</button>
+                                    <button class="btn btn-primary" id="delete-custom-field" th:attr="" disabled="true" th:text="">Delete</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!--/#bulk-delete-modal -->
                     <!--/#bulk-delete-modal -->
-                    <script th:inline="javascript">
+                    <script th:inline="">
                         // <![CDATA[
                         $(function() {
                             $('#bulk-delete-modal').on('change', ':input[name="confirmed"]', function() {

@@ -3,21 +3,21 @@
         <div id="wr-page-header">
             <div class="page-header container-fluid">
                 <div class="pull-left">
-                    <h1 th:text="${user.name}">Name</h1>
+                    <h1 th:text="">Name</h1>
                 </div>
                 <div class="pull-right">
                     <div class="btn-group">
-                        <div th:classappend="${prev eq null}?'disabled'" class="previous">
-                            <a class="btn btn-default" th:href="${prev ne null} ? @{__$ADMIN_PATH__/users/describe(id=${prev},query=${query})} : '#'"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                        <div th:classappend="" class="previous">
+                            <a class="btn btn-default" th:href=""><span class="glyphicon glyphicon-chevron-left"></span></a>
                         </div>
                     </div>
                     <div class="btn-group">
-                        <div th:classappend="${next eq null}?'disabled'" class="next">
-                            <a class="btn btn-default" th:href="${next ne null} ? @{__$ADMIN_PATH__/users/describe(id=${next},query=${query})} : '#'"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                        <div th:classappend="" class="next">
+                            <a class="btn btn-default" th:href=""><span class="glyphicon glyphicon-chevron-right"></span></a>
                         </div>
                     </div>
                     <div class="btn-group">
-                        <a th:href="@{__$ADMIN_PATH__/users/edit(id=${user.id},query=${query})}" title="編集" type="button" class="btn btn-info" th:text="#{Edit}">編集</a>
+                        <a th:href="" title="編集" type="button" class="btn btn-info" th:text="">編集</a>
                     </div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                     <div class="col-sm-12 describe">
                         <div style="margin-bottom: 15px ; position: relative;">
                             <div class="image-box">
-                                <img style="width:150px; border-radius: 50%" th:src="${user.getGravatarUrl(170)}" src="http://placehold.it/170/eeeeee/ffffff"/>
+                                <img style="width:150px; border-radius: 50%" th:src="" src="http://placehold.it/170/eeeeee/ffffff"/>
                                 <!--/*
                                 <div class="btn-group">
                                     <a href="#" type="button" class="btn btn-info" data-toggle="modal" data-target="#change-avatar-modal">Change Avatar</a>
@@ -38,30 +38,30 @@
                         </div>
                         <table class="table">
                             <tr>
-                                <th th:text="#{LoginId}">ログインID</th>
-                                <td th:text="${user.loginId}">ログインID</td>
+                                <th th:text="">ログインID</th>
+                                <td th:text="">ログインID</td>
                             </tr>
                             <tr>
                                 <th>URL</th>
-                                <td><a th:href="${#users.link(user)}" target="_blank"><span class="glyphicon glyphicon-share-alt"></span> <span th:text="${#users.link(user, false)}">http://</span></a></td>
+                                <td><a th:href="" target="_blank"><span class="glyphicon glyphicon-share-alt"></span> <span th:text="">http://</span></a></td>
                             </tr>
                             <tr>
-                                <th th:text="#{Nickname}">Nickname</th>
-                                <td th:text="${user.nickname}"></td>
+                                <th th:text="">Nickname</th>
+                                <td th:text=""></td>
                             </tr>
                             <tr>
-                                <th th:text="#{Email}">メールアドレス</th>
-                                <td th:text="${user.email}">メールアドレス</td>
+                                <th th:text="">メールアドレス</th>
+                                <td th:text="">メールアドレス</td>
                             </tr>
                             <tr>
                                 <th>プロフィール</th>
                                 <td>
-                                    <pre th:utext="${user.description}"></pre>
+                                    <pre th:utext=""></pre>
                                 </td>
                             </tr>
                             <tr>
-                                <th th:text="#{Posts}">投稿記事数</th>
-                                <td th:text="${articleCounts.get(user.id)}?:0">投稿記事数</td>
+                                <th th:text="">投稿記事数</th>
+                                <td th:text="">投稿記事数</td>
                             </tr>
                         </table>
                     </div>
@@ -71,7 +71,7 @@
         <div id="change-avatar-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
             <div id="change-avatar-dialog" class="modal-dialog">
                 <form method="post">
-                    <div th:fragment="change-avatar-form" class="modal-content">
+                    <div th:fragment="" class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title">Change Avatar</h4>
@@ -94,15 +94,15 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
-                            <button class="btn btn-primary" th:attr="data-action=@{__$ADMIN_PATH__/users/change-avatar(query=${query})}">Change</button>
+                            <button class="btn btn-default" data-dismiss="modal" th:text="">Cancel</button>
+                            <button class="btn btn-primary" th:attr="">Change</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
 
-        <script th:inline="javascript">
+        <script th:inline="">
             $(function () {
                 $('#change-avatar-modal .form-group input[type="text"]').hide().attr('disabled', 'true');
 

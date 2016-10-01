@@ -2,11 +2,11 @@
     <div id="wr-page-header">
         <div class="page-header container-fluid">
             <div class="pull-left">
-                <h1 th:text="#{Tags}">Tags</h1>
+                <h1 th:text="">Tags</h1>
             </div>
             <div class="pull-right">
                 <div class="btn-group">
-                    <a th:href="@{__$ADMIN_PATH__/tags/index(part=tag-create-form,query=${query})}" data-toggle="modal" data-target="#tag-create-modal" class="btn btn-primary btn-sm" style="margin-top: -3px;"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewTag}">Add New Tag</span></a>
+                    <a th:href="" data-toggle="modal" data-target="#tag-create-modal" class="btn btn-primary btn-sm" style="margin-top: -3px;"><span class="glyphicon glyphicon-plus"></span> <span th:text="">Add New Tag</span></a>
                 </div>
             </div>
         </div>
@@ -14,25 +14,25 @@
 
     <div id="wr-page-content">
         <div class="container-fluid">
-            <div class="alert alert-success" th:if="${savedTag ne null}">
+            <div class="alert alert-success" th:if="">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <span th:text="#{SavedTag}">Tag saved.</span>
+                <span th:text="">Tag saved.</span>
             </div>
-            <div class="alert alert-success" th:if="${deletedTags ne null}">
+            <div class="alert alert-success" th:if="">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <span th:text="#{DeletedTags}">Tags deleted.</span>
+                <span th:text="">Tags deleted.</span>
             </div>
-            <div class="alert alert-success" th:if="${mergedTag ne null}">
+            <div class="alert alert-success" th:if="">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <span th:text="#{MergedTags}">Tags merged.</span>
+                <span th:text="">Tags merged.</span>
             </div>
             <section class="search-condition">
                 <div class="search-condition-simple clearfix">
-                    <form class="form-inline" method="get" th:action="@{/_admin/__${language}__/tags/index}" th:object="${form}">
+                    <form class="form-inline" method="get" th:action="" th:object="">
                         <input type="submit" name="search" style="visibility:hidden; width:0; height:0;"/>
                         <div class="form-group pull-left">
                             <div class="input-group keyword-search">
-                                <input type="text" name="keyword" th:value="*{keyword}" class="form-control" th:attr="placeholder=#{Keywords}" />
+                                <input type="text" name="keyword" th:value="" class="form-control" th:attr="" />
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="submit" name="search"><span class="glyphicon glyphicon-search"></span></button>
                                 </span>
@@ -46,19 +46,19 @@
                     <div class="search-result-header clearfix">
                         <div class="btn-toolbar pull-left">
                             <div class="btn-group wr-bulk-action">
-                                <a th:href="@{__$ADMIN_PATH__/tags/index(part=bulk-delete-form,query=${query})}" data-toggle="modal" data-target="#bulk-delete-modal" class="btn btn-default disabled"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a th:href="" data-toggle="modal" data-target="#bulk-delete-modal" class="btn btn-default disabled"><span class="glyphicon glyphicon-trash"></span></a>
                             </div>
                             <div class="btn-group wr-merge-action">
-                                <a th:href="@{__$ADMIN_PATH__/tags/index(part=tag-merge-form,query=${query})}" data-toggle="modal" data-target="#merge-tag-modal" class="btn btn-default disabled" th:text="#{Merge}">Merge</a>
+                                <a th:href="" data-toggle="modal" data-target="#merge-tag-modal" class="btn btn-default disabled" th:text="">Merge</a>
                             </div>
                         </div>
                         <div class="pagination-group pull-right">
-                            <div class="pull-left pagination-summary"><span th:text="${pagination.numberOfFirstElement}"></span> - <span th:text="${pagination.numberOfLastElement}"></span> / <span th:text="${pagination.totalElements}"></span></div>
+                            <div class="pull-left pagination-summary"><span th:text=""></span> - <span th:text=""></span> / <span th:text=""></span></div>
                             <div class="pull-right">
                                 <ul class="pagination paginateon-sm">
-                                    <li th:classappend="${pagination.hasPreviousPage() ? '' : 'disabled'}"><a th:href="@{__$ADMIN_PATH__/tags/index(page=${pagination.previousPageNumber})}" th:text="#{Prev}">Prev</a></li>
-                                    <li th:each="p : ${pagination.getPageables(pageable)}" th:classappend="${p.pageNumber eq pagination.currentPageNumber ? 'active' : ''}"><a th:href="@{__$ADMIN_PATH__/tags/index(page=${p.pageNumber},size=${p.pageSize})}" th:text="${p.pageNumber + 1}"></a></li>
-                                    <li th:classappend="${pagination.hasNextPage() ? '' : 'disabled'}"><a th:href="@{__$ADMIN_PATH__/tags/index(page=${pagination.nextPageNumber})}" th:text="#{Next}">Next</a></li>
+                                    <li th:classappend=""><a th:href="" th:text="">Prev</a></li>
+                                    <li th:each="" th:classappend=""><a th:href="" th:text=""></a></li>
+                                    <li th:classappend=""><a th:href="" th:text="">Next</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -68,22 +68,22 @@
                             <thead>
                                 <tr>
                                     <th class="wr-tr-checkbox" style="width:40px"><input type="checkbox" /></th>
-                                    <th th:text="#{TagName}">Tag Name</th>
-                                    <th class="text-right" th:text="#{ArticleCount}">Count</th>
+                                    <th th:text="">Tag Name</th>
+                                    <th class="text-right" th:text="">Count</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="tag : ${tags}">
-                                    <td class="wr-tr-checkbox" style="width:40px"><input type="checkbox" name="ids" th:value="${tag.id}" /></td>
-                                    <td th:text="${tag.name}"></td>
-                                    <td class="text-right"><span class="badge wr-tree-option" th:text="${articleCounts.get(tag.id)}?:0">16</span></td>
-                                    <td class="text-center"><a th:href="@{__$ADMIN_PATH__/tags/index(part=tag-edit-form,id=${tag.id},query=${query})}" data-toggle="modal" data-target="#tag-edit-modal"><span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Edit}">Edit</span></a></td>
+                                <tr th:each="">
+                                    <td class="wr-tr-checkbox" style="width:40px"><input type="checkbox" name="ids" th:value="" /></td>
+                                    <td th:text=""></td>
+                                    <td class="text-right"><span class="badge wr-tree-option" th:text="">16</span></td>
+                                    <td class="text-center"><a th:href="" data-toggle="modal" data-target="#tag-edit-modal"><span class="glyphicon glyphicon-pencil"></span> <span th:text="">Edit</span></a></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <script th:inline="javascript">
+                    <script th:inline="">
                         // <![CDATA[
                         $(function() {
                             $('#wr-page-content .search-result').on('click', '[data-href]', function(e) {
@@ -122,26 +122,26 @@
                     <!-- #bulk-delete-modal -->
                     <div id="bulk-delete-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
                         <div id="bulk-delete-dialog" class="modal-dialog">
-                            <div th:fragment="bulk-delete-form" class="modal-content">
+                            <div th:fragment="" class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title" th:text="#{DeleteArticle}">Delete Articles</h4>
+                                    <h4 class="modal-title" th:text="">Delete Articles</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <p th:text="#{MakeSureDelete}">Are you sure you want to delete?</p>
+                                    <p th:text="">Are you sure you want to delete?</p>
                                     <div class="checkbox">
-                                        <label><input type="checkbox" name="confirmed" value="true" /> <span th:text="#{Confirm}">Confirm</span></label>
+                                        <label><input type="checkbox" name="confirmed" value="true" /> <span th:text="">Confirm</span></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
-                                    <button class="btn btn-primary" id="delete-tag" th:attr="data-action=@{__$ADMIN_PATH__/tags/bulk-delete(query=${query})}" disabled="true" th:text="#{Delete}">Delete</button>
+                                    <button class="btn btn-default" data-dismiss="modal" th:text="">Cancel</button>
+                                    <button class="btn btn-primary" id="delete-tag" th:attr="" disabled="true" th:text="">Delete</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!--/#bulk-delete-modal -->
-                    <script th:inline="javascript">
+                    <script th:inline="">
                         // <![CDATA[
                         $(function() {
                             $('#bulk-delete-modal').on('change', ':input[name="confirmed"]', function() {
@@ -163,26 +163,26 @@
                     <!-- #merge-tag-modal -->
                     <div id="merge-tag-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
                         <div id="merge-tag-dialog" class="modal-dialog">
-                            <div th:fragment="tag-merge-form" class="modal-content">
+                            <div th:fragment="" class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title" th:text="#{MergeTags}">Merge Tags</h4>
+                                    <h4 class="modal-title" th:text="">Merge Tags</h4>
                                 </div>
                                 <div class="modal-body">
                                     <div class="form-group">
-                                        <label th:text="#{MergedTagName}">Tag name of the merged</label>
-                                        <input type="text" name="name" class="form-control" th:placeholder="#{TagName}" />
+                                        <label th:text="">Tag name of the merged</label>
+                                        <input type="text" name="name" class="form-control" th:placeholder="" />
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
-                                    <button class="btn btn-primary" id="merge-tag" th:attr="data-action=@{__$ADMIN_PATH__/tags/merge(query=${query})}" th:text="#{Merge}">Merge</button>
+                                    <button class="btn btn-default" data-dismiss="modal" th:text="">Cancel</button>
+                                    <button class="btn btn-primary" id="merge-tag" th:attr="" th:text="">Merge</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- #merge-tag-modal -->
-                    <script th:inline="javascript">
+                    <script th:inline="">
                         // <![CDATA[
                         $(function() {
                             $('#merge-tag-modal').on('click', '#merge-tag', function(e) {
@@ -222,26 +222,26 @@
     <div id="tag-create-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div id="tag-create-dialog" class="modal-dialog">
             <div class="modal-content">
-                <form th:fragment="tag-create-form">
+                <form th:fragment="">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" th:text="#{AddNewTag}">Add New Tag</h4>
+                        <h4 class="modal-title" th:text="">Add New Tag</h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" name="name" class="form-control" th:attr="placeholder=#{TagName}" />
+                            <input type="text" name="name" class="form-control" th:attr="" />
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
-                        <button class="btn btn-primary" id="save-tag" th:text="#{Save}">Save</button>
+                        <button class="btn btn-default" data-dismiss="modal" th:text="">Cancel</button>
+                        <button class="btn btn-primary" id="save-tag" th:text="">Save</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <!--/#tag-create-modal -->
-    <script th:inline="javascript">
+    <script th:inline="">
         $(function() {
             $('#tag-create-modal').on('click', '#save-tag', function(e) {
                 e.preventDefault();
@@ -278,26 +278,26 @@
     <div id="tag-edit-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div id="tag-edit-dialog" class="modal-dialog">
             <div class="modal-content">
-                <form th:fragment="tag-edit-form" th:if="${tag}">
+                <form th:fragment="" th:if="">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" th:text="#{EditTag}">Edit Tag</h4>
+                        <h4 class="modal-title" th:text="">Edit Tag</h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" name="name" th:value="${tag.name}" class="form-control" th:attr="placeholder=#{TagName}" placeholder="Tag Name" />
+                            <input type="text" name="name" th:value="" class="form-control" th:attr="" placeholder="Tag Name" />
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
-                        <button id="update-tag" class="btn btn-primary" th:text="#{Save}" th:attr="data-id=${tag.id}">Save</button>
+                        <button class="btn btn-default" data-dismiss="modal" th:text="">Cancel</button>
+                        <button id="update-tag" class="btn btn-primary" th:text="" th:attr="">Save</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <!--/#tag-edit-modal -->
-    <script th:inline="javascript">
+    <script th:inline="">
         $(function() {
             $('#tag-edit-modal').on('click', '#update-tag', function(e) {
                 e.preventDefault();

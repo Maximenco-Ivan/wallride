@@ -1,23 +1,23 @@
 <page-create xmlns:th="http://www.thymeleaf.org">
     <div>
-        <form id="wr-post-form" th:fragment="form(title,id, page)" th:action="@{__$ADMIN_PATH__/pages/create(query=${query})}" th:object="${form}" action="#" method="post">
-            <input type="hidden" name="id" th:value="${page}? ${page.id} : ''"  />
+        <form id="wr-post-form" th:fragment="" th:action="" th:object="" action="#" method="post">
+            <input type="hidden" name="id" th:value=""  />
             <div id="wr-page-header">
                 <div class="page-header container-fluid">
                     <div class="pull-left">
                         <div class="btn-group back">
-                            <a class="btn btn-sm btn-default" th:href="${page} ? @{__$ADMIN_PATH__/pages/describe(id=${page.id},query=${query})} : @{__$ADMIN_PATH__/pages/index(query=${query})}"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                            <a class="btn btn-sm btn-default" th:href=""><span class="glyphicon glyphicon-arrow-left"></span></a>
                         </div>
                     </div>
                     <div class="pull-left">
-                        <h1 th:text="${title}?:#{AddNewPage}">Add New Page</h1>
+                        <h1 th:text="">Add New Page</h1>
                     </div>
                     <div class="pull-right">
                         <div class="tools clearfix">
                             <div class="btn-group">
-                                <a id="page-preview" class="btn btn-default" href="#"> <span th:text="#{Preview}">Preview</span></a>
+                                <a id="page-preview" class="btn btn-default" href="#"> <span th:text="">Preview</span></a>
                             </div>
-                            <script th:inline="javascript">
+                            <script th:inline="">
                                 $(function() {
                                     $('#wr-page-header').on('click', '#page-preview', function(e) {
                                         e.preventDefault();
@@ -31,9 +31,9 @@
                                 });
                             </script>
                             <div class="btn-group">
-                                <button id="save-draft-button" name="draft" class="btn btn-default" data-loading-text="Saving..." th:text="#{SaveDraft}">Save Draft</button>
+                                <button id="save-draft-button" name="draft" class="btn btn-default" data-loading-text="Saving..." th:text="">Save Draft</button>
                             </div>
-                            <script th:inline="javascript">
+                            <script th:inline="">
                                 $(document).ready(function() {
                                     $('#save-draft-button').click(function(e) {
                                         var $this = $(this);
@@ -70,15 +70,15 @@
                                 });
                             </script>
                             <div class="btn-group">
-                                <button name="publish" class="btn btn-primary" th:text="#{Publish}">Publish</button>
-                                <th:block th:if="${page} ne null and ${#strings.toString(page.status)} ne 'DRAFT'">
+                                <button name="publish" class="btn btn-primary" th:text="">Publish</button>
+                                <th:block th:if="">
                                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                         <span class="caret"></span>
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>
                                     <ul id="save-menu" class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="#" data-name="publish" th:text="#{Publish}">Publish</a></li>
-                                        <li><a href="#" data-name="unpublish" th:text="#{Unpublish}">Unpublish</a></li>
+                                        <li><a href="#" data-name="publish" th:text="">Publish</a></li>
+                                        <li><a href="#" data-name="unpublish" th:text="">Unpublish</a></li>
                                     </ul>
                                     <script>
                                         $(document).ready(function() {
@@ -100,36 +100,36 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-9">
-                            <div class="alert alert-success" th:if="${savedPage ne null}">
+                            <div class="alert alert-success" th:if="">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <span th:text="#{SavedPage}">Page saved.</span>
+                                <span th:text="">Page saved.</span>
                             </div>
-                            <div class="alert alert-danger" th:if="${#fields.hasErrors('all')}">
+                            <div class="alert alert-danger" th:if="">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                 Error.
                             </div>
-                            <div class="alert alert-info" th:if="${draft} ne null">
+                            <div class="alert alert-info" th:if="">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <span th:text="#{YouHaveDraft}">You have draft.</span><a th:href="@{__$ADMIN_PATH__/pages/edit(id=${draft.drafted.id},draft,query=${query})}"><span th:text="#{CopyDraft}">Copy draft</span></a>
+                                <span th:text="">You have draft.</span><a th:href=""><span th:text="">Copy draft</span></a>
                             </div>
-                            <div class="alert alert-info" th:if="${original ne null}">
+                            <div class="alert alert-info" th:if="">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <span th:text="#{LanguageNotFound(${#messages.msg('Language.' + #locale.language)}, ${original.title})}">There is no {0} version of "{1}".</span>
+                                <span th:text="">There is no {0} version of "{1}".</span>
                             </div>
                             <fieldset>
                                 <div class="form-group">
                                     <div id="post-cover-dropzone" class="wr-post-cover-dropzone col-sm-12" style="">
-                                        <p class="placeholder help-block" th:text="#{CoverImage}">Cover Image</p>
+                                        <p class="placeholder help-block" th:text="">Cover Image</p>
                                         <div class="dragover hide"><span class="help-block">Drop files here</span></div>
-                                        <div th:classappend="${form.coverId}? '' : 'hide'" class="image-wrap">
-                                            <img th:if="${form.coverId ne null}" th:src="@{${#medias.link(form.coverId)}(w=1200,h=500,m=1)}" class="wr-post-cover" />
+                                        <div th:classappend="" class="image-wrap">
+                                            <img th:if="" th:src="" class="wr-post-cover" />
                                             <div class="remove"><a href="#"><span class="glyphicon glyphicon-remove"></span></a></div>
                                         </div>
                                         <div class="progress hide"><div class="progress-bar progress-bar-success"></div></div>
-                                        <input type="hidden" th:field="*{coverId}" />
+                                        <input type="hidden" th:field="" />
                                     </div>
                                 </div>
-                                <script th:inline="javascript">
+                                <script th:inline="">
                                     $(function() {
                                         $('#post-cover-dropzone').fileupload({
                                             url: /*[[@{__$ADMIN_PATH__/media/create.json}]]*/ '#',
@@ -190,72 +190,72 @@
                                 </script>
                             </fieldset>
                             <fieldset>
-                                <div class="form-group" th:classappend="${#fields.hasErrors('title')}? has-error">
-                                    <input type="text" th:field="*{title}" class="form-control" th:attr="placeholder=#{EnterTitle}" />
-                                    <span class="help-block" th:each="err : ${#fields.errors('title')}" th:text="${err}" />
+                                <div class="form-group" th:classappend="">
+                                    <input type="text" th:field="" class="form-control" th:attr="" />
+                                    <span class="help-block" th:each="" th:text="" />
                                 </div>
                             </fieldset>
                             <fieldset>
-                                <div class="form-group" th:classappend="${#fields.hasErrors('code')}? has-error">
-                                    <span th:text="${WEBSITE_LINK + '/'}"></span> <input type="text" th:field="*{code}" class="form-control input-sm wr-code" name="path" placeholder="URLパス" th:attr="placeholder=#{URLPath}" />
-                                    <span class="help-block" th:each="err : ${#fields.errors('code')}" th:text="${err}" />
+                                <div class="form-group" th:classappend="">
+                                    <span th:text=""></span> <input type="text" th:field="" class="form-control input-sm wr-code" name="path" placeholder="URLパス" th:attr="" />
+                                    <span class="help-block" th:each="" th:text="" />
                                 </div>
                             </fieldset>
                             <fieldset>
-                                <div class="form-group" th:classappend="${#fields.hasErrors('body')}? has-error">
-                                    <textarea th:field="*{body}" class="form-control" placeholder="Enter body here" th:attr="placeholder=#{EnterBody}"></textarea>
-                                    <span class="help-block" th:each="err : ${#fields.errors('body')}" th:text="${err}" />
-                                    <script th:inline="javascript" th:replace="froala::setting(selector='#wr-page-content :input[name=body]')"></script>
+                                <div class="form-group" th:classappend="">
+                                    <textarea th:field="" class="form-control" placeholder="Enter body here" th:attr=""></textarea>
+                                    <span class="help-block" th:each="" th:text="" />
+                                    <script th:inline="" th:replace=""></script>
                                 </div>
                             </fieldset>
                         </div>
                         <div class="col-sm-3 wr-tool-panel">
                             <fieldset>
-                                <legend th:text="#{Date}">Date</legend>
-                                <div class="form-group row" th:classappend="${#fields.hasErrors('date')}? has-error">
+                                <legend th:text="">Date</legend>
+                                <div class="form-group row" th:classappend="">
                                     <div class="col-sm-12">
-                                        <input type="text" name="date" th:value="*{date ne null ? #temporals.format(date, 'yyyy/MM/dd HH:mm') : ''}" class="form-control" placeholder="YYYY/MM/DD HH:mm"/>
+                                        <input type="text" name="date" th:value="" class="form-control" placeholder="YYYY/MM/DD HH:mm"/>
                                     </div>
                                     <script>
                                         $(document).ready(function() {
                                             $(':input[name="date"]').datetimepicker({});
                                         });
                                     </script>
-                                    <span class="help-block" th:each="err : ${#fields.errors('date')}" th:text="${err}" />
+                                    <span class="help-block" th:each="" th:text="" />
                                 </div>
                             </fieldset>
                             <fieldset>
-                                <legend th:text="#{ParentPage}">Parent Page</legend>
+                                <legend th:text="">Parent Page</legend>
                                 <div class="form-group">
-                                    <select name="parentId" class="form-control" th:field="*{parentId}" >
+                                    <select name="parentId" class="form-control" th:field="" >
                                         <option value="">Select Parent Page</option>
-                                        <option th:each="page : ${#pages.getAllPages(true)}" th:if="${page.id ne id}" th:value="${page.id}" th:text="${page.title}" th:selected="${page.id eq parentId}"></option>
+                                        <option th:each="" th:if="" th:value="" th:text="" th:selected=""></option>
                                     </select>
                                 </div>
                             </fieldset>
                             <fieldset id="category-fieldset">
-                                <legend th:text="#{Categories}">Categories</legend>
+                                <legend th:text="">Categories</legend>
                                 <section>
-                                    <ul th:unless="${#lists.isEmpty(categoryNodes)}" th:include="page/create::category-index(${categoryNodes})" id="category-index" class="list-unstyled"></ul>
-                                    <ul th:fragment="category-index(nodes)">
-                                        <li th:each="node : ${nodes}" class="checkbox">
-                                            <label><input type="checkbox" name="categoryIds" th:value="${node.object.id}" th:text="${node.object.name}" th:checked="${#sets.contains(form.categoryIds, node.object.id)}" /></label>
-                                            <ul th:unless="${#lists.isEmpty(node.children)}" th:include="page/create::category-index(${node.children})" class="list-unstyled"></ul>
+                                    <ul th:unless="" th:include="" id="category-index" class="list-unstyled"></ul>
+                                    <ul th:fragment="">
+                                        <li th:each="" class="checkbox">
+                                            <label><input type="checkbox" name="categoryIds" th:value="" th:text="" th:checked="" /></label>
+                                            <ul th:unless="" th:include="" class="list-unstyled"></ul>
                                         </li>
                                     </ul>
-                                    <a th:href="@{__$ADMIN_PATH__/categories/index?part=category-create-form}" data-toggle="modal" data-target="#category-create-modal"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewCategory}">Add New Category</span></a>
+                                    <a th:href="" data-toggle="modal" data-target="#category-create-modal"><span class="glyphicon glyphicon-plus"></span> <span th:text="">Add New Category</span></a>
                                 </section>
                             </fieldset>
                             <fieldset>
-                                <legend th:text="#{Tags}">Tags</legend>
-                                <div class="form-group row" th:classappend="${#fields.hasErrors('tags')}? has-error">
+                                <legend th:text="">Tags</legend>
+                                <div class="form-group row" th:classappend="">
                                     <div class="col-sm-12">
-                                        <input id="tags-field" type="text" th:field="*{tags}" style="width: 100%" placeholder=""/>
+                                        <input id="tags-field" type="text" th:field="" style="width: 100%" placeholder=""/>
                                     </div>
-                                    <span class="help-block" th:each="err : ${#fields.errors('tags')}"  th:text="${err}" />
+                                    <span class="help-block" th:each=""  th:text="" />
                                 </div>
                             </fieldset>
-                            <script th:inline="javascript">
+                            <script th:inline="">
                                 /*<![CDATA[*/
                                 $(function() {
                                     $('#tags-field').select2({
@@ -299,7 +299,7 @@
                                 });
                                 /*]]>*/
                             </script>
-                            <script th:inline="javascript">
+                            <script th:inline="">
                                 /*<![CDATA[*/
                                 $(function() {
                                     $(document).on('click', '#save-category', function(e) {
@@ -349,15 +349,15 @@
                                 /*]]>*/
                             </script>
                             <fieldset>
-                                <legend th:text="#{RelatedPosts}">Related Posts</legend>
-                                <div class="form-group row" th:classappend="${#fields.hasErrors('relatedPostIds')}? has-error">
+                                <legend th:text="">Related Posts</legend>
+                                <div class="form-group row" th:classappend="">
                                     <div class="col-sm-12">
-                                        <input id="related-posts-fieldset" type="text" th:field="*{relatedPostIds}" style="width: 100%" placeholder=""/>
+                                        <input id="related-posts-fieldset" type="text" th:field="" style="width: 100%" placeholder=""/>
                                     </div>
-                                    <span th:if="${#fields.hasErrors('relatedPostIds')}" class="help-block" th:text="${#fields.errors('relatedPostIds')}" />
+                                    <span th:if="" class="help-block" th:text="" />
                                 </div>
                             </fieldset>
-                            <script th:inline="javascript">
+                            <script th:inline="">
                                 /*<![CDATA[*/
                                 $(function() {
                                     $('#related-posts-fieldset').select2({
@@ -396,74 +396,74 @@
                                 /*]]>*/
                             </script>
                             <fieldset id="seo-fieldset">
-                                <legend th:text="#{Seo}">SEO</legend>
-                                <div class="form-group" th:classappend="${#fields.hasErrors('seoTitle')}? has-error">
-                                    <input type="text" th:field="*{seoTitle}" class="form-control" th:placeholder="#{SeoTitle}" />
-                                    <span th:if="${#fields.hasErrors('seoTitle')}" class="help-block" th:text="${#fields.errors('seoTitle')}" />
+                                <legend th:text="">SEO</legend>
+                                <div class="form-group" th:classappend="">
+                                    <input type="text" th:field="" class="form-control" th:placeholder="" />
+                                    <span th:if="" class="help-block" th:text="" />
                                 </div>
-                                <div class="form-group" th:classappend="${#fields.hasErrors('seoDescription')}? has-error">
-                                    <textarea th:field="*{seoDescription}" class="form-control" th:placeholder="#{SeoDescription}" style="min-height: 100px"></textarea>
-                                    <span th:if="${#fields.hasErrors('seoDescription')}" class="help-block" th:text="${#fields.errors('seoDescription')}" />
+                                <div class="form-group" th:classappend="">
+                                    <textarea th:field="" class="form-control" th:placeholder="" style="min-height: 100px"></textarea>
+                                    <span th:if="" class="help-block" th:text="" />
                                 </div>
-                                <div class="form-group" th:classappend="${#fields.hasErrors('seoKeywords')}? has-error">
-                                    <textarea th:field="*{seoKeywords}" class="form-control" th:placeholder="#{SeoKeywords}"></textarea>
-                                    <span th:if="${#fields.hasErrors('seoKeywords')}" class="help-block" th:text="${#fields.errors('seoKeywords')}" />
+                                <div class="form-group" th:classappend="">
+                                    <textarea th:field="" class="form-control" th:placeholder=""></textarea>
+                                    <span th:if="" class="help-block" th:text="" />
                                 </div>
                             </fieldset>
-                            <fieldset th:each="field, stat : *{customFieldValues}">
-                                <legend th:text="${field.name}"></legend>
-                                <div class="form-group" th:switch="${#strings.toString(field.fieldType)}">
-                                    <div th:case="'TEXT'" class="form-group row" th:classappend="${#fields.hasErrors('customFieldValues[__${stat.index}__].stringValue')}? has-error">
+                            <fieldset th:each="">
+                                <legend th:text=""></legend>
+                                <div class="form-group" th:switch="">
+                                    <div th:case="" class="form-group row" th:classappend="">
                                         <div class="col-sm-12">
-                                            <input type="text" class="form-control" th:field="*{customFieldValues[__${stat.index}__].stringValue}" style="width: 100%" placeholder=""/>
+                                            <input type="text" class="form-control" th:field="" style="width: 100%" placeholder=""/>
                                         </div>
-                                        <span class="help-block" th:each="err : ${#fields.errors('customFieldValues[__${stat.index}__].stringValue')}" th:text="${err}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].id}" th:value="${field.id}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].customFieldId}" th:value="${field.customFieldId}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].name}" th:value="${field.name}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].fieldType}" th:value="${field.fieldType}" />
+                                        <span class="help-block" th:each="" th:text="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
                                     </div>
-                                    <div th:case="'TEXTAREA'" class="form-group row" th:classappend="${#fields.hasErrors('customFieldValues[__${stat.index}__].textValue')}? has-error">
+                                    <div th:case="" class="form-group row" th:classappend="">
                                         <div class="col-sm-12">
-                                            <textarea type="text" th:field="*{customFieldValues[__${stat.index}__].textValue}" class="form-control" style="min-height: 100px"></textarea>
+                                            <textarea type="text" th:field="" class="form-control" style="min-height: 100px"></textarea>
                                         </div>
-                                        <span class="help-block" th:each="err : ${#fields.errors('customFieldValues[__${stat.index}__].textValue')}"  th:text="${err}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].id}" th:value="${field.id}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].customFieldId}" th:value="${field.customFieldId}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].name}" th:value="${field.name}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].fieldType}" th:value="${field.fieldType}" />
+                                        <span class="help-block" th:each=""  th:text="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
                                     </div>
-                                    <div th:case="'HTML'" class="form-group row" th:classappend="${#fields.hasErrors('customFieldValues[__${stat.index}__].textValue')}? has-error">
+                                    <div th:case="" class="form-group row" th:classappend="">
                                         <div class="col-sm-12">
-                                            <textarea type="text" th:field="*{customFieldValues[__${stat.index}__].textValue}" class="form-control" th:classappend="'customFieldValues__${stat.index}__-textValue'" style="min-height: 150px"></textarea>
+                                            <textarea type="text" th:field="" class="form-control" th:classappend="" style="min-height: 150px"></textarea>
                                         </div>
-                                        <span class="help-block" th:each="err : ${#fields.errors('customFieldValues[__${stat.index}__].textValue')}" th:text="${err}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].id}" th:value="${field.id}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].customFieldId}" th:value="${field.customFieldId}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].name}" th:value="${field.name}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].fieldType}" th:value="${field.fieldType}" />
-                                        <script th:inline="javascript" th:replace="froala::setting(selector='.customFieldValues__${stat.index}__-textValue')"></script>
+                                        <span class="help-block" th:each="" th:text="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <script th:inline="" th:replace=""></script>
                                     </div>
-                                    <div th:case="'NUMBER'" class="form-group row" th:classappend="${#fields.hasErrors('customFieldValues[__${stat.index}__].numberValue')}? has-error">
+                                    <div th:case="" class="form-group row" th:classappend="">
                                         <div class="col-sm-12">
-                                            <input type="text" class="form-control" th:field="*{customFieldValues[__${stat.index}__].numberValue}" style="width: 100%" placeholder=""/>
+                                            <input type="text" class="form-control" th:field="" style="width: 100%" placeholder=""/>
                                         </div>
-                                        <span class="help-block" th:each="err : ${#fields.errors('customFieldValues[__${stat.index}__].numberValue')}" th:text="${err}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].id}" th:value="${field.id}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].customFieldId}" th:value="${field.customFieldId}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].name}" th:value="${field.name}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].fieldType}" th:value="${field.fieldType}" />
+                                        <span class="help-block" th:each="" th:text="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
                                     </div>
-                                    <div th:case="'DATE'" class="form-group row" th:classappend="${#fields.hasErrors('customFieldValues[__${stat.index}__].dateValue')}? has-error">
+                                    <div th:case="" class="form-group row" th:classappend="">
                                         <div class="col-sm-12">
-                                            <input type="text" class="form-control" th:field="*{customFieldValues[__${stat.index}__].dateValue}" style="width: 100%" placeholder="YYYY/MM/dd"/>
+                                            <input type="text" class="form-control" th:field="" style="width: 100%" placeholder="YYYY/MM/dd"/>
                                         </div>
-                                        <span class="help-block" th:each="err : ${#fields.errors('customFieldValues[__${stat.index}__].dateValue')}" th:text="${err}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].id}" th:value="${field.id}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].customFieldId}" th:value="${field.customFieldId}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].name}" th:value="${field.name}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].fieldType}" th:value="${field.fieldType}" />
-                                        <script th:inline="javascript">
+                                        <span class="help-block" th:each="" th:text="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <script th:inline="">
                                             /*<![CDATA[*/
                                             $(function() {
                                                 var selector = /*[[':input[name="' + 'customFieldValues[__${stat.index}__].dateValue' + '"]']]*/ '#';
@@ -475,16 +475,16 @@
                                             /*]]>*/
                                         </script>
                                     </div>
-                                    <div th:case="'DATETIME'" class="form-group row" th:classappend="${#fields.hasErrors('customFieldValues[__${stat.index}__].datetimeValue')}? has-error">
+                                    <div th:case="" class="form-group row" th:classappend="">
                                         <div class="col-sm-12">
-                                            <input type="text" class="form-control" th:field="*{customFieldValues[__${stat.index}__].datetimeValue}" style="width: 100%" placeholder=""/>
+                                            <input type="text" class="form-control" th:field="" style="width: 100%" placeholder=""/>
                                         </div>
-                                        <span class="help-block" th:each="err : ${#fields.errors('customFieldValues[__${stat.index}__].datetimeValue')}" th:text="${err}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].id}" th:value="${field.id}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].customFieldId}" th:value="${field.customFieldId}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].name}" th:value="${field.name}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].fieldType}" th:value="${field.fieldType}" />
-                                        <script th:inline="javascript">
+                                        <span class="help-block" th:each="" th:text="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <script th:inline="">
                                             /*<![CDATA[*/
                                             $(function() {
                                                 var selector = /*[[':input[name="' + 'customFieldValues[__${stat.index}__].datetimeValue' + '"]']]*/ '#';
@@ -493,38 +493,38 @@
                                             /*]]>*/
                                         </script>
                                     </div>
-                                    <div th:case="'SELECTBOX'" class="form-group row" th:classappend="${#fields.hasErrors('customFieldValues[__${stat.index}__].stringValue')}? has-error">
+                                    <div th:case="" class="form-group row" th:classappend="">
                                         <div class="col-sm-12">
-                                            <select type="text" th:field="*{customFieldValues[__${stat.index}__].stringValue}" class="form-control">
+                                            <select type="text" th:field="" class="form-control">
                                                 <option value=""></option>
-                                                <option th:each="option : ${field.options}" th:value="${option}" th:text="${option}">wrtwetwet</option>
+                                                <option th:each="" th:value="" th:text="">wrtwetwet</option>
                                             </select>
                                         </div>
-                                        <span class="help-block" th:each="err : ${#fields.errors('customFieldValues[__${stat.index}__].stringValue')}"  th:text="${err}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].id}" th:value="${field.id}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].customFieldId}" th:value="${field.customFieldId}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].name}" th:value="${field.name}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].fieldType}" th:value="${field.fieldType}" />
+                                        <span class="help-block" th:each=""  th:text="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
                                     </div>
-                                    <div th:case="'CHECKBOX'" class="form-group row checkbox" th:classappend="${#fields.hasErrors('customFieldValues[__${stat.index}__].textValues')}? has-error">
+                                    <div th:case="" class="form-group row checkbox" th:classappend="">
                                         <div class="col-sm-12">
-                                            <label th:each="option : ${field.options}"><input type="checkbox" th:field="*{customFieldValues[__${stat.index}__].textValues}" th:value="${option}" th:text="${option}" /></label>
+                                            <label th:each=""><input type="checkbox" th:field="" th:value="" th:text="" /></label>
                                         </div>
-                                        <span class="help-block" th:each="err : ${#fields.errors('customFieldValues[__${stat.index}__].textValues')}"  th:text="${err}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].id}" th:value="${field.id}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].customFieldId}" th:value="${field.customFieldId}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].name}" th:value="${field.name}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].fieldType}" th:value="${field.fieldType}" />
+                                        <span class="help-block" th:each=""  th:text="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
                                     </div>
-                                    <div th:case="'RADIO'" class="form-group row checkbox" th:classappend="${#fields.hasErrors('customFieldValues[__${stat.index}__].stringValue')}? has-error">
+                                    <div th:case="" class="form-group row checkbox" th:classappend="">
                                         <div class="col-sm-12">
-                                            <label th:each="option : ${field.options}"><input type="radio" th:field="*{customFieldValues[__${stat.index}__].stringValue}" th:value="${option}" th:text="${option}" /></label>
+                                            <label th:each=""><input type="radio" th:field="" th:value="" th:text="" /></label>
                                         </div>
-                                        <span class="help-block" th:each="err : ${#fields.errors('customFieldValues[__${stat.index}__].stringValue')}"  th:text="${err}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].id}" th:value="${field.id}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].customFieldId}" th:value="${field.customFieldId}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].name}" th:value="${field.name}" />
-                                        <input type="hidden" th:field="*{customFieldValues[__${stat.index}__].fieldType}" th:value="${field.fieldType}" />
+                                        <span class="help-block" th:each=""  th:text="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
+                                        <input type="hidden" th:field="" th:value="" />
                                     </div>
                                 </div>
                             </fieldset>
@@ -532,7 +532,7 @@
                     </div>
                 </div>
             </div>
-            <script th:inline="javascript">
+            <script th:inline="">
                 $(function() {
                     var lastValue = $('#wr-post-form :input[name!="id"]').serialize();
                     setInterval(function() {
@@ -546,7 +546,7 @@
             </script>
         </form>
     </div>
-    <div id="category-create-modal" th:fragment="category-create-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="category-create-modal" th:fragment="" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content"></div>
         </div>

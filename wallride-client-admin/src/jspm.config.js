@@ -918,6 +918,11 @@ SystemJS.config({
         "jquery": "npm:jquery@2.2.4",
         "css": "github:systemjs/plugin-css@0.1.26"
       }
+    },
+    "github:nylen/shiftcheckbox@0.8.0": {
+      "map": {
+        "jquery": "npm:jquery@2.2.4"
+      }
     }
   }
 });
