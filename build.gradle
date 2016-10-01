@@ -10,6 +10,7 @@ buildscript {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
         classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
         classpath 'io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE'
+        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.1'
     }
 }
 
@@ -17,6 +18,8 @@ def javaProjects = [project(":wallride-bootstrap"), project(":wallride-dependenc
 def bootProjects = [project(":wallride-bootstrap")]
 
 wrapper.gradleVersion = '2.13'
+
+apply plugin: 'org.sonarqube'
 
 configure(allprojects) {
     group = "org.wallride"
@@ -35,6 +38,7 @@ configure(allprojects) {
 configure(javaProjects) {
     apply plugin: 'java'
     apply plugin: "io.spring.dependency-management"
+    apply plugin: 'jacoco'
 
     targetCompatibility = '1.8'
     sourceCompatibility = '1.8'
@@ -80,6 +84,8 @@ configure(javaProjects) {
         testCompile 'junit:junit'
         testCompile 'org.hamcrest:hamcrest-library'
         testCompile 'org.mockito:mockito-core'
+        testCompile 'org.powermock:powermock-api-mockito:1.6.5'
+        testCompile 'org.powermock:powermock-module-junit4:1.6.5'
     }
 
     configurations {

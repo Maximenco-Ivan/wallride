@@ -313,7 +313,7 @@ public class UserService {
 	}
 
 	@CacheEvict(value = WallRideCacheConfiguration.USER_CACHE, allEntries = true)
-	public List<UserInvitation> inviteUsers(UserInvitationCreateRequest form, BindingResult result, AuthorizedUser authorizedUser) throws MessagingException {
+	public List<UserInvitation> inviteUsers(UserInvitationCreateRequest form, BindingResult result, AuthorizedUser authorizedUser) {
 		String[] recipients = StringUtils.commaDelimitedListToStringArray(form.getInvitees());
 
 		LocalDateTime now = LocalDateTime.now();
@@ -332,8 +332,54 @@ public class UserService {
 			invitations.add(invitation);
 		}
 
-		Blog blog = blogService.getBlogById(Blog.DEFAULT_ID);
-		for (UserInvitation invitation : invitations) {
+		try {
+			Blog blog = blogService.getBlogById(Blog.DEFAULT_ID);
+			for (UserInvitation invitation : invitations) {
+				String websiteTitle = blog.getTitle(LocaleContextHolder.getLocale().getLanguage());
+				String signupLink = ServletUriComponentsBuilder.fromCurrentContextPath()
+						.path("/_admin/signup")
+						.queryParam("token", invitation.getToken())
+						.buildAndExpand().toString();
+
+				final Context ctx = new Context(LocaleContextHolder.getLocale());
+				ctx.setVariable("websiteTitle", websiteTitle);
+				ctx.setVariable("authorizedUser", authorizedUser);
+				ctx.setVariable("signupLink", signupLink);
+				ctx.setVariable("invitation", invitation);
+
+				final MimeMessage mimeMessage = mailSender.createMimeMessage();
+				final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8"); // true = multipart
+				message.setSubject(MessageFormat.format(
+						messageSourceAccessor.getMessage("InvitationMessageTitle", LocaleContextHolder.getLocale()),
+						authorizedUser.toString(),
+						websiteTitle));
+				message.setFrom(authorizedUser.getEmail());
+				message.setTo(invitation.getEmail());
+
+				final String htmlContent = templateEngine.process("user-invite", ctx);
+				message.setText(htmlContent, true); // true = isHtml
+
+				mailSender.send(mimeMessage);
+			}
+		} catch (MessagingException e) {
+			throw new ServiceException(e);
+		}
+
+		return invitations;
+	}
+
+	@CacheEvict(value = WallRideCacheConfiguration.USER_CACHE, allEntries = true)
+	public UserInvitation inviteAgain(UserInvitationResendRequest form, BindingResult result, AuthorizedUser authorizedUser) {
+		LocalDateTime now = LocalDateTime.now();
+
+		UserInvitation invitation = userInvitationRepository.findOneForUpdateByToken(form.getToken());
+		invitation.setExpiredAt(now.plusHours(72));
+		invitation.setUpdatedAt(now);
+		invitation.setUpdatedBy(authorizedUser.toString());
+		invitation = userInvitationRepository.saveAndFlush(invitation);
+
+		try {
+			Blog blog = blogService.getBlogById(Blog.DEFAULT_ID);
 			String websiteTitle = blog.getTitle(LocaleContextHolder.getLocale().getLanguage());
 			String signupLink = ServletUriComponentsBuilder.fromCurrentContextPath()
 					.path("/_admin/signup")
@@ -359,47 +405,9 @@ public class UserService {
 			message.setText(htmlContent, true); // true = isHtml
 
 			mailSender.send(mimeMessage);
+		} catch (MessagingException e) {
+			throw new ServiceException(e);
 		}
-
-		return invitations;
-	}
-
-	@CacheEvict(value = WallRideCacheConfiguration.USER_CACHE, allEntries = true)
-	public UserInvitation inviteAgain(UserInvitationResendRequest form, BindingResult result, AuthorizedUser authorizedUser) throws MessagingException {
-		LocalDateTime now = LocalDateTime.now();
-
-		UserInvitation invitation = userInvitationRepository.findOneForUpdateByToken(form.getToken());
-		invitation.setExpiredAt(now.plusHours(72));
-		invitation.setUpdatedAt(now);
-		invitation.setUpdatedBy(authorizedUser.toString());
-		invitation = userInvitationRepository.saveAndFlush(invitation);
-
-		Blog blog = blogService.getBlogById(Blog.DEFAULT_ID);
-		String websiteTitle = blog.getTitle(LocaleContextHolder.getLocale().getLanguage());
-		String signupLink = ServletUriComponentsBuilder.fromCurrentContextPath()
-				.path("/_admin/signup")
-				.queryParam("token", invitation.getToken())
-				.buildAndExpand().toString();
-
-		final Context ctx = new Context(LocaleContextHolder.getLocale());
-		ctx.setVariable("websiteTitle", websiteTitle);
-		ctx.setVariable("authorizedUser", authorizedUser);
-		ctx.setVariable("signupLink", signupLink);
-		ctx.setVariable("invitation", invitation);
-
-		final MimeMessage mimeMessage = mailSender.createMimeMessage();
-		final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8"); // true = multipart
-		message.setSubject(MessageFormat.format(
-				messageSourceAccessor.getMessage("InvitationMessageTitle", LocaleContextHolder.getLocale()),
-				authorizedUser.toString(),
-				websiteTitle));
-		message.setFrom(authorizedUser.getEmail());
-		message.setTo(invitation.getEmail());
-
-		final String htmlContent = templateEngine.process("user-invite", ctx);
-		message.setText(htmlContent, true); // true = isHtml
-
-		mailSender.send(mimeMessage);
 
 		return invitation;
 	}
