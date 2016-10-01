@@ -1,11 +1,11 @@
 <article-create xmlns:th="http://www.thymeleaf.org">
     <div>
-        <form id="wr-post-form" th:fragment="form(title,article)" th:action="@{__${ADMIN_PATH}__/articles/create(query=${query})}" th:object="${form}" action="#" method="post">
+        <form id="wr-post-form" th:fragment="form(title,article)" th:action="@{__$ADMIN_PATH__/articles/create(query=${query})}" th:object="${form}" action="#" method="post">
             <input type="hidden" name="id" th:value="${article}? ${article.id} : ''"  />
             <div id="wr-page-header">
                 <div class="page-header container-fluid">
                     <div class="pull-left back">
-                        <a class="btn btn-sm btn-default" th:href="${article} ? @{__${ADMIN_PATH}__/articles/describe(id=${article.id},query=${query})} : @{__${ADMIN_PATH}__/articles/index(query=${query})}"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                        <a class="btn btn-sm btn-default" th:href="${article} ? @{__$ADMIN_PATH__/articles/describe(id=${article.id},query=${query})} : @{__$ADMIN_PATH__/articles/index(query=${query})}"><span class="glyphicon glyphicon-arrow-left"></span></a>
                     </div>
                     <div class="pull-left">
                         <h1 th:text="${title}?:#{AddNewArticle}">Add New Article</h1>
@@ -20,7 +20,7 @@
                                     $('#wr-page-header').on('click', '#article-preview', function(e) {
                                         e.preventDefault();
                                         var form = $(this).closest('form').clone();
-                                        var action = /*[[@{__${ADMIN_PATH}__/articles/preview}]]*/ '#';
+                                        var action = /*[[@{__$ADMIN_PATH__/articles/preview}]]*/ '#';
                                         form.attr('action', action);
                                         form.attr('target', '_blank');
                                         $(':input[name="body"]', form).val($('#wr-page-content :input[name="body"]').froalaEditor('html.get'));
@@ -46,8 +46,8 @@
                                             data: data,
                                             success: function(data) {
                                                 $form.children(':input[name="id"]').val(data.id);
-                                                $form.attr('action', /*[[@{__${ADMIN_PATH}__/articles/edit(query=${query})}]]*/ '#');
-                                                var url = /*[[@{__${ADMIN_PATH}__/articles/edit?id=}]]*/ '#' + data.id;
+                                                $form.attr('action', /*[[@{__$ADMIN_PATH__/articles/edit(query=${query})}]]*/ '#');
+                                                var url = /*[[@{__$ADMIN_PATH__/articles/edit?id=}]]*/ '#' + data.id;
                                                 history.replaceState(null, null, url);
                                                 new PNotify({
                                                     icon: false,
@@ -108,7 +108,7 @@
                             </div>
                             <div class="alert alert-info" th:if="${draft} ne null">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <span th:text="#{YouHaveDraft}">You have draft.</span><a th:href="@{__${ADMIN_PATH}__/articles/edit(id=${draft.drafted.id},draft)}"><span th:text="#{CopyDraft}">Copy draft</span></a>
+                                <span th:text="#{YouHaveDraft}">You have draft.</span><a th:href="@{__$ADMIN_PATH__/articles/edit(id=${draft.drafted.id},draft)}"><span th:text="#{CopyDraft}">Copy draft</span></a>
                             </div>
                             <div class="alert alert-info" th:if="${original ne null}">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -130,7 +130,7 @@
                                 <script th:inline="javascript">
                                     $(function() {
                                         $('#post-cover-dropzone').fileupload({
-                                            url: /*[[@{__${ADMIN_PATH}__/media/create.json}]]*/ '#',
+                                            url: /*[[@{__$ADMIN_PATH__/media/create.json}]]*/ '#',
                                             paramName: 'file',
                                             dropZone: $('#post-cover-dropzone'),
                                             dragover: function(e) {
@@ -250,7 +250,7 @@
                                             <ul th:unless="${#lists.isEmpty(node.children)}" th:include="article/create::category-index(${node.children})" class="list-unstyled"></ul>
                                         </li>
                                     </ul>
-                                    <a th:href="@{__${ADMIN_PATH}__/categories/index?part=category-create-form}" data-toggle="modal" data-target="#category-create-modal"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewCategory}">Add New Category</span></a>
+                                    <a th:href="@{__$ADMIN_PATH__/categories/index?part=category-create-form}" data-toggle="modal" data-target="#category-create-modal"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewCategory}">Add New Category</span></a>
                                 </section>
                             </fieldset>
                             <fieldset>
@@ -276,7 +276,7 @@
                                             }
                                         },
                                         ajax: {
-                                            url:  /*[[@{__${ADMIN_PATH}__/tags/select}]]*/ '#',
+                                            url:  /*[[@{__$ADMIN_PATH__/tags/select}]]*/ '#',
                                             dataType: 'json',
                                             data: function (term, page) {
                                                 return {
@@ -325,12 +325,12 @@
                                             description: $(':input[name="description"]', form).val()
                                         };
                                         $.ajax({
-                                            url: /*[[@{__${ADMIN_PATH}__/categories.json}]]*/ '#',
+                                            url: /*[[@{__$ADMIN_PATH__/categories.json}]]*/ '#',
                                             type: 'post',
                                             data: data,
                                             success: function(savedCategory) {
                                                 checked.push(savedCategory.id.toString());
-                                                $.get(/*[[@{__${ADMIN_PATH}__/articles/create?part=category-fieldset}]]*/ '#', function(data) {
+                                                $.get(/*[[@{__$ADMIN_PATH__/articles/create?part=category-fieldset}]]*/ '#', function(data) {
                                                     data = $(data);
                                                     $(':input[name="categoryIds"]', data).each(function(i, element) {
                                                         if ($.inArray($(element).val(), checked) != -1) {
@@ -371,7 +371,7 @@
                                         minimumInputLength: 1,
                                         multiple: true,
                                         ajax: {
-                                            url:  /*[[@{__${ADMIN_PATH}__/posts/select}]]*/ '#',
+                                            url:  /*[[@{__$ADMIN_PATH__/posts/select}]]*/ '#',
                                             dataType: 'json',
                                             data: function (term, page) {
                                                 return {
@@ -387,7 +387,7 @@
                                             $(element.val().split(',')).each(function() {
                                                 var id = this;
                                                 if (id !== "") {
-                                                    var url = /*[[@{__${ADMIN_PATH}__/posts/select}]]*/ '#';
+                                                    var url = /*[[@{__$ADMIN_PATH__/posts/select}]]*/ '#';
                                                     $.ajax(url + "/" + id,  {
                                                         async: false,
                                                         dataType: "json",

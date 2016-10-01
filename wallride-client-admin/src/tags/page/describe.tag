@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-sm-9">
                     <div class="pull-left back">
-                        <a class="btn btn-sm btn-default" th:href="@{__${ADMIN_PATH}__/pages/index(query=${query})}"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                        <a class="btn btn-sm btn-default" th:href="@{__$ADMIN_PATH__/pages/index(query=${query})}"><span class="glyphicon glyphicon-arrow-left"></span></a>
                     </div>
                     <div class="pull-left">
                         <h1 th:text="${page.title?:'(No Titled)'}">Page Title</h1>
@@ -29,16 +29,16 @@
                     <div class="pull-right">
                         <div class="btn-group">
                             <div th:classappend="${prev eq null}?'disabled'" class="previous">
-                                <a class="btn btn-default" th:href="${prev ne null} ? @{__${ADMIN_PATH}__/pages/describe(id=${prev},query=${query})} : '#'"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                                <a class="btn btn-default" th:href="${prev ne null} ? @{__$ADMIN_PATH__/pages/describe(id=${prev},query=${query})} : '#'"><span class="glyphicon glyphicon-chevron-left"></span></a>
                             </div>
                         </div>
                         <div class="btn-group">
                             <div th:classappend="${next eq null}?'disabled'" class="next">
-                                <a class="btn btn-default" th:href="${next ne null} ? @{__${ADMIN_PATH}__/pages/describe(id=${next},query=${query})} : '#'"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                                <a class="btn btn-default" th:href="${next ne null} ? @{__$ADMIN_PATH__/pages/describe(id=${next},query=${query})} : '#'"><span class="glyphicon glyphicon-chevron-right"></span></a>
                             </div>
                         </div>
                         <div class="btn-group">
-                            <a th:href="@{__${ADMIN_PATH}__/pages/edit(id=${page.id},query=${query})}" title="編集" type="button" class="btn btn-info" th:text="#{Edit}">編集</a>
+                            <a th:href="@{__$ADMIN_PATH__/pages/edit(id=${page.id},query=${query})}" title="編集" type="button" class="btn btn-info" th:text="#{Edit}">編集</a>
                             <!--
                                                                 <a class="btn btn-info dropdown-toggle" data-toggle="dropdown"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></a>
                                                                 <ul class="dropdown-menu pull-right" role="menu">
@@ -69,7 +69,7 @@
                         <p th:utext="${#posts.body(page)}"></p>
                     </div>
                     <hr/>
-                    <span class="glyphicon glyphicon-user"></span> Created By <a th:href="@{__${ADMIN_PATH}__/users/describe(id=${page.author.id},query=${query})}" th:text="${page.author}">Author</a>
+                    <span class="glyphicon glyphicon-user"></span> Created By <a th:href="@{__$ADMIN_PATH__/users/describe(id=${page.author.id},query=${query})}" th:text="${page.author}">Author</a>
                 </div>
                 <div class="col-sm-3 wr-tool-panel">
                     <dl>
@@ -84,7 +84,7 @@
                         <dt th:text="#{Categories}">Categories</dt>
                         <dd>
                             <ul class="list-unstyled list-inline">
-                                <li th:each="category : ${page.categories}"><a th:href="@{__${ADMIN_PATH}__/pages/index(categoryId=${category.id})}" th:text="${category.name}">Category Name</a></li>
+                                <li th:each="category : ${page.categories}"><a th:href="@{__$ADMIN_PATH__/pages/index(categoryId=${category.id})}" th:text="${category.name}">Category Name</a></li>
                             </ul>
                         </dd>
                     </dl>
@@ -92,7 +92,7 @@
                         <dt th:text="#{Tags}">Tags</dt>
                         <dd>
                             <ul class="list-unstyled list-inline list-inline-tag">
-                                <li th:each="tag : ${page.tags}"><a th:href="@{__${ADMIN_PATH}__/pages/index(tagId=${tag.id})}"><span class="label label-default"><span class="glyphicon glyphicon-tag"></span> <span th:text="${tag.name}"></span></span></a></li>
+                                <li th:each="tag : ${page.tags}"><a th:href="@{__$ADMIN_PATH__/pages/index(tagId=${tag.id})}"><span class="label label-default"><span class="glyphicon glyphicon-tag"></span> <span th:text="${tag.name}"></span></span></a></li>
                             </ul>
                         </dd>
                     </dl>
@@ -100,7 +100,7 @@
                         <dt th:text="#{RelatedPosts}">Related Posts</dt>
                         <dd>
                             <ul class="list-unstyled">
-                                <li th:each="relatedPost : ${page.relatedToPosts}"><a th:href="@{__${ADMIN_PATH}__/posts/describe(id=${relatedPost.id},query=${query})}"><span class="glyphicon glyphicon-link"></span> <span th:text="${relatedPost.title}"></span></a></li>
+                                <li th:each="relatedPost : ${page.relatedToPosts}"><a th:href="@{__$ADMIN_PATH__/posts/describe(id=${relatedPost.id},query=${query})}"><span class="glyphicon glyphicon-link"></span> <span th:text="${relatedPost.title}"></span></a></li>
                             </ul>
                         </dd>
                     </dl>
@@ -131,11 +131,11 @@
                             <span th:case="'NUMBER'" th:text="${fieldValue.numberValue}"></span>
                         </dd>
                     </dl>
-                    <a th:href="@{__${ADMIN_PATH}__/pages/describe(part=delete-form,id=${page.id},query=${query})}" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> <span th:text="#{DeletePage}">ページを削除</span></a>
+                    <a th:href="@{__$ADMIN_PATH__/pages/describe(part=delete-form,id=${page.id},query=${query})}" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> <span th:text="#{DeletePage}">ページを削除</span></a>
                     <!-- #delete-modal -->
                     <div id="delete-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
                         <div id="delete-dialog" class="modal-dialog">
-                            <form th:action="@{__${ADMIN_PATH}__/pages/delete(id=${page.id},query=${query})}" method="post">
+                            <form th:action="@{__$ADMIN_PATH__/pages/delete(id=${page.id},query=${query})}" method="post">
                                 <div th:fragment="delete-form" class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

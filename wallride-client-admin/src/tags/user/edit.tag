@@ -6,7 +6,7 @@
     </div>
     <div id="wr-page-content">
         <div class="container-fluid">
-            <form class="form-horizontal" method="post" th:object="${form}" th:action="@{__${ADMIN_PATH}__/users/edit(query=${query})}">
+            <form class="form-horizontal" method="post" th:object="${form}" th:action="@{__$ADMIN_PATH__/users/edit(query=${query})}">
                 <input type="hidden" th:field="*{id}"  />
                 <div class="form-group">
                     <label class="col-sm-2 control-label" th:text="#{Thumbnail}">Thumbnail</label>

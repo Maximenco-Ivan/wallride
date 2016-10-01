@@ -8,16 +8,16 @@
                 <div class="pull-right">
                     <div class="btn-group">
                         <div th:classappend="${prev eq null}?'disabled'" class="previous">
-                            <a class="btn btn-default" th:href="${prev ne null} ? @{__${ADMIN_PATH}__/users/describe(id=${prev},query=${query})} : '#'"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                            <a class="btn btn-default" th:href="${prev ne null} ? @{__$ADMIN_PATH__/users/describe(id=${prev},query=${query})} : '#'"><span class="glyphicon glyphicon-chevron-left"></span></a>
                         </div>
                     </div>
                     <div class="btn-group">
                         <div th:classappend="${next eq null}?'disabled'" class="next">
-                            <a class="btn btn-default" th:href="${next ne null} ? @{__${ADMIN_PATH}__/users/describe(id=${next},query=${query})} : '#'"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                            <a class="btn btn-default" th:href="${next ne null} ? @{__$ADMIN_PATH__/users/describe(id=${next},query=${query})} : '#'"><span class="glyphicon glyphicon-chevron-right"></span></a>
                         </div>
                     </div>
                     <div class="btn-group">
-                        <a th:href="@{__${ADMIN_PATH}__/users/edit(id=${user.id},query=${query})}" title="編集" type="button" class="btn btn-info" th:text="#{Edit}">編集</a>
+                        <a th:href="@{__$ADMIN_PATH__/users/edit(id=${user.id},query=${query})}" title="編集" type="button" class="btn btn-info" th:text="#{Edit}">編集</a>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
-                            <button class="btn btn-primary" th:attr="data-action=@{__${ADMIN_PATH}__/users/change-avatar(query=${query})}">Change</button>
+                            <button class="btn btn-primary" th:attr="data-action=@{__$ADMIN_PATH__/users/change-avatar(query=${query})}">Change</button>
                         </div>
                     </div>
                 </form>

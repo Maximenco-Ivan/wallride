@@ -87,9 +87,9 @@
                 heightMin: 300,
                 imageDefaultWidth: 0,
                 imageDefaultAlign: 'left',
-                imageUploadURL: /*[[@{__${ADMIN_PATH}__/media/create.json}]]*/ '#',
-                imageManagerLoadURL: /*[[@{__${ADMIN_PATH}__/media/index.json}]]*/ '#',
-                fileUploadURL: /*[[@{__${ADMIN_PATH}__/media/create.json}]]*/ '#'
+                imageUploadURL: /*[[@{__$ADMIN_PATH__/media/create.json}]]*/ '#',
+                imageManagerLoadURL: /*[[@{__$ADMIN_PATH__/media/index.json}]]*/ '#',
+                fileUploadURL: /*[[@{__$ADMIN_PATH__/media/create.json}]]*/ '#'
             });
         });
         /*]]>*/

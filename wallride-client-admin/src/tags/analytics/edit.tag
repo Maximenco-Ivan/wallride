@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                    <form th:action="@{__${ADMIN_PATH}__/analytics/edit}" th:object="${form}" method="post" class="form-horizontal" enctype="multipart/form-data">
+                    <form th:action="@{__$ADMIN_PATH__/analytics/edit}" th:object="${form}" method="post" class="form-horizontal" enctype="multipart/form-data">
                         <div class="alert alert-danger" th:if="${#fields.hasErrors('all')}">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             <span th:text="#{Error}">There was a problem with your submission.</span>
@@ -53,7 +53,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <a th:href="@{__${ADMIN_PATH}__/analytics}" class="btn btn-default" th:text="#{Cancel}">Cancel</a>
+                                <a th:href="@{__$ADMIN_PATH__/analytics}" class="btn btn-default" th:text="#{Cancel}">Cancel</a>
                                 <button type="submit" class="btn btn-primary" th:text="#{Save}">Save</button>
                             </div>
                         </div>

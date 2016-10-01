@@ -6,7 +6,7 @@
 			</div>
 			<div class="pull-right">
 				<div class="btn-group">
-					<a th:href="@{__${ADMIN_PATH}__/categories/index?part=category-create-form}" data-toggle="modal" data-target="#category-create-modal" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewCategory}">Add New</span></a>
+					<a th:href="@{__$ADMIN_PATH__/categories/index?part=category-create-form}" data-toggle="modal" data-target="#category-create-modal" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewCategory}">Add New</span></a>
 				</div>
 				<div class="btn-group">
 					<button id="update-category-sort" type="submit" class="btn btn-sm btn-primary" data-loading-text="saving..." disabled="true" th:if="!${#lists.isEmpty(categoryNodes)}" th:text="#{SaveOrder}">Save Order</button>
@@ -18,13 +18,13 @@
 							$(this).button('loading');
 							var data = $('#category-tree').nestedSortable('toArray', {startDepthCount: 0});
 							$.ajax({
-								url: /*[[@{__${ADMIN_PATH}__/categories.json}]]*/ '#',
+								url: /*[[@{__$ADMIN_PATH__/categories.json}]]*/ '#',
 								type: 'put',
 								dataType: 'json',
 								data: JSON.stringify(data),
 								contentType: 'application/json',
 								success: function() {
-									location = /*[[@{__${ADMIN_PATH}__/categories/index?updated}]]*/ '#';
+									location = /*[[@{__$ADMIN_PATH__/categories/index?updated}]]*/ '#';
 								},
 								error: function() {
 								}
@@ -56,9 +56,9 @@
 						</div>
 						<div class="wr-tree-options pull-right">
 							<span class="badge wr-tree-option" th:text="${articleCounts.get(node.object.id)}?:0">16</span>
-							<button class="btn btn-link wr-tree-option" th:href="@{__${ADMIN_PATH}__/categories/index(part=category-edit-form,id=${node.object.id})}" data-toggle="modal" data-target="#category-edit-modal"><span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Edit}">Edit</span></button>
-							<button class="btn btn-link wr-tree-option" th:href="@{__${ADMIN_PATH}__/categories/index(part=category-create-form,parentId=${node.object.id})}" data-toggle="modal" data-target="#category-create-modal"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{Add}">Add</span></button>
-							<button class="btn btn-link wr-tree-option" th:href="@{__${ADMIN_PATH}__/categories/index(part=category-delete-form,id=${node.object.id})}" data-toggle="modal" data-target="#category-delete-modal"><span class="glyphicon glyphicon-remove"></span></button>
+							<button class="btn btn-link wr-tree-option" th:href="@{__$ADMIN_PATH__/categories/index(part=category-edit-form,id=${node.object.id})}" data-toggle="modal" data-target="#category-edit-modal"><span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Edit}">Edit</span></button>
+							<button class="btn btn-link wr-tree-option" th:href="@{__$ADMIN_PATH__/categories/index(part=category-create-form,parentId=${node.object.id})}" data-toggle="modal" data-target="#category-create-modal"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{Add}">Add</span></button>
+							<button class="btn btn-link wr-tree-option" th:href="@{__$ADMIN_PATH__/categories/index(part=category-delete-form,id=${node.object.id})}" data-toggle="modal" data-target="#category-delete-modal"><span class="glyphicon glyphicon-remove"></span></button>
 						</div>
 					</div>
 					<ul th:unless="${#lists.isEmpty(node.children)}" th:include="category/index::category(${node.children})"></ul>
@@ -114,11 +114,11 @@
 							description: $(':input[name="description"]', form).val()
 						};
 						$.ajax({
-							url: /*[[@{__${ADMIN_PATH}__/categories.json}]]*/ '#',
+							url: /*[[@{__$ADMIN_PATH__/categories.json}]]*/ '#',
 							type: 'post',
 							data: data,
 							success: function() {
-								location = /*[[@{__${ADMIN_PATH}__/categories/index?created}]]*/ '#';
+								location = /*[[@{__$ADMIN_PATH__/categories/index?created}]]*/ '#';
 							},
 							error: function(jqXHR) {
 								$.each(jqXHR.responseJSON.fieldErrors, function(field, message) {
@@ -184,14 +184,14 @@
 							description: $(':input[name="description"]', form).val()
 						};
 						/*[+
-						 var url = [[@{__${ADMIN_PATH}__/categories/}]] + self.data('id') + '.json';
+						 var url = [[@{__$ADMIN_PATH__/categories/}]] + self.data('id') + '.json';
 						 +]*/
 						$.ajax({
 							url: url,
 							type: 'post',
 							data: data,
 							success: function() {
-								location = /*[[@{__${ADMIN_PATH}__/categories/index?updated}]]*/ '#';
+								location = /*[[@{__$ADMIN_PATH__/categories/index?updated}]]*/ '#';
 							},
 							error: function(jqXHR) {
 								$.each(jqXHR.responseJSON.fieldErrors, function(field, message) {
@@ -258,14 +258,14 @@
 						var self = $(this);
 						self.button('loading');
 						/*[+
-						 var url = [[@{__${ADMIN_PATH}__/categories/}]] + self.data('id') + '.json';
+						 var url = [[@{__$ADMIN_PATH__/categories/}]] + self.data('id') + '.json';
 						 +]*/
 						$.ajax({
 							url: url,
 							type: 'delete',
 							success: function() {
 								$('#category-tree_' + self.data('id')).fadeOut(300, function() {
-									location = /*[[@{__${ADMIN_PATH}__/categories/index?deleted}]]*/ '#';
+									location = /*[[@{__$ADMIN_PATH__/categories/index?deleted}]]*/ '#';
 								});
 							},
 							error: function() {

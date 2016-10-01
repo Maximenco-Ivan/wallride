@@ -30,13 +30,13 @@
                             $('.sortable').sortable('disable');
                             var data = $('.sortable').sortable('toArray');
                             $.ajax({
-                                url: /*[[@{__${ADMIN_PATH}__/customfields.json}]]*/ '#',
+                                url: /*[[@{__$ADMIN_PATH__/customfields.json}]]*/ '#',
                                 type: 'put',
                                 dataType: 'json',
                                 data: JSON.stringify(data),
                                 contentType: 'application/json',
                                 success: function(data) {
-                                    location = /*[[@{__${ADMIN_PATH}__/customfields/index?updated}]]*/ '#';
+                                    location = /*[[@{__$ADMIN_PATH__/customfields/index?updated}]]*/ '#';
                                 },
                                 error: function(jqXHR) {
                                     $.each(jqXHR.responseJSON.fieldErrors, function (field, message) {
@@ -51,7 +51,7 @@
                     // ]]>
                 </script>
                 <div class="btn-group">
-                    <a th:href="@{__${ADMIN_PATH}__/customfields/create(query=${query})}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewCustomField}">Add New</span></a>
+                    <a th:href="@{__$ADMIN_PATH__/customfields/create(query=${query})}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewCustomField}">Add New</span></a>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
         <section class="search-condition">
             <div class="navbar">
                 <div class="container-fluid">
-                    <form id="search-form" class="navbar-form navbar-left" method="get" th:action="@{__${ADMIN_PATH}__/customfields/index}" th:object="${form}">
+                    <form id="search-form" class="navbar-form navbar-left" method="get" th:action="@{__$ADMIN_PATH__/customfields/index}" th:object="${form}">
                         <input type="text" name="keyword" th:value="*{keyword}" class="form-control" th:attr="placeholder=#{Keywords}"/>
                         <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                     </form>
@@ -86,7 +86,7 @@
                     <div class="search-result-header clearfix">
                         <div class="btn-toolbar pull-left">
                             <div class="wr-bulk-action btn-group">
-                                <a th:href="@{__${ADMIN_PATH}__/customfields/index(part=bulk-delete-form,query=${query})}" data-toggle="modal" data-target="#bulk-delete-modal" class="btn btn-default disabled"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a th:href="@{__$ADMIN_PATH__/customfields/index(part=bulk-delete-form,query=${query})}" data-toggle="modal" data-target="#bulk-delete-modal" class="btn btn-default disabled"><span class="glyphicon glyphicon-trash"></span></a>
                             </div>
                         </div>
                         <div class="pagination-group pull-right">
@@ -123,7 +123,7 @@
                                     <td th:text="${#messages.msg('CustomField.FieldType.' + customfield.fieldType)}"></td>
                                     <td th:text="${#strings.setJoin(customfield.options, '&nbsp;,&nbsp;')}"></td>
                                     <!--<td><a th:if="${customfield.screen ne null}" th:text="${customfield.author.name}">Author</a></td>-->
-                                    <td class="text-center"><a th:attr="href=@{__${ADMIN_PATH}__/customfields/edit(id=${customfield.id},query=${query})}"><span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Edit}">Edit</span></a></td>
+                                    <td class="text-center"><a th:attr="href=@{__$ADMIN_PATH__/customfields/edit(id=${customfield.id},query=${query})}"><span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Edit}">Edit</span></a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -189,7 +189,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
-                                    <button class="btn btn-primary" id="delete-custom-field" th:attr="data-action=@{__${ADMIN_PATH}__/customfields/bulk-delete(query=${query})}" disabled="true" th:text="#{Delete}">Delete</button>
+                                    <button class="btn btn-primary" id="delete-custom-field" th:attr="data-action=@{__$ADMIN_PATH__/customfields/bulk-delete(query=${query})}" disabled="true" th:text="#{Delete}">Delete</button>
                                 </div>
                             </div>
                         </div>

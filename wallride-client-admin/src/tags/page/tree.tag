@@ -7,7 +7,7 @@
                 </div>
                 <div class="pull-right">
                     <div class="btn-group">
-                        <a th:href="@{__${ADMIN_PATH}__/pages/tree(part=page-create-form,query=${query})}" data-toggle="modal" data-target="#page-create-modal" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewPage}">Add New</span></a>
+                        <a th:href="@{__$ADMIN_PATH__/pages/tree(part=page-create-form,query=${query})}" data-toggle="modal" data-target="#page-create-modal" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewPage}">Add New</span></a>
                     </div>
                     <div class="btn-group">
                         <button id="update-page-sort" type="submit" class="btn btn-sm btn-primary" data-loading-text="saving..." disabled="true" th:if="!${#lists.isEmpty(pageNodes)}" th:text="#{SaveOrder}">Save Order</button>
@@ -19,13 +19,13 @@
                                 $(this).button('loading');
                                 var data = $('#page-tree').nestedSortable('toArray', {startDepthCount: 0});
                                 $.ajax({
-                                    url: /*[[@{__${ADMIN_PATH}__/pages.json}]]*/ '#',
+                                    url: /*[[@{__$ADMIN_PATH__/pages.json}]]*/ '#',
                                     type: 'put',
                                     dataType: 'json',
                                     data: JSON.stringify(data),
                                     contentType: 'application/json',
                                     success: function() {
-                                        location = /*[[@{__${ADMIN_PATH}__/pages/tree?updated(query=${query})}]]*/ '#';
+                                        location = /*[[@{__$ADMIN_PATH__/pages/tree?updated(query=${query})}]]*/ '#';
                                     },
                                     error: function() {
                                     }
@@ -34,7 +34,7 @@
                         });
                     </script>
                     <div class="btn-group">
-                        <a th:attr="title=#{ListPage}" class="btn btn-default btn-sm" th:href="@{__${ADMIN_PATH}__/pages/index(query=${query})}" style="padding:7px 12px;"><span class="glyphicon glyphicon-list"></span></a>
+                        <a th:attr="title=#{ListPage}" class="btn btn-default btn-sm" th:href="@{__$ADMIN_PATH__/pages/index(query=${query})}" style="padding:7px 12px;"><span class="glyphicon glyphicon-list"></span></a>
                         <a th:attr="title=#{TreePage}" title="ツリー表示" class="btn btn-default btn-sm active" style="height: 34px"><i class="flaticon-category"></i> </a>
                     </div>
                 </div>
@@ -61,9 +61,9 @@
                                 <span class="wr-tree-option small" style="margin-left: 10px;" th:classappend="'wr-post-status-' + ${node.object.status}">● <span th:text="#{Post.Status. + ${node.object.status}}"></span></span>
                             </div>
                             <div class="wr-tree-options pull-right">
-                                <button class="btn btn-link wr-tree-option" th:href="@{__${ADMIN_PATH}__/pages/edit(id=${node.object.id},query=${query})}"><span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Edit}">Edit</span></button>
-                                <button class="btn btn-link wr-tree-option" th:href="@{__${ADMIN_PATH}__/pages/tree(part=page-create-form,parentId=${node.object.id},query=${query})}" data-toggle="modal" data-target="#page-create-modal"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{Add}">Add</span></button>
-                                <button class="btn btn-link wr-tree-option" th:href="@{__${ADMIN_PATH}__/pages/tree(part=page-delete-form,id=${node.object.id},query=${query})}" data-toggle="modal" data-target="#page-delete-modal"><span class="glyphicon glyphicon-remove"></span></button>
+                                <button class="btn btn-link wr-tree-option" th:href="@{__$ADMIN_PATH__/pages/edit(id=${node.object.id},query=${query})}"><span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Edit}">Edit</span></button>
+                                <button class="btn btn-link wr-tree-option" th:href="@{__$ADMIN_PATH__/pages/tree(part=page-create-form,parentId=${node.object.id},query=${query})}" data-toggle="modal" data-target="#page-create-modal"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{Add}">Add</span></button>
+                                <button class="btn btn-link wr-tree-option" th:href="@{__$ADMIN_PATH__/pages/tree(part=page-delete-form,id=${node.object.id},query=${query})}" data-toggle="modal" data-target="#page-delete-modal"><span class="glyphicon glyphicon-remove"></span></button>
                             </div>
                             <script>
                                 $(function() {
@@ -123,11 +123,11 @@
                                 status: 'DRAFT'
                             };
                             $.ajax({
-                                url: /*[[@{__${ADMIN_PATH}__/pages.json}]]*/ '#',
+                                url: /*[[@{__$ADMIN_PATH__/pages.json}]]*/ '#',
                                 type: 'post',
                                 data: data,
                                 success: function() {
-                                    location = /*[[@{__${ADMIN_PATH}__/pages/tree?created(query=${query})}]]*/ '#';
+                                    location = /*[[@{__$ADMIN_PATH__/pages/tree?created(query=${query})}]]*/ '#';
                                 },
                                 error: function(jqXHR) {
                                     $.each(jqXHR.responseJSON.fieldErrors, function(field, message) {
@@ -194,14 +194,14 @@
                             var self = $(this);
                             self.button('loading');
                             /*[+
-                             var url = [[@{__${ADMIN_PATH}__/pages/}]] + self.data('id') + '.json';
+                             var url = [[@{__$ADMIN_PATH__/pages/}]] + self.data('id') + '.json';
                              +]*/
                             $.ajax({
                                 url: url,
                                 type: 'delete',
                                 success: function() {
                                     $('#page-tree_' + self.data('id')).fadeOut(300, function() {
-                                        location = /*[[@{__${ADMIN_PATH}__/pages/tree?deleted(query=${query})}]]*/ '#';
+                                        location = /*[[@{__$ADMIN_PATH__/pages/tree?deleted(query=${query})}]]*/ '#';
                                     });
                                 },
                                 error: function() {

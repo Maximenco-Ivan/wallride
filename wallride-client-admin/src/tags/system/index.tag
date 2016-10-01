@@ -38,7 +38,7 @@
                                 <tr>
                                     <th>Re-index</th>
                                     <td>
-                                        <form th:action="@{__${ADMIN_PATH}__/system/re-index}" class="form-horizontal" method="post">
+                                        <form th:action="@{__$ADMIN_PATH__/system/re-index}" class="form-horizontal" method="post">
                                             <div class="alert alert-success" th:if="${reIndex}">
                                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                                 <span th:text="#{StartedReIndex}">Re-Index started</span>
@@ -50,7 +50,7 @@
                                 <tr>
                                     <th>Template Cache</th>
                                     <td>
-                                        <form th:action="@{__${ADMIN_PATH}__/system/clear-cache}" class="form-horizontal" method="post">
+                                        <form th:action="@{__$ADMIN_PATH__/system/clear-cache}" class="form-horizontal" method="post">
                                             <div class="alert alert-success" th:if="${clearCache}">
                                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                                 <span th:text="#{StartedClearCache}">Clearing caches...</span>

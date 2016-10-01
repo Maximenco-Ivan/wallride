@@ -6,7 +6,7 @@
             </div>
             <div class="pull-right">
                 <div class="btn-group">
-                    <a th:href="@{__${ADMIN_PATH}__/tags/index(part=tag-create-form,query=${query})}" data-toggle="modal" data-target="#tag-create-modal" class="btn btn-primary btn-sm" style="margin-top: -3px;"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewTag}">Add New Tag</span></a>
+                    <a th:href="@{__$ADMIN_PATH__/tags/index(part=tag-create-form,query=${query})}" data-toggle="modal" data-target="#tag-create-modal" class="btn btn-primary btn-sm" style="margin-top: -3px;"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewTag}">Add New Tag</span></a>
                 </div>
             </div>
         </div>
@@ -46,19 +46,19 @@
                     <div class="search-result-header clearfix">
                         <div class="btn-toolbar pull-left">
                             <div class="btn-group wr-bulk-action">
-                                <a th:href="@{__${ADMIN_PATH}__/tags/index(part=bulk-delete-form,query=${query})}" data-toggle="modal" data-target="#bulk-delete-modal" class="btn btn-default disabled"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a th:href="@{__$ADMIN_PATH__/tags/index(part=bulk-delete-form,query=${query})}" data-toggle="modal" data-target="#bulk-delete-modal" class="btn btn-default disabled"><span class="glyphicon glyphicon-trash"></span></a>
                             </div>
                             <div class="btn-group wr-merge-action">
-                                <a th:href="@{__${ADMIN_PATH}__/tags/index(part=tag-merge-form,query=${query})}" data-toggle="modal" data-target="#merge-tag-modal" class="btn btn-default disabled" th:text="#{Merge}">Merge</a>
+                                <a th:href="@{__$ADMIN_PATH__/tags/index(part=tag-merge-form,query=${query})}" data-toggle="modal" data-target="#merge-tag-modal" class="btn btn-default disabled" th:text="#{Merge}">Merge</a>
                             </div>
                         </div>
                         <div class="pagination-group pull-right">
                             <div class="pull-left pagination-summary"><span th:text="${pagination.numberOfFirstElement}"></span> - <span th:text="${pagination.numberOfLastElement}"></span> / <span th:text="${pagination.totalElements}"></span></div>
                             <div class="pull-right">
                                 <ul class="pagination paginateon-sm">
-                                    <li th:classappend="${pagination.hasPreviousPage() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/tags/index(page=${pagination.previousPageNumber})}" th:text="#{Prev}">Prev</a></li>
-                                    <li th:each="p : ${pagination.getPageables(pageable)}" th:classappend="${p.pageNumber eq pagination.currentPageNumber ? 'active' : ''}"><a th:href="@{__${ADMIN_PATH}__/tags/index(page=${p.pageNumber},size=${p.pageSize})}" th:text="${p.pageNumber + 1}"></a></li>
-                                    <li th:classappend="${pagination.hasNextPage() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/tags/index(page=${pagination.nextPageNumber})}" th:text="#{Next}">Next</a></li>
+                                    <li th:classappend="${pagination.hasPreviousPage() ? '' : 'disabled'}"><a th:href="@{__$ADMIN_PATH__/tags/index(page=${pagination.previousPageNumber})}" th:text="#{Prev}">Prev</a></li>
+                                    <li th:each="p : ${pagination.getPageables(pageable)}" th:classappend="${p.pageNumber eq pagination.currentPageNumber ? 'active' : ''}"><a th:href="@{__$ADMIN_PATH__/tags/index(page=${p.pageNumber},size=${p.pageSize})}" th:text="${p.pageNumber + 1}"></a></li>
+                                    <li th:classappend="${pagination.hasNextPage() ? '' : 'disabled'}"><a th:href="@{__$ADMIN_PATH__/tags/index(page=${pagination.nextPageNumber})}" th:text="#{Next}">Next</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                                     <td class="wr-tr-checkbox" style="width:40px"><input type="checkbox" name="ids" th:value="${tag.id}" /></td>
                                     <td th:text="${tag.name}"></td>
                                     <td class="text-right"><span class="badge wr-tree-option" th:text="${articleCounts.get(tag.id)}?:0">16</span></td>
-                                    <td class="text-center"><a th:href="@{__${ADMIN_PATH}__/tags/index(part=tag-edit-form,id=${tag.id},query=${query})}" data-toggle="modal" data-target="#tag-edit-modal"><span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Edit}">Edit</span></a></td>
+                                    <td class="text-center"><a th:href="@{__$ADMIN_PATH__/tags/index(part=tag-edit-form,id=${tag.id},query=${query})}" data-toggle="modal" data-target="#tag-edit-modal"><span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Edit}">Edit</span></a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -135,7 +135,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
-                                    <button class="btn btn-primary" id="delete-tag" th:attr="data-action=@{__${ADMIN_PATH}__/tags/bulk-delete(query=${query})}" disabled="true" th:text="#{Delete}">Delete</button>
+                                    <button class="btn btn-primary" id="delete-tag" th:attr="data-action=@{__$ADMIN_PATH__/tags/bulk-delete(query=${query})}" disabled="true" th:text="#{Delete}">Delete</button>
                                 </div>
                             </div>
                         </div>
@@ -176,7 +176,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
-                                    <button class="btn btn-primary" id="merge-tag" th:attr="data-action=@{__${ADMIN_PATH}__/tags/merge(query=${query})}" th:text="#{Merge}">Merge</button>
+                                    <button class="btn btn-primary" id="merge-tag" th:attr="data-action=@{__$ADMIN_PATH__/tags/merge(query=${query})}" th:text="#{Merge}">Merge</button>
                                 </div>
                             </div>
                         </div>
@@ -195,7 +195,7 @@
                                     type: 'post',
                                     data: $form.serialize(),
                                     success: function() {
-                                        location = /*[[@{__${ADMIN_PATH}__/tags/index(merged,query=${query})}]]*/ '#';
+                                        location = /*[[@{__$ADMIN_PATH__/tags/index(merged,query=${query})}]]*/ '#';
                                     },
                                     error: function(jqXHR) {
                                         $.each(jqXHR.responseJSON.fieldErrors, function(field, message) {
@@ -252,11 +252,11 @@
                     name: $(':input[name="name"]', $form).val()
                 };
                 $.ajax({
-                    url: /*[[@{__${ADMIN_PATH}__/tags.json}]]*/ '#',
+                    url: /*[[@{__$ADMIN_PATH__/tags.json}]]*/ '#',
                     type: 'post',
                     data: data,
                     success: function() {
-                        location = /*[[@{__${ADMIN_PATH}__/tags/index(created,query=${query})}]]*/ '#';
+                        location = /*[[@{__$ADMIN_PATH__/tags/index(created,query=${query})}]]*/ '#';
                     },
                     error: function(jqXHR) {
                         $.each(jqXHR.responseJSON.fieldErrors, function(field, message) {
@@ -308,14 +308,14 @@
                     name: $(':input[name="name"]', form).val()
                 };
                 /*[+
-                 var url = [[@{__${ADMIN_PATH}__/tags/}]] + self.data('id') + '.json';
+                 var url = [[@{__$ADMIN_PATH__/tags/}]] + self.data('id') + '.json';
                  +]*/
                 $.ajax({
                     url: url,
                     type: 'post',
                     data: data,
                     success: function() {
-                        location = /*[[@{__${ADMIN_PATH}__/tags/index(updated,query=${query})}]]*/ '#';
+                        location = /*[[@{__$ADMIN_PATH__/tags/index(updated,query=${query})}]]*/ '#';
                     },
                     error: function(jqXHR) {
                         $.each(jqXHR.responseJSON.fieldErrors, function(field, message) {

@@ -6,11 +6,11 @@
             </div>
             <div class="pull-right">
                 <div class="btn-group">
-                    <a th:href="@{__${ADMIN_PATH}__/pages/create(query=${query})}" class="btn btn-primary btn-sm" style="margin-top: -3px;"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewPage}">Add New</span></a>
+                    <a th:href="@{__$ADMIN_PATH__/pages/create(query=${query})}" class="btn btn-primary btn-sm" style="margin-top: -3px;"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewPage}">Add New</span></a>
                 </div>
                 <div class="btn-group">
                     <a th:attr="title=#{ListPage}" class="btn btn-default btn-sm active" style="padding:7px 12px;"><span class="glyphicon glyphicon-list"></span></a>
-                    <a th:attr="title=#{TreePage}" title="ツリー表示" class="btn btn-default btn-sm" th:href="@{__${ADMIN_PATH}__/pages/tree(query=${query})}" style="height: 34px"><i class="flaticon-category"></i> </a>
+                    <a th:attr="title=#{TreePage}" title="ツリー表示" class="btn btn-default btn-sm" th:href="@{__$ADMIN_PATH__/pages/tree(query=${query})}" style="height: 34px"><i class="flaticon-category"></i> </a>
                 </div>
             </div>
         </div>
@@ -19,16 +19,16 @@
         <section class="search-condition">
             <div class="navbar">
                 <div class="container-fluid">
-                    <form id="search-form" class="navbar-form navbar-left" method="get" th:action="@{__${ADMIN_PATH}__/pages/index}" th:object="${form}">
+                    <form id="search-form" class="navbar-form navbar-left" method="get" th:action="@{__$ADMIN_PATH__/pages/index}" th:object="${form}">
                         <select th:field="*{status}" class="select2" th:placeholder="#{Status}">
                             <option value=""></option>
                             <option th:value="PUBLISHED"><span th:text="#{Post.Status.PUBLISHED}">Published</span> <span th:text="${'(' + countPublished + ')'}">(0)</span></option>
                             <option th:value="SCHEDULED"><span th:text="#{Post.Status.SCHEDULED}">Published</span> <span th:text="${'(' + countScheduled + ')'}">(0)</span></option>
                             <option th:value="DRAFT"><span th:text="#{Post.Status.DRAFT}">Published</span> <span th:text="${'(' + countDraft + ')'}">(0)</span></option>
                         </select>
-                        <input type="hidden" class="select2" th:field="*{categoryId}" th:attr="data-url=@{__${ADMIN_PATH}__/categories/select}" th:placeholder="#{Categories}"/>
-                        <input type="hidden" class="select2" th:field="*{tagId}" th:attr="data-url=@{__${ADMIN_PATH}__/tags/select}" th:placeholder="#{Tags}"/>
-                        <input type="hidden" class="select2" th:field="*{authorId}" th:attr="data-url=@{__${ADMIN_PATH}__/users/select}" th:placeholder="#{Author}" />
+                        <input type="hidden" class="select2" th:field="*{categoryId}" th:attr="data-url=@{__$ADMIN_PATH__/categories/select}" th:placeholder="#{Categories}"/>
+                        <input type="hidden" class="select2" th:field="*{tagId}" th:attr="data-url=@{__$ADMIN_PATH__/tags/select}" th:placeholder="#{Tags}"/>
+                        <input type="hidden" class="select2" th:field="*{authorId}" th:attr="data-url=@{__$ADMIN_PATH__/users/select}" th:placeholder="#{Author}" />
                         <input type="text" name="keyword" th:value="*{keyword}" class="form-control" th:attr="placeholder=#{Keywords}" />
                         <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                     </form>
@@ -93,7 +93,7 @@
                     <div class="search-result-header clearfix">
                         <div class="btn-toolbar wr-bulk-action pull-left">
                             <div class="btn-group">
-                                <a th:href="@{__${ADMIN_PATH}__/pages/index(part=bulk-delete-form,query=${query})}" data-toggle="modal" data-target="#bulk-delete-modal" class="btn btn-default disabled"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a th:href="@{__$ADMIN_PATH__/pages/index(part=bulk-delete-form,query=${query})}" data-toggle="modal" data-target="#bulk-delete-modal" class="btn btn-default disabled"><span class="glyphicon glyphicon-trash"></span></a>
                             </div>
                         </div>
                         <div class="pagination-group pull-right">
@@ -123,16 +123,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="page : ${pages}" th:attr="data-href=@{__${ADMIN_PATH}__/pages/describe(id=${page.id},query=${query})}" class="clickable">
+                                <tr th:each="page : ${pages}" th:attr="data-href=@{__$ADMIN_PATH__/pages/describe(id=${page.id},query=${query})}" class="clickable">
                                     <td class="wr-tr-checkbox" style="width:40px"><input type="checkbox" name="ids" th:value="${page.id}" /></td>
                                     <td th:class="'wr-post-status-' + ${page.status}" th:text="${#messages.msg('Post.Status.' + page.status)}">Status</td>
                                     <td th:text="${page.title?:'(No Titled)'}" style="font-weight: bold;">Title</td>
-                                    <td><th:block th:each="category : ${page.categories}"><a th:href="@{__${ADMIN_PATH}__/pages/index(categoryId=${category.id})}" th:text="${category}"></a> <span th:unless="${categoryStat.last}">&nbsp; | &nbsp;</span></th:block></td>
-                                    <td><th:block th:each="tag : ${page.tags}"><a th:href="@{__${ADMIN_PATH}__/pages/index(tagId=${tag.id})}" th:text="${tag}"></a> <span th:unless="${tagStat.last}">&nbsp; | &nbsp;</span></th:block></td>
-                                    <td><a th:href="@{__${ADMIN_PATH}__/pages/index(authorId=${page.author.id})}" th:text="${page.author}">Author</a></td>
+                                    <td><th:block th:each="category : ${page.categories}"><a th:href="@{__$ADMIN_PATH__/pages/index(categoryId=${category.id})}" th:text="${category}"></a> <span th:unless="${categoryStat.last}">&nbsp; | &nbsp;</span></th:block></td>
+                                    <td><th:block th:each="tag : ${page.tags}"><a th:href="@{__$ADMIN_PATH__/pages/index(tagId=${tag.id})}" th:text="${tag}"></a> <span th:unless="${tagStat.last}">&nbsp; | &nbsp;</span></th:block></td>
+                                    <td><a th:href="@{__$ADMIN_PATH__/pages/index(authorId=${page.author.id})}" th:text="${page.author}">Author</a></td>
                                     <td th:text="${page.date ne null ? #temporals.format(page.date, 'yyyy/MM/dd (E) HH:mm', #locale) : ''}">yyyy/mm/dd (E)</td>
                                     <td class="text-right" th:text="${page.views}">0</td>
-                                    <td class="text-center"><a th:attr="href=@{__${ADMIN_PATH}__/pages/edit(id=${page.id},query=${query})}"><span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Edit}">Edit</span></a></td>
+                                    <td class="text-center"><a th:attr="href=@{__$ADMIN_PATH__/pages/edit(id=${page.id},query=${query})}"><span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Edit}">Edit</span></a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -153,7 +153,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                    <button class="btn btn-primary" th:attr="data-action=@{__${ADMIN_PATH}__/pages/bulk-delete(query=${query})}" disabled="true">Delete</button>
+                                    <button class="btn btn-primary" th:attr="data-action=@{__$ADMIN_PATH__/pages/bulk-delete(query=${query})}" disabled="true">Delete</button>
                                 </div>
                             </div>
                         </div>

@@ -5,7 +5,7 @@
                 <h1 th:text="#{Users}">Users</h1>
             </div>
             <div class="pull-right">
-                <a th:href="@{__${ADMIN_PATH}__/users/invitations/index(query=${query})}" class="btn btn-primary btn-sm" style="margin-top: -3px;"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{InviteNew}">ユーザーを招待</span></a>
+                <a th:href="@{__$ADMIN_PATH__/users/invitations/index(query=${query})}" class="btn btn-primary btn-sm" style="margin-top: -3px;"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{InviteNew}">ユーザーを招待</span></a>
             </div>
         </div>
     </div>
@@ -33,16 +33,16 @@
                     <div class="search-result-header clearfix">
                         <div class="btn-toolbar wr-bulk-action pull-left">
                             <div class="btn-group">
-                                <a th:href="@{__${ADMIN_PATH}__/users/index(part=bulk-delete-form,query=${query})}" data-toggle="modal" data-target="#bulk-delete-modal" class="btn btn-default disabled"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a th:href="@{__$ADMIN_PATH__/users/index(part=bulk-delete-form,query=${query})}" data-toggle="modal" data-target="#bulk-delete-modal" class="btn btn-default disabled"><span class="glyphicon glyphicon-trash"></span></a>
                             </div>
                         </div>
                         <div class="pagination-group pull-right">
                             <div class="pull-left pagination-summary"><span th:text="${pagination.numberOfFirstElement}"></span> - <span th:text="${pagination.numberOfLastElement}"></span> / <span th:text="${pagination.totalElements}"></span></div>
                             <div class="pull-right">
                                 <ul class="pagination paginateon-sm">
-                                    <li th:classappend="${pagination.hasPreviousPage() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/users/index(page=${pagination.previousPageNumber})}" th:text="#{Prev}">Prev</a></li>
-                                    <li th:each="p : ${pagination.getPageables(pageable)}" th:classappend="${p.pageNumber eq pagination.currentPageNumber ? 'active' : ''}"><a th:href="@{__${ADMIN_PATH}__/users/index(page=${p.pageNumber},size=${p.pageSize})}" th:text="${p.pageNumber + 1}"></a></li>
-                                    <li th:classappend="${pagination.hasNextPage() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/users/index(page=${pagination.nextPageNumber})}" th:text="#{Next}">Next</a></li>
+                                    <li th:classappend="${pagination.hasPreviousPage() ? '' : 'disabled'}"><a th:href="@{__$ADMIN_PATH__/users/index(page=${pagination.previousPageNumber})}" th:text="#{Prev}">Prev</a></li>
+                                    <li th:each="p : ${pagination.getPageables(pageable)}" th:classappend="${p.pageNumber eq pagination.currentPageNumber ? 'active' : ''}"><a th:href="@{__$ADMIN_PATH__/users/index(page=${p.pageNumber},size=${p.pageSize})}" th:text="${p.pageNumber + 1}"></a></li>
+                                    <li th:classappend="${pagination.hasNextPage() ? '' : 'disabled'}"><a th:href="@{__$ADMIN_PATH__/users/index(page=${pagination.nextPageNumber})}" th:text="#{Next}">Next</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="user : ${users}" th:attr="data-href=@{__${ADMIN_PATH}__/users/describe(id=${user.id},query=${query})}" class="clickable">
+                                <tr th:each="user : ${users}" th:attr="data-href=@{__$ADMIN_PATH__/users/describe(id=${user.id},query=${query})}" class="clickable">
                                     <td class="wr-tr-checkbox" style="width:40px"><input type="checkbox" name="ids" th:value="${user.id}" /></td>
                                     <td th:text="${user.name}"></td>
                                     <td th:text="${user.loginId}"></td>
@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
-                                    <button class="btn btn-primary" th:attr="data-action=@{__${ADMIN_PATH}__/users/bulk-delete(query=${query})}" disabled="true" th:text="#{Delete}">Delete</button>
+                                    <button class="btn btn-primary" th:attr="data-action=@{__$ADMIN_PATH__/users/bulk-delete(query=${query})}" disabled="true" th:text="#{Delete}">Delete</button>
                                 </div>
                             </div>
                         </div>

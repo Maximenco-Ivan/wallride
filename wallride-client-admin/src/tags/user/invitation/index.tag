@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <section style="margin:0 0 5em;">
-                        <form th:action="@{__${ADMIN_PATH}__/users/invitations/create(query=${query})}" th:object="${form}" method="post" class="form-horizontal" >
+                        <form th:action="@{__$ADMIN_PATH__/users/invitations/create(query=${query})}" th:object="${form}" method="post" class="form-horizontal" >
                             <fieldset>
                                 <div class="form-group" th:classappend="${#fields.hasErrors('invitees')}? has-error">
                                     <div class="col-sm-12">
@@ -59,8 +59,8 @@
                                     <td th:text="${invitation.accepted ? 'Accepted' : 'Waiting'}">Waiting</td>
                                     <td>
                                         <ul class="list-inline">
-                                            <li style="margin-right:15px"><a th:href="@{__${ADMIN_PATH}__/users/invitations/resend(token=${invitation.token},query=${query})}"><span class="glyphicon glyphicon-send"></span> <span th:text="#{Resend}">再送信</span></a></li>
-                                            <li><a th:href="@{__${ADMIN_PATH}__/users/invitations/delete(token=${invitation.token},query=${query})}"><span class="glyphicon glyphicon-remove"></span> <span th:text="#{Delete}">削除</span></a></li>
+                                            <li style="margin-right:15px"><a th:href="@{__$ADMIN_PATH__/users/invitations/resend(token=${invitation.token},query=${query})}"><span class="glyphicon glyphicon-send"></span> <span th:text="#{Resend}">再送信</span></a></li>
+                                            <li><a th:href="@{__$ADMIN_PATH__/users/invitations/delete(token=${invitation.token},query=${query})}"><span class="glyphicon glyphicon-remove"></span> <span th:text="#{Delete}">削除</span></a></li>
                                         </ul>
                                     </td>
                                 </tr>

@@ -6,7 +6,7 @@
     </div>
     <div id="wr-page-content">
         <div class="container-fluid">
-            <form id="custom-field-form" th:fragment="form(title,customfield)" class="form-horizontal" method="post" th:object="${form}" th:action="@{__${ADMIN_PATH}__/customfields/create}">
+            <form id="custom-field-form" th:fragment="form(title,customfield)" class="form-horizontal" method="post" th:object="${form}" th:action="@{__$ADMIN_PATH__/customfields/create}">
                 <div class="alert alert-danger" th:if="${#fields.hasErrors('all')}">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <span th:text="#{Error}">Error</span>

@@ -10,7 +10,7 @@
         <section class="search-condition">
             <div class="navbar">
                 <div class="container-fluid">
-                    <form id="search-form" class="navbar-form navbar-left" method="get" th:action="@{__${ADMIN_PATH}__/comments/index}" th:object="${form}">
+                    <form id="search-form" class="navbar-form navbar-left" method="get" th:action="@{__$ADMIN_PATH__/comments/index}" th:object="${form}">
                         <input type="text" name="keyword" th:value="*{keyword}" class="form-control" th:attr="placeholder=#{Keywords}"/>
                         <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                     </form>
@@ -36,11 +36,11 @@
                     <div class="search-result-header clearfix">
                         <div class="btn-toolbar pull-left">
                             <div class="wr-bulk-action btn-group">
-                                <a th:href="@{__${ADMIN_PATH}__/comments/index(part=bulk-delete-form)}" data-toggle="modal" data-target="#bulk-delete-modal" class="btn btn-default disabled"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a th:href="@{__$ADMIN_PATH__/comments/index(part=bulk-delete-form)}" data-toggle="modal" data-target="#bulk-delete-modal" class="btn btn-default disabled"><span class="glyphicon glyphicon-trash"></span></a>
                             </div>
                             <div class="wr-bulk-action btn-group">
-                                <a th:href="@{__${ADMIN_PATH}__/comments/index(part=bulk-approve-form)}" data-toggle="modal" data-target="#bulk-approve-modal" class="btn btn-default disabled" th:text="#{Approve}">Approve</a>
-                                <a th:href="@{__${ADMIN_PATH}__/comments/index(part=bulk-unapprove-form)}" data-toggle="modal" data-target="#bulk-unapprove-modal" class="btn btn-default disabled" th:text="#{Unapprove}">Unapprove</a>
+                                <a th:href="@{__$ADMIN_PATH__/comments/index(part=bulk-approve-form)}" data-toggle="modal" data-target="#bulk-approve-modal" class="btn btn-default disabled" th:text="#{Approve}">Approve</a>
+                                <a th:href="@{__$ADMIN_PATH__/comments/index(part=bulk-unapprove-form)}" data-toggle="modal" data-target="#bulk-unapprove-modal" class="btn btn-default disabled" th:text="#{Unapprove}">Unapprove</a>
                             </div>
                         </div>
                         <div class="pagination-group pull-right">
@@ -71,7 +71,7 @@
                                     <td th:text="${comment.author}"></td>
                                     <td th:text="${comment.content}"></td>
                                     <td th:text="${#temporals.format(comment.date, 'yyyy/MM/dd (E) HH:mm', #locale)}"></td>
-                                    <td><a th:href="@{__${ADMIN_PATH}__/posts/describe(id=${comment.post.id})}" th:text="${comment.post.title}">Post title</a></td>
+                                    <td><a th:href="@{__$ADMIN_PATH__/posts/describe(id=${comment.post.id})}" th:text="${comment.post.title}">Post title</a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -131,7 +131,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
-                                    <button class="btn btn-primary" th:attr="data-action=@{__${ADMIN_PATH}__/comments/bulk-delete}" disabled="true" th:text="#{Delete}">Delete</button>
+                                    <button class="btn btn-primary" th:attr="data-action=@{__$ADMIN_PATH__/comments/bulk-delete}" disabled="true" th:text="#{Delete}">Delete</button>
                                 </div>
                             </div>
                         </div>
@@ -163,7 +163,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
-                                    <button class="btn btn-primary" th:attr="data-action=@{__${ADMIN_PATH}__/comments/bulk-approve}" th:text="#{Approve}">Approve</button>
+                                    <button class="btn btn-primary" th:attr="data-action=@{__$ADMIN_PATH__/comments/bulk-approve}" th:text="#{Approve}">Approve</button>
                                 </div>
                                 <script>
                                     $(function () {
@@ -196,7 +196,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
-                                    <button class="btn btn-primary" th:attr="data-action=@{__${ADMIN_PATH}__/comments/bulk-unapprove}" th:text="#{Unapprove}">Unapprove</button>
+                                    <button class="btn btn-primary" th:attr="data-action=@{__$ADMIN_PATH__/comments/bulk-unapprove}" th:text="#{Unapprove}">Unapprove</button>
                                 </div>
                             </div>
                         </div>
