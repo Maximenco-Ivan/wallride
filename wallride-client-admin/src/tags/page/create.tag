@@ -48,12 +48,12 @@
                                             data: data,
                                             success: function(data) {
                                                 $form.children(':input[name="id"]').val(data.id);
-                                                $form.attr('action', [[@{__$ADMIN_PATH__/pages/edit(query=${query})}]]);
-                                                var url = [[@{__$ADMIN_PATH__/pages/edit?id=}]] + data.id;
+                                                $form.attr('action', '#');
+                                                var url = '#' + data.id;
                                                 history.replaceState(null, null, url);
                                                 new PNotify({
                                                     icon: false,
-                                                    title: /*[[#{SavedAsDraft}]]*/ 'Saved as draft',
+                                                    title: 'Saved as draft',
                                                     type: 'success',
                                                     delay: 3000,
                                                     buttons: {

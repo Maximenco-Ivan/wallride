@@ -23,11 +23,14 @@
       "baseURL": "src"
     },
     "dependencies": {
+      "blueimp/jQuery-File-Upload": "github:blueimp/jQuery-File-Upload@9.8.1",
       "bootstrap": "github:twbs/bootstrap@3.3.1",
       "css": "github:systemjs/plugin-css@^0.1.26",
+      "froala-editor": "npm:froala-editor@2.3.0",
       "ilikenwf/nestedSortable": "github:ilikenwf/nestedSortable@2.0",
       "jquery": "npm:jquery@2.2.4",
       "jquery-ui": "github:components/jqueryui@1.11.2",
+      "moment/moment": "github:moment/moment@^2.15.1",
       "nylen/shiftcheckbox": "github:nylen/shiftcheckbox@0.8.0",
       "riot": "npm:riot@^2.5.0",
       "select2": "github:select2/select2@3.5.3",
@@ -78,6 +81,38 @@
           "jquery": "*"
         }
       },
+      "github:xdan/datetimepicker@2.3.4": {
+        "dependencies": {
+          "jquery": "*"
+        },
+        "meta": {
+          "jquery.shiftcheckbox.js": {
+            "deps": [
+              "jquery"
+            ],
+            "exports": "$",
+            "format": "global"
+          }
+        }
+      },
+      "github:blueimp/jQuery-File-Upload@9.8.1": {
+        "main": "js/jquery.fileupload",
+        "dependencies": {
+          "jquery-ui": "*"
+        },
+        "map": {
+          "jquery.ui.widget": "jquery-ui/ui/widget.js"
+        },
+        "meta": {
+          "js/jquery.fileupload.js": {
+            "deps": [
+              "jquery-ui"
+            ],
+            "exports": "$",
+            "format": "global"
+          }
+        }
+      },
       "github:ilikenwf/nestedSortable@2.0.0": {
         "main": "jquery.mjs.nestedSortable",
         "dependencies": {
@@ -85,6 +120,18 @@
         },
         "map": {
           "jquery-ui/sortable": "jquery-ui/ui/sortable.js"
+        }
+      },
+      "github:moment/moment@2.15.1": {
+        "main": "moment",
+        "format": "global",
+        "meta": {
+          "locale/*.js": {
+            "deps": [
+              "../moment"
+            ],
+            "format": "global"
+          }
         }
       },
       "github:nylen/shiftcheckbox@0.8.0": {
@@ -146,6 +193,9 @@
           }
         }
       },
+      "npm:froala-editor@2.3.0": {
+        "main": "js/froala_editor.min.js"
+      },
       "npm:browserify-zlib@0.1.4": {
         "dependencies": {
           "readable-stream": "^2.0.2",
@@ -169,7 +219,20 @@
           "util": "@node/util"
         }
       },
+      "npm:font-awesome@4.6.3": {
+        "main": "css/font-awesome.css!",
+        "jspmNodeConversion": false,
+        "registry": "jspm",
+        "dependencies": {
+          "css": "0.1"
+        }
+      },
       "npm:inherits@2.0.1": {
+        "ignore": [
+          "test.js"
+        ]
+      },
+      "npm:inherits@2.0.3": {
         "ignore": [
           "test.js"
         ]
@@ -198,4 +261,5 @@
       }
     }
   }
-}
+}
+
