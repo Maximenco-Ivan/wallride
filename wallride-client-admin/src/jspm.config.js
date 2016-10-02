@@ -24,13 +24,6 @@ SystemJS.config({
           "loader": "css"
         }
       }
-    },
-    "npm:blueimp-file-upload@9.8.1": {
-      "map": {
-        "jquery": "npm:jquery@2.2.4",
-        "jquery.ui.widget": "npm:jquery.ui.widget@1.10.3",
-        "jquery-ui": "npm:jquery-ui@1.12.1"
-      }
     }
   },
   map: {
@@ -959,12 +952,39 @@ SystemJS.config({
     "npm:froala-editor@2.3.0": {
       "map": {
         "font-awesome": "npm:font-awesome@4.6.3",
-        "jquery": "npm:jquery@2.2.4"
+        "jquery": "npm:jquery@2.2.4",
+        "css": "npm:css@2.2.1"
       }
     },
     "npm:font-awesome@4.6.3": {
       "map": {
         "css": "github:systemjs/plugin-css@0.1.30"
+      }
+    },
+    "github:xdan/datetimepicker@2.3.4": {
+      "map": {
+        "jquery": "npm:jquery@2.2.4"
+      }
+    },
+    "npm:css@2.2.1": {
+      "map": {
+        "inherits": "npm:inherits@2.0.3",
+        "source-map": "npm:source-map@0.1.43",
+        "urix": "npm:urix@0.1.0",
+        "source-map-resolve": "npm:source-map-resolve@0.3.1"
+      }
+    },
+    "npm:source-map@0.1.43": {
+      "map": {
+        "amdefine": "npm:amdefine@1.0.0"
+      }
+    },
+    "npm:source-map-resolve@0.3.1": {
+      "map": {
+        "urix": "npm:urix@0.1.0",
+        "source-map-url": "npm:source-map-url@0.3.0",
+        "resolve-url": "npm:resolve-url@0.2.1",
+        "atob": "npm:atob@1.1.3"
       }
     }
   }

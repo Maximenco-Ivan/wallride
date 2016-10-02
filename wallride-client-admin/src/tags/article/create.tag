@@ -1,6 +1,6 @@
 <article-create xmlns:th="http://www.thymeleaf.org">
     <div>
-        <form id="wr-post-form" th:fragment="" th:action="" th:object="" action="#" method="post">
+        <form id="wr-post-form" th:fragment="" th:action="" th:object="" action="/_admin/articles/new" method="post">
             <input type="hidden" name="id" th:value=""  />
             <div id="wr-page-header">
                 <div class="page-header container-fluid">
@@ -33,7 +33,7 @@
                             </div>
                             <script th:inline="">
                                 $(document).ready(function() {
-                                    $('#save-draft-button').click(function(e) {
+                                    /*$('#save-draft-button').click(function(e) {
                                         var $this = $(this);
                                         $this.button('loading');
                                         var $form = $this.closest('form');
@@ -46,12 +46,12 @@
                                             data: data,
                                             success: function(data) {
                                                 $form.children(':input[name="id"]').val(data.id);
-                                                $form.attr('action', /*[[@{__$ADMIN_PATH__/articles/edit(query=${query})}]]*/ '#');
-                                                var url = /*[[@{__$ADMIN_PATH__/articles/edit?id=}]]*/ '#' + data.id;
+                                                $form.attr('action', /!*[[@{__$ADMIN_PATH__/articles/edit(query=${query})}]]*!/ '#');
+                                                var url = /!*[[@{__$ADMIN_PATH__/articles/edit?id=}]]*!/ '#' + data.id;
                                                 history.replaceState(null, null, url);
                                                 new PNotify({
                                                     icon: false,
-                                                    title: /*[[#{SavedAsDraft}]]*/ 'Saved as draft',
+                                                    title: /!*[[#{SavedAsDraft}]]*!/ 'Saved as draft',
                                                     type: 'success',
                                                     delay: 3000,
                                                     buttons: {
@@ -64,7 +64,7 @@
                                             }
                                         });
                                         return false;
-                                    });
+                                    });*/
                                 });
                             </script>
                             <div class="btn-group">
@@ -219,9 +219,7 @@
                             </script>
                             <fieldset>
                                 <div class="form-group" th:classappend="">
-                                    <textarea th:field="" class="form-control" th:attr="" placeholder="Enter body here"></textarea>
-                                    <span class="help-block" th:each="" th:text="" />
-                                    <script th:inline="" th:replace=""></script>
+                                    <froala name="body"></froala>
                                 </div>
                             </fieldset>
                         </div>
@@ -540,6 +538,7 @@
                 </div>
             </div>
             <script th:inline="">
+/*
                 $(function() {
                     var lastValue = $('#wr-post-form :input[name!="id"]').serialize();
                     setInterval(function() {
@@ -550,6 +549,7 @@
                         lastValue = currentValue;
                     }, 180000);
                 });
+*/
             </script>
         </form>
     </div>

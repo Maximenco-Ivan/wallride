@@ -86,7 +86,7 @@
           "jquery": "*"
         },
         "meta": {
-          "jquery.shiftcheckbox.js": {
+          "jquery.datetimepicker.js": {
             "deps": [
               "jquery"
             ],
@@ -194,7 +194,33 @@
         }
       },
       "npm:froala-editor@2.3.0": {
-        "main": "js/froala_editor.min.js"
+        "main": "js/froala_editor.min.js",
+        "files": [
+          "js/plugins/*.min.js",
+          "js/froala_editor.min.js",
+          "js/froala_editor.pkgd.min.js",
+          "css/froala_editor.min.css",
+          "css/froala_editor.pkgd.min.css",
+          "css/froala_style.min.css",
+          "css/plugins/*.min.css",
+          "css/themes/*.min.css"
+        ],
+        "registry": "jspm",
+        "dependencies": {
+          "jquery": "*"
+        },
+        "meta": {
+          "js/froala_editor.min.js": {
+            "deps": [
+              "jquery"
+            ],
+            "exports": "$",
+            "format": "global"
+          },
+          "*.css": {
+            "format": "css"
+          }
+        }
       },
       "npm:browserify-zlib@0.1.4": {
         "dependencies": {
