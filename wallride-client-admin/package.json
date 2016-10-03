@@ -195,17 +195,6 @@
       },
       "npm:froala-editor@2.3.0": {
         "main": "js/froala_editor.min.js",
-        "files": [
-          "js/plugins/*.min.js",
-          "js/froala_editor.min.js",
-          "js/froala_editor.pkgd.min.js",
-          "css/froala_editor.min.css",
-          "css/froala_editor.pkgd.min.css",
-          "css/froala_style.min.css",
-          "css/plugins/*.min.css",
-          "css/themes/*.min.css"
-        ],
-        "registry": "jspm",
         "dependencies": {
           "jquery": "*"
         },
@@ -216,9 +205,6 @@
             ],
             "exports": "$",
             "format": "global"
-          },
-          "*.css": {
-            "format": "css"
           }
         }
       },
