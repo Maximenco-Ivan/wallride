@@ -1,64 +1,32 @@
-//ext {
-//	generatedResourceDir = file("${buildDir}/dist")
-//}
-
-plugins {
-	id "com.moowork.node" version "0.13"
-	id "com.moowork.gulp" version "0.13"
+buildscript {
+	repositories {
+		maven {
+			url 'https://plugins.gradle.org/m2/'
+		}
+	}
+	dependencies {
+		classpath 'com.moowork.gradle:gradle-node-plugin:1.0.1'
+	}
 }
 
 apply plugin: 'java'
+apply plugin: 'com.moowork.node'
+apply plugin: 'com.moowork.gulp'
 
 node {
 	version = '4.4.7'
 	npmVersion = '3.10.5'
-
 	download = true
 }
 
-//jar {
-//	baseName = 'jspm-sample'
-//	version = '0.0.1-SNAPSHOT'
-//}
+gulp_build.dependsOn 'npmInstall'
+gulp_build.dependsOn 'installGulp'
+
+processResources.dependsOn gulp_build
 
 def jsBuildDir = project.buildDir.absolutePath + '/dist'
 
 jar {
 	from jsBuildDir
-//	eachFile { details ->
-//		details.path = details.path.startsWith('META-INF') ?: 'static/' + details.path
-//	}
-	// Jar contains duplicate empty folders, see Gradle issue:
-	// http://issues.gradle.org/browse/GRADLE-1830
-	// so we need to set includeEmptyDirs to false
 	includeEmptyDirs = false
 }
-
-// run npm install
-gulp_build.dependsOn 'npmInstall'
-
-// run gulp install
-gulp_build.dependsOn 'installGulp'
-
-// processResources is a Java task. Run the gulpfile.js before this task using the 'default' task in the gulpfile.js
-processResources.dependsOn gulp_build
-
-
-compileJava {
-	doFirst {
-		jsBuildDir.mkdirs()
-	}
-	options.compilerArgs += ['-s', jsBuildDir]
-}
-
-sourceSets {
-	main {
-		resources.srcDir file(jsBuildDir)
-	}
-}
-
-//idea {
-//	module {
-//		sourceDirs += file(jsBuildDir)
-//	}
-//}

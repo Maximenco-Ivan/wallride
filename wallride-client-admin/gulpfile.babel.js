@@ -1,9 +1,6 @@
 import gulp from 'gulp';
-import jspm from 'gulp-jspm';
+import systemjs from 'gulp-systemjs-builder';
 import sass from 'gulp-sass';
-import cleancss from 'gulp-clean-css';
-import rename from 'gulp-rename';
-import useref from 'gulp-useref';
 import webserver from 'gulp-webserver';
 
 const paths = {
@@ -33,37 +30,28 @@ const paths = {
 	dest: 'build/dist/'
 };
 
-gulp.task('jspm', () => {
-	gulp.src(paths.app + 'admin.js')
-		.pipe(jspm({
-			selfExecutingBundle: true
-			// TODO minify
-//          minify: true
-		}))
-		.pipe(gulp.dest(paths.dest + 'static/admin/app'));
-});
+// build JSPM modules
+gulp.task('jspm', ['sass'], () => {
+    let builder = systemjs('./src', './src/jspm.config.js');
+    builder.config({
+        separateCSS: true
+    });
 
-gulp.task('html', () => {
-	gulp.src('src/html/index.html')
-		.pipe(useref({
-			searchPath: 'src'
-		}))
-		.pipe(gulp.dest(paths.dest + 'templates/admin'));
+    builder.buildStatic('index.js', {
+        // minify: false,
+        // mangle: false,
+        outFile: paths.dest + 'static/admin/index.bundle.js',
+        browser: true,
+        lowResSourceMaps: true,
+        format: 'umd',
+        rollup: true
+    });
 });
 
 gulp.task('sass', () => {
 	gulp.src('src/scss/*.scss')
 		.pipe(sass())
 		.pipe(gulp.dest('src/css/'));
-});
-
-gulp.task('css', ['sass'], () => {
-	gulp.src(paths.css)
-		.pipe(cleancss())
-		.pipe(rename({
-			suffix: '.bundle'
-		}))
-		.pipe(gulp.dest(paths.dest + 'static/admin/css'));
 });
 
 gulp.task('copy-assets', () => {
@@ -75,7 +63,7 @@ gulp.task('watch', () => {
 	gulp.watch('src/scss/*.scss', ['sass']);
 });
 
-gulp.task('webserver', ['watch'], () => {
+gulp.task('server', ['watch'], () => {
 	gulp.src('src')
 		.pipe(webserver({
 			livereload: {
@@ -89,6 +77,6 @@ gulp.task('webserver', ['watch'], () => {
 		}));
 });
 
-gulp.task('build', ['jspm', 'html', 'css', 'copy-assets']);
+gulp.task('build', ['jspm', 'copy-assets']);
 
 gulp.task('default');

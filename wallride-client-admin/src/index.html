@@ -1,22 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<title>WallRide</title>
-		<!-- build:remove -->
 		<script src="/jspm_packages/system.js"></script>
 		<script src="/jspm.config.js"></script>
-		<!-- endbuild -->
 		<script>
 //			$.FroalaEditor.DEFAULTS.key = 'iMFIZJNKLDXIREJI==';
 		</script>
 	</head>
 	<body class="wr-admin">
-		<app></app>
-		<!-- build:js /_admin/static/app/admin.bundle.js -->
+		<app data-authorized="true"></app>
 		<script>
-			SystemJS.import("/app/admin.js");
+			SystemJS.import("/index.js");
 		</script>
-		<!-- endbuild -->
 	</body>
 </html>
