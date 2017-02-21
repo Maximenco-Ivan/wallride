@@ -2,9 +2,9 @@ language: java
 jdk:
   - oraclejdk8
 install:
-  - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -Pjar
+  - ./gradlew assemble
 script:
-  - ./mvnw test -Pjar
+  - ./gradlew check
 cache:
   directories:
   - $HOME/.m2
