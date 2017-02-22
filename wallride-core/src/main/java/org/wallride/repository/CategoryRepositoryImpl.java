@@ -45,9 +45,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CategoryRepositoryImpl implements CategoryRepositoryCustom {
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
@@ -68,19 +69,39 @@ public class CategoryRepositoryImpl implements CategoryRepositoryCustom {
 
 	@Override
 	public Page<Category> search(CategorySearchRequest request, Pageable pageable) {
-		FullTextEntityManager fullTextEntityManager =  Search.getFullTextEntityManager(entityManager);
+		Session session = (Session) entityManager.getDelegate();
+		Criteria criteria = session.createCriteria(Category.class);
+
+		FullTextQuery persistenceQuery = buildFullTextQuery(request, pageable, criteria);
+		int resultSize = persistenceQuery.getResultSize();
+		@SuppressWarnings("unchecked")
+		List<Category> results = persistenceQuery.getResultList();
+		return new PageImpl<>(results, pageable, resultSize);
+	}
+
+	@Override
+	public List<Long> searchForId(CategorySearchRequest request) {
+		FullTextQuery persistenceQuery = buildFullTextQuery(request, null, null);
+		persistenceQuery.setProjection("id");
+		@SuppressWarnings("unchecked")
+		List<Object[]> results = persistenceQuery.getResultList();
+		return results.stream().map(result -> (long) result[0]).collect(Collectors.toList());
+	}
+
+	private FullTextQuery buildFullTextQuery(CategorySearchRequest request, Pageable pageable, Criteria criteria) {
+		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
 		QueryBuilder qb = fullTextEntityManager.getSearchFactory()
 				.buildQueryBuilder()
 				.forEntity(Category.class)
 				.get();
-		
+
 		@SuppressWarnings("rawtypes")
 		BooleanJunction<BooleanJunction> junction = qb.bool();
 		junction.must(qb.all().createQuery());
 
 		if (StringUtils.hasText(request.getKeyword())) {
 			Analyzer analyzer = fullTextEntityManager.getSearchFactory().getAnalyzer("synonyms");
-			String[] fields = new String[] {
+			String[] fields = new String[]{
 					"name"
 			};
 			MultiFieldQueryParser parser = new MultiFieldQueryParser(fields, analyzer);
@@ -88,12 +109,10 @@ public class CategoryRepositoryImpl implements CategoryRepositoryCustom {
 			Query query = null;
 			try {
 				query = parser.parse(request.getKeyword());
-			}
-			catch (ParseException e1) {
+			} catch (ParseException e1) {
 				try {
 					query = parser.parse(QueryParser.escape(request.getKeyword()));
-				}
-				catch (ParseException e2) {
+				} catch (ParseException e2) {
 					throw new RuntimeException(e2);
 				}
 			}
@@ -105,9 +124,6 @@ public class CategoryRepositoryImpl implements CategoryRepositoryCustom {
 		}
 
 		Query searchQuery = junction.createQuery();
-		
-		Session session = (Session) entityManager.getDelegate();
-		Criteria criteria = session.createCriteria(Category.class);
 
 		Sort sort = new Sort(new SortField("sortName", SortField.Type.STRING));
 
@@ -120,10 +136,6 @@ public class CategoryRepositoryImpl implements CategoryRepositoryCustom {
 			persistenceQuery.setMaxResults(pageable.getPageSize());
 		}
 
-		int resultSize = persistenceQuery.getResultSize();
-
-		@SuppressWarnings("unchecked")
-		List<Category> results = persistenceQuery.getResultList();
-		return new PageImpl<>(results, pageable, resultSize);
+		return persistenceQuery;
 	}
 }

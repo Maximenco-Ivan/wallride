@@ -22,9 +22,11 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.wallride.domain.Article;
 import org.wallride.domain.Category;
 
 import javax.persistence.LockModeType;
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -43,6 +45,9 @@ public interface CategoryRepository extends JpaRepository<Category, Long>, Categ
 
 	@EntityGraph(value = Category.SHALLOW_GRAPH_NAME, type = EntityGraph.EntityGraphType.FETCH)
 	List<Category> findAll(Specification<Category> spec, Sort sort);
+
+	@EntityGraph(value = Article.SHALLOW_GRAPH_NAME, type = EntityGraph.EntityGraphType.FETCH)
+	List<Category> findAllByIdIn(Collection<Long> ids);
 
 	@EntityGraph(value = Category.SHALLOW_GRAPH_NAME, type = EntityGraph.EntityGraphType.FETCH)
 	List<Category> findAllDistinctByLanguageOrderByLftAsc(String language);

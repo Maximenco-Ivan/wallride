@@ -21,9 +21,12 @@ import org.springframework.data.domain.Pageable;
 import org.wallride.domain.Category;
 import org.wallride.model.CategorySearchRequest;
 
+import java.util.List;
+
 public interface CategoryRepositoryCustom {
 
 	void lock(long id);
 	Page<Category> search(CategorySearchRequest request);
 	Page<Category> search(CategorySearchRequest request, Pageable pageable);
+	List<Long> searchForId(CategorySearchRequest request);
 }
