@@ -21,7 +21,10 @@ import org.springframework.data.domain.Pageable;
 import org.wallride.domain.Tag;
 import org.wallride.model.TagSearchRequest;
 
+import java.util.List;
+
 public interface TagRepositoryCustom {
 
 	Page<Tag> search(TagSearchRequest request, Pageable pageable);
+	List<Long> searchForId(TagSearchRequest request);
 }

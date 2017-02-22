@@ -40,27 +40,49 @@ import org.wallride.model.TagSearchRequest;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TagRepositoryImpl implements TagRepositoryCustom {
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
-	
+
 	@Override
 	public Page<Tag> search(TagSearchRequest request, Pageable pageable) {
-		FullTextEntityManager fullTextEntityManager =  Search.getFullTextEntityManager(entityManager);
+		Session session = (Session) entityManager.getDelegate();
+		Criteria criteria = session.createCriteria(Tag.class);
+
+		FullTextQuery persistenceQuery = buildFullTextQuery(request, pageable, criteria);
+		int resultSize = persistenceQuery.getResultSize();
+		@SuppressWarnings("unchecked")
+		List<Tag> results = persistenceQuery.getResultList();
+		return new PageImpl<>(results, pageable, resultSize);
+	}
+
+	@Override
+	public List<Long> searchForId(TagSearchRequest request) {
+		FullTextQuery persistenceQuery = buildFullTextQuery(request, null, null);
+		persistenceQuery.setProjection("id");
+		@SuppressWarnings("unchecked")
+		List<Object[]> results = persistenceQuery.getResultList();
+		return results.stream().map(result -> (long) result[0]).collect(Collectors.toList());
+	}
+
+	private FullTextQuery buildFullTextQuery(TagSearchRequest request, Pageable pageable, Criteria criteria) {
+
+		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
 		QueryBuilder qb = fullTextEntityManager.getSearchFactory()
 				.buildQueryBuilder()
 				.forEntity(Tag.class)
 				.get();
-		
+
 		@SuppressWarnings("rawtypes")
 		BooleanJunction<BooleanJunction> junction = qb.bool();
 		junction.must(qb.all().createQuery());
 
 		if (StringUtils.hasText(request.getKeyword())) {
 			Analyzer analyzer = fullTextEntityManager.getSearchFactory().getAnalyzer("synonyms");
-			String[] fields = new String[] {
+			String[] fields = new String[]{
 					"name"
 			};
 			MultiFieldQueryParser parser = new MultiFieldQueryParser(fields, analyzer);
@@ -68,12 +90,10 @@ public class TagRepositoryImpl implements TagRepositoryCustom {
 			Query query = null;
 			try {
 				query = parser.parse(request.getKeyword());
-			}
-			catch (ParseException e1) {
+			} catch (ParseException e1) {
 				try {
 					query = parser.parse(QueryParser.escape(request.getKeyword()));
-				}
-				catch (ParseException e2) {
+				} catch (ParseException e2) {
 					throw new RuntimeException(e2);
 				}
 			}
@@ -85,9 +105,6 @@ public class TagRepositoryImpl implements TagRepositoryCustom {
 		}
 
 		Query searchQuery = junction.createQuery();
-		
-		Session session = (Session) entityManager.getDelegate();
-		Criteria criteria = session.createCriteria(Tag.class);
 
 		Sort sort = new Sort(new SortField("sortName", SortField.Type.STRING));
 
@@ -98,10 +115,6 @@ public class TagRepositoryImpl implements TagRepositoryCustom {
 		persistenceQuery.setFirstResult(pageable.getOffset());
 		persistenceQuery.setMaxResults(pageable.getPageSize());
 
-		int resultSize = persistenceQuery.getResultSize();
-
-		@SuppressWarnings("unchecked")
-		List<Tag> results = persistenceQuery.getResultList();
-		return new PageImpl<>(results, pageable, resultSize);
+		return persistenceQuery;
 	}
 }

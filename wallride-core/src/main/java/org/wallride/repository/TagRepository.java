@@ -16,15 +16,18 @@
 
 package org.wallride.repository;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.wallride.domain.Article;
 import org.wallride.domain.Tag;
 
 import javax.persistence.LockModeType;
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -40,6 +43,9 @@ public interface TagRepository extends JpaRepository<Tag, Long>, TagRepositoryCu
 
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
 	Tag findOneForUpdateByNameAndLanguage(String name, String language);
+
+	@EntityGraph(value = Article.SHALLOW_GRAPH_NAME, type = EntityGraph.EntityGraphType.FETCH)
+	List<Tag> findAllByIdIn(Collection<Long> ids);
 
 	List<Tag> findAllByLanguage(String language);
 
