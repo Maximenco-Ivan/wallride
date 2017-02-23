@@ -181,6 +181,10 @@ public class TagService {
 		return tagRepository.findAllByLanguage(language);
 	}
 
+	public List<Long> getTagIds(TagSearchRequest request){
+		return tagRepository.searchForId(request);
+	}
+
 	public Page<Tag> getTags(TagSearchRequest request) {
 		Pageable pageable = new PageRequest(0, 10);
 		return getTags(request, pageable);

@@ -194,6 +194,10 @@ public class CategoryService {
 		}
 	}
 
+	public List<Long> getCategoryIds(CategorySearchRequest request){
+		return categoryRepository.searchForId(request);
+	}
+
 	public Page<Category> getCategories(CategorySearchRequest request) {
 		Pageable pageable = new PageRequest(0, 10);
 		return getCategories(request, pageable);
