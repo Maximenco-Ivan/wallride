@@ -8,7 +8,7 @@
 	</parent>
 	<groupId>org.wallride</groupId>
 	<artifactId>wallride</artifactId>
-	<version>1.0.0.M15</version>
+	<version>2.0.0.BUILD-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>WallRide</name>
 	<description>CMS for developers of principles</description>
@@ -80,7 +80,7 @@
 			<dependency>
 				<groupId>org.wallride</groupId>
 				<artifactId>wallride-server</artifactId>
-				<version>1.0.0.M15</version>
+				<version>2.0.0.BUILD-SNAPSHOT</version>
 			</dependency>
 
 			<!-- Spring -->
