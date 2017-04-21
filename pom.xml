@@ -69,7 +69,7 @@
 
 	<modules>
 		<module>wallride-bootstrap</module>
-		<module>wallride-core</module>
+		<module>wallride-server</module>
 		<module>wallride-parent</module>
 		<module>wallride-tools</module>
 	</modules>
@@ -79,7 +79,7 @@
 			<!-- WallRide -->
 			<dependency>
 				<groupId>org.wallride</groupId>
-				<artifactId>wallride-core</artifactId>
+				<artifactId>wallride-server</artifactId>
 				<version>1.0.0.M15</version>
 			</dependency>
 

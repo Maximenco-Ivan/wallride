@@ -9,9 +9,9 @@
 		<version>1.0.0.M15</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>wallride-core</artifactId>
+	<artifactId>wallride-server</artifactId>
 	<packaging>jar</packaging>
-	<name>WallRide Core</name>
+	<name>WallRide Server</name>
 	<description>CMS for developers of principles</description>
 	<url>http://wallride.org/</url>
 	<organization>
