@@ -45,8 +45,15 @@
             <timezone>-9</timezone>
         </developer>
         <developer>
-            <name>KENICHI, Okumura</name>
+            <name>OKUMURA, Kenichi</name>
             <email>ken@tagbangers.co.jp</email>
+            <organization>Tagbangers, Inc.</organization>
+            <organizationUrl>http://www.tagbangers.co.jp/</organizationUrl>
+            <timezone>-9</timezone>
+        </developer>
+        <developer>
+            <name>NAMBA, Rie</name>
+            <email>rie@tagbangers.co.jp</email>
             <organization>Tagbangers, Inc.</organization>
             <organizationUrl>http://www.tagbangers.co.jp/</organizationUrl>
             <timezone>-9</timezone>
