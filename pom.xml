@@ -55,6 +55,13 @@
 			<organizationUrl>http://www.tagbangers.co.jp/</organizationUrl>
 			<timezone>-9</timezone>
 		</developer>
+		<developer>
+			<name>KAKIZOE, Wataru</name>
+			<email>kakizoe@tagbangers.co.jp</email>
+			<organization>Tagbangers, Inc.</organization>
+			<organizationUrl>http://www.tagbangers.co.jp/</organizationUrl>
+			<timezone>-9</timezone>
+		</developer>
 	</developers>
 	<distributionManagement>
 		<snapshotRepository>
