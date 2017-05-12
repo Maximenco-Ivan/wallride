@@ -1,0 +1,22 @@
+{
+  "name": "wallride-ui-admin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "react-scripts": "0.8.4"
+  },
+  "dependencies": {
+    "react": "^15.4.1",
+    "react-bootstrap": "^0.30.9",
+    "react-dom": "^15.4.1",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
