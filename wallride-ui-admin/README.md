@@ -1,7 +1,18 @@
-# install yarn
-https://yarnpkg.com/en/docs/install
+# nodebrew install
+```
+curl -L git.io/nodebrew | perl - setup
+```
 
-# start up
-$ cd {PROJECT_ROOT}
-$ yarn install
-$ yarn start
+# node install
+```
+$ nodebrew install-binary v8.0.0
+$ nodebrew use v8.0.0
+
+```
+
+# startup
+```
+$ cd {PROJECT_ROOT}/wallride-ui-admin/
+$ npm install
+$ npm start
+```
